@@ -1,0 +1,166 @@
+@import "../mixins/mediaquery";
+.trackContainer {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px 50px;
+  gap: 15px;
+  margin-bottom: 10px;
+  @include for-size(tablet-only) {
+    width: 100%;
+  }
+  .Order {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    @include for-size(tablet-only) {
+      width: 100%;
+    }
+    .leftOrder {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      h3 {
+        font-size: 24px;
+        font-weight: 600;
+      }
+    }
+    .rightOrder {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .icon_par {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        justify-content: flex-start;
+      }
+    }
+  }
+
+  .progress_container {
+    width: 100%;
+    padding: 20px 0;
+    margin-bottom: 10px;
+    @include for-size(tablet-only) {
+      width: 100%;
+    }
+    .progress_bar {
+      position: relative;
+      height: 4px;
+      background-color: #ddd;
+      margin-bottom: 20px;
+
+      .progress {
+        height: 100%;
+        background-color: #ff9b05;
+        transition: width 10.5s ease;
+        @include for-size(tablet-only) {
+          width: 100%;
+        }
+      }
+    }
+
+    .steps {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 9;
+      .step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        // .circle {
+        //   width: 40px;
+        //   height: 40px;
+        //   border-radius: 99px;
+        //   background-color: #ff9b05;
+        //   font-size: 24px;
+        //   color: #fff;
+        //   z-index: 1;
+        //   position: relative;
+        // }
+
+        .label {
+          font-size: 14px;
+          text-align: center;
+        }
+
+        &.active .circle {
+          background-color: #ff9b05;
+        }
+
+        &.active .label {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+  .circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 99px;
+    padding: 14px;
+    background-color: #ff9b05;
+    font-size: 24px;
+    color: #fff;
+    z-index: 1;
+    position: relative;
+    margin-top: -20px;
+  }
+
+  //   .progress_bar{
+  //     display: flex;
+  //     width: 100%;
+  //     justify-content: space-between;
+  //     align-items: center;
+  //     .circle{
+  //         height: 50px;
+  //         width: 50px;
+  //         padding: 18px;
+  //         align-items: center;
+  //         justify-content: center;
+  //         background-color: #ff9b05;
+  //         color: #fff;
+  //         border-radius: 99px;
+
+  //     }
+  //     .circlelink{
+  //         height: 50px;
+  //         width: 50px;
+  //         padding: 18px;
+  //         align-items: center;
+  //         justify-content: center;
+  //         background-color:   #D9D9D9;
+  //         color: #fff;
+  //         border-radius: 99px;
+
+  //     }
+  //   }
+  .complainbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 5px 100px;
+    background-color: #ffeed6;
+    @include for-size(tablet-only) {
+      width: 100%;
+    }
+    .complainbtns {
+      display: flex;
+      gap: 10px;
+      button {
+        border: 1px solid #444;
+        padding: 2px 6px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+    }
+  }
+}

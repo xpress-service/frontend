@@ -1,0 +1,109 @@
+.transactionContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 15px;
+  background-color: #f4f4f4;
+  border-radius: 9px;
+
+  .pageHistory {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 15px;
+
+    .trans_details {
+      color: #000000;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .trans_history {
+      color: #000000;
+      font-weight: 300;
+      font-size: 14px;
+    }
+    .pages {
+      color: #000000;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .arrows {
+      display: flex;
+      gap: 5px;
+      .iconcircle {
+        border: 0.5px solid #dfdfdf;
+        border-radius: 99px;
+        padding: 4px;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .activity {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 10px 15px;
+
+    .trans_activity {
+      color: #000000;
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .calenderbox {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      .calender {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+
+        p {
+          color: #000000;
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+      .trans_clear {
+        display: flex;
+        color: #ff0c0c;
+        font-weight: 300;
+        font-size: 14px;
+        justify-content: flex-end;
+      }
+    }
+  }
+  .paymentbox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #f4f4f4;
+    padding: 10px 0px;
+    margin-top: 8px;
+
+    .payments {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      background-color: #fff;
+      padding: 10px 15px;
+      margin-top: 8px;
+
+      .checkbox {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+  .statusApproved {
+    color: #019827;
+    font-size: 14px;
+  }
+  .statusCancel {
+    color: #ff0c0c;
+    font-size: 14px;
+  }
+}

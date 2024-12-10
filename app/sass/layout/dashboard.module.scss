@@ -1,0 +1,163 @@
+@import "../mixins/mediaquery";
+.dashboard_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  @include for-size(tablet-only) {
+    width: 100%;
+  }
+  .order_wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    padding: 8px 0px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    @include for-size(tablet-only) {
+      width: 100%;
+    }
+  }
+  .order_container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-color: #fff;
+    padding: 3px 15px;
+    align-items: center;
+    @include for-size(tablet-only) {
+      width: 100%;
+    }
+    .item_name {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 21.94px;
+    }
+    .progressbar {
+      display: flex;
+      padding: 5px 50px;
+      border-bottom: 5px solid #ff9;
+    }
+    button {
+      color: #fff;
+      background-color: #ff9b05;
+      padding: 5px 10px;
+      border-radius: 8px;
+    }
+  }
+
+  .orderDetails {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    padding: 8px 0px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
+    @include for-size(tablet-only) {
+      width: 100%;
+    }
+    h3 {
+      padding: 8px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #000000;
+    }
+
+    .details_wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      background-color: #fff;
+      padding: 3px 5px;
+      padding: 0px 12px;
+      @include for-size(tablet-only) {
+        width: 100%;
+        gap: 10px;
+      }
+      .userbox {
+        display: flex;
+        gap: 15px;
+        @include for-size(tablet-only) {
+          flex-direction: column;
+        }
+        .item_name {
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 21.94px;
+        }
+        .location {
+          font-size: 12px;
+          font-weight: 300;
+          line-height: 17.07px;
+        }
+      }
+      .status {
+        padding: 2px 8px;
+        border-radius: 4px;
+        font-weight: 500;
+        font-size: 15px;
+        text-transform: uppercase;
+        @include for-size(tablet-only) {
+          padding: 2px;
+          font-size: 12px;
+        }
+      }
+
+      .statusCompleted {
+        background-color: #cdffd2;
+        padding: 3px 6px;
+        border-radius: 10px;
+        @include for-size(tablet-only) {
+          padding: 2px;
+        }
+      }
+
+      .statusPending {
+        background-color: #f8deb8;
+        padding: 3px 6px;
+        border-radius: 10px;
+        @include for-size(tablet-only) {
+          padding: 2px;
+        }
+      }
+
+      .statusCanceled {
+        background-color: #fbdbd1;
+        padding: 3px 6px;
+        border-radius: 10px;
+        @include for-size(tablet-only) {
+          padding: 2px;
+        }
+      }
+
+      .itembox {
+        width: 20%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        @include for-size(tablet-only) {
+          width: 100%;
+        }
+        .item_name {
+          font-size: 18px;
+          font-weight: 600;
+          line-height: 21.94px;
+          @include for-size(tablet-only) {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+    .dots{
+        font-size: 16px;
+        font-weight: 500;
+        color: #000000;
+        @include for-size(tablet-only){
+            width: 20px;
+          }
+    }
+  }
+}

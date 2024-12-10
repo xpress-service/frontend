@@ -1,0 +1,144 @@
+@import '../mixins/mediaquery';
+.signIn_container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  align-items: center;
+  background-color: #f4f4f4;
+  @include for-size(tablet-only){
+width: 100%;
+  }
+  main {
+    max-width: 1440px !important;
+    margin: 0px auto;
+    padding: 10px 20px;
+    display: flex;
+    height: 70vh;
+    width: 50%;
+    @include for-size(tablet-only){
+        width: 100%;
+    }
+    form {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      gap: 40px;
+      background-color: #fff;
+      border: 2px solid #dfdfdf;
+      padding: 5px;
+      text-align: center;
+      @include for-size(tablet-only){
+        width: 100%;
+        gap: 30px;
+      }
+      .closeIcon {
+        display: flex;
+        width: 100%;
+        justify-content: flex-start;
+        align-items: flex-start;
+        color: #dfdfdf;
+        font-size: 22px;
+        line-height: 24px;
+        cursor: pointer;
+      }
+      input {
+        display: flex;
+        width: 100%;
+        border: 0.3px solid #ff9b05;
+        border-radius: 50px;
+        padding: 5px;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        &:hover{
+            border: 0.5px solid rgb(47, 142, 232);
+        }
+        &:focus{
+            border: 0.5px solid rgb(47, 142, 232);
+        }
+        &:active{
+            border: 0.5px solid rgb(47, 142, 232);
+        }
+      }
+      .loginBtn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        width: 100%;
+        background-color: #ff9b05;
+        border-radius: 50px;
+        color: #fff;
+        cursor: pointer;
+        &:hover{
+            border: 0.5px solid rgb(47, 142, 232);
+        }
+      }
+      .forgot_password{
+        font-size: 14px;
+        color: #ff9b05;
+        font-weight: 200;
+      }
+      .Orbox {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        gap: 6%;
+        .left {
+          width: 42%;
+          border-bottom: 1px solid #dfdfdf;
+        }
+        .Or {
+          font-size: 14px;
+          color: #000;
+          width: 10%;
+          line-height: 8px;
+        }
+        .right {
+          width: 42%;
+          border-bottom: 1px solid #dfdfdf;
+        }
+      }
+      .createAcct {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        width: 100%;
+        background-color: #000000;
+        border-radius: 50px;
+        color: #fff;
+        cursor: pointer;
+        &:hover{
+            border: 0.5px solid rgb(47, 142, 232);
+        }
+       
+      }
+    }
+    .rightside_login {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      padding: 5px;
+      background-color: #ff9b05;
+      @include for-size(tablet-only){
+        display: none;
+      }
+      .clouds {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+      }
+      .bike {
+        display: flex;
+        justify-content: flex-end;
+        @include for-size(tablet-only){
+            width: 100%;
+            height: 100%;
+        }
+      }
+    }
+  }
+}
