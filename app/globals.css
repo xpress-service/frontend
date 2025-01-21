@@ -28,6 +28,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
+  background-color: #ff9b05;
+  overflow: hidden;
 }
 
 @layer utilities {

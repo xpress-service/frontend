@@ -2,14 +2,14 @@
 @import '../mixins/mediaquery';
 .layout_container {
     height: 100vh;
-  width: 100vw;
-    background-color: #ff9b05;
+    width: 100vw;
+    // background-color: #ff9b05;
     .default {
       display: flex;
       flex-direction: column;
-      height: 100vh;
       max-width: 1440px !important;
       margin: 0px auto;
+      height: 100vh;
       padding: 0px 100px;
       @include for-size(tablet-only){
         width: 100%;
@@ -29,6 +29,10 @@
             flex: 1;
             padding: 20px; 
             overflow-y: auto;
+            bottom: 5%;
+          }
+          .main_content::-webkit-scrollbar {
+            display: none; /* For Chrome, Safari, and other WebKit browsers */
           }
       }
     }
@@ -46,7 +50,7 @@
   border-radius: 50px;
   padding: 6px 8px;
   margin-left: 17%;
-  margin-top: 5%;
+  margin-top: 1%;
   @include for-size(tablet-only){
     width: 100%;
     padding: 3px 4px;
@@ -87,9 +91,63 @@
     justify-content: space-around;
     @include for-size(tablet-only){
       display: none;
-      
     }
-   
+    .profileimg{
+      width: 50px;
+      height: 50px;
+      border: 1px solid #FF9B05;
+      border-radius: 50px;
+    }
+    .notificationButton {
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      .badge{
+        position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+      }
+    }
+    
+    .notificationDropdown {
+      position: absolute;
+      top: 100px;
+      right: 10px;
+      background: white;
+      border: 1px solid #ddd;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+      max-height: 400px;
+      overflow-y: auto;
+      z-index: 10;
+
+      .notificationItem {
+        padding: 10px;
+        cursor: pointer;
+        border-bottom: 1px solid #f0f0f0;
+      
+        &:hover {
+          background-color: #f9f9f9;
+        }
+      }
+      
+      .noNotifications {
+        padding: 10px;
+        text-align: center;
+        color: #888;
+      }
+    }
   }
  }
   
@@ -139,4 +197,63 @@
  }
 } 
   
+// Modal Styles
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); // Semi-transparent background
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+
+    .modalActions {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+    button {
+      padding: 8px 15px;
+      border: none;
+      background-color: #4caf50; // Green for Accept
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      &:hover {
+        background-color: #45a049;
+      }
+      button:last-child {
+        background-color: #f44336; // Red for Reject
+        &:hover {
+          background-color: #e53935;
+        }
+      }
+    }
+  }
+  .closeModal {
+    margin-top: 10px;
+    background-color: #ccc;
+    &:hover {
+      background-color: #bbb;
+    }
+  }
   
+}
+
+
+
+
+
+
+
+
+

@@ -16,6 +16,24 @@ const Sidebar = () => {
            
             </div>
             </Link>
+
+            <Link href='/servicelist'>
+            <div className={styles.icons}>
+           
+            <MdOutlineDashboard size={26} className={styles.iconsActive}/>
+            <p>HOME</p>
+           
+            </div>
+            </Link>
+
+            <Link href='/orders'>
+            <div className={styles.icons}>
+           
+            <MdOutlineDashboard size={26} className={styles.iconsActive}/>
+            <p>ORDERS</p>
+           
+            </div>
+            </Link>
             <Link href='/ordertracking'>
             <div className={styles.icons}>
             

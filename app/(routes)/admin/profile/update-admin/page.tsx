@@ -1,30 +1,16 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from '../../../sass/userprofile/userprofile.module.scss';
+import styles from '../../../../sass/userprofile/userprofile.module.scss'
 import axios from 'axios';
 import * as jwt_decode from "jwt-decode";
 import swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 
-interface FormData {
-  role: string;
-  servicesOffered: string[];
-}
 const CreateProfile = () => {
+  // Initialize state for profile image, preview, form data, and messages
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [profileImagePreview, setProfileImagePreview] = useState<string | null>(null);
-  const [formData, setFormData] = useState<{
-    firstname: string;
-    lastname: string;
-    email: string;
-    birthdate: string;
-    nin: string;
-    phone: string;
-    location: string;
-    gender: string;
-    role: string;
-    servicesOffered: string[];
-  }>({
+  const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
     email: '',
@@ -33,8 +19,6 @@ const CreateProfile = () => {
     phone: '',
     location: '',
     gender: '',
-    role: '',
-    servicesOffered: [],
   });
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -45,16 +29,17 @@ const CreateProfile = () => {
    useEffect(() => {
   const fetchUserData = async () => {
     const token = localStorage.getItem("authToken");
-    console.log("Token:", token); 
+    console.log("Token:", token);  // Log the token to see if it's there
     if (token) {
       const decodedUser = jwt_decode.jwtDecode(token);
-      console.log("Decoded user:", decodedUser);  
+      console.log("Decoded user:", decodedUser);  // Log the decoded token to ensure it's valid
       try {
-        const response = await axios.get(`http://localhost:5000/api/profile`, {
+        const response = await axios.get(`http://localhost:5000/api/adminProfile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+        console.log("Response:", response);  // Log the response to see what the server returns
         const userData = response.data;
         setFormData({
           firstname: userData.firstname,
@@ -65,8 +50,6 @@ const CreateProfile = () => {
           phone: userData.phone || '',
           location: userData.location || '',
           gender: userData.gender || '',
-          role: userData.role || '',
-          servicesOffered: userData.servicesOffered || '',
         });
         if (userData.profileImage) {
           setProfileImagePreview(userData.profileImage);
@@ -90,21 +73,10 @@ const CreateProfile = () => {
       }
     };
   
-    const handleFieldChange = (field: keyof typeof formData) => ( e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFieldChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData({ ...formData, [field]: e.target.value });
     };
   
-    const handleFieldGenderChange = (field: keyof typeof formData) => (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setFormData({ ...formData, [field]: e.target.value });
-    };
-    const handleFieldRoleChange = (field: keyof FormData) => (e: React.ChangeEvent<HTMLSelectElement>) => {
-      setFormData({ ...formData, [field]: e.target.value });
-    };
-    const handleServicesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedOptions = Array.from(e.target.selectedOptions, (option) => option.value);
-      setFormData({ ...formData, servicesOffered: selectedOptions });
-    };
-
     const handleSubmit = async (e: React.FormEvent) => {
       e.preventDefault();
       setIsLoading(true);
@@ -138,7 +110,7 @@ const CreateProfile = () => {
         }
   
         // Proceed with the profile update if token is valid
-        const response = await axios.put('http://localhost:5000/api/profile', data, {
+        const response = await axios.put('http://localhost:5000/api/adminProfile', data, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
@@ -152,7 +124,7 @@ const CreateProfile = () => {
             confirmButtonText: 'OK',
           });
         }
-      router.push('/userprofile')
+      router.push('/admin/profile')
       } catch (error: any) {
         if (error.response) {
           setErrorMessage(error.response.data.message || "Error updating profile.");
@@ -191,7 +163,6 @@ const CreateProfile = () => {
           </div>
 
           {/* Name and Email fields will be pre-filled from localStorage */}
-          <div className={styles.input_items}>
           <input
             type="text"
             placeholder="First Name"
@@ -206,8 +177,6 @@ const CreateProfile = () => {
             value={formData.lastname}
             onChange={handleFieldChange('lastname')}
           />
-          </div>
-          <div className={styles.input_items}>
           <input
             type="email"
             placeholder="Email"
@@ -225,8 +194,6 @@ const CreateProfile = () => {
               onChange={handleFieldChange('birthdate')}
             />
           </div>
-          </div>
-          <div className={styles.input_items}>
           <input
             type="number"
             placeholder="NIN"
@@ -241,8 +208,6 @@ const CreateProfile = () => {
             value={formData.phone}
             onChange={handleFieldChange('phone')}
           />
-           </div>
-           <div className={styles.input_items}>
           <input
             type="text"
             placeholder="Location"
@@ -250,68 +215,16 @@ const CreateProfile = () => {
             value={formData.location}
             onChange={handleFieldChange('location')}
           />
-          
-          <select
-           className={styles.items}
-          value={formData.gender}
-          onChange={handleFieldGenderChange('gender')}
-          required
-        >
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
+          <input
+            type="text"
+            placeholder="Gender"
+            className={styles.items}
+            value={formData.gender}
+            onChange={handleFieldChange('gender')}
+          />
 
-        </div>
-        <select
-        className={styles.items}
-        value={formData.role}
-        onChange={handleFieldRoleChange('role')}
-        required
-      >
-        <option value="">Select Role</option>
-        <option value="customer">Customer</option>
-        <option value="vendor">Vendor</option>
-      </select>
-
-      {formData.role === 'vendor' && (
-  <div className={styles.pro}>
-    {!formData.servicesOffered.length ? (
-      // Show dropdown when no option is selected
-      <select
-      className={styles.items}
-        multiple
-        value={formData.servicesOffered}
-        onChange={handleServicesChange}
-      >
-        <option value="fastfood">Fast Food</option>
-        <option value="hairstylist">Hair stylist</option>
-        <option value="laundry">Laundry</option>
-        <option value="mechanical">Mechanical</option>
-        <option value="tutoring">Tutoring</option>
-        <option value="verternary">Verternary</option>
-      </select>
-    ) : (
-      // Show selected services once an option is selected
-      <div className={styles.pro}>
-        {/* <h4>Selected Services:</h4> */}
-        <ul >
-          {formData.servicesOffered.map((service, index) => (
-            <li key={index}>{service}</li>
-          ))}
-        </ul>
-        {/* <button
-          onClick={() => {
-            // Reset the selection and show the dropdown again
-            setFormData({ ...formData, servicesOffered: [] });
-          }}
-        >
-          Edit Selection
-        </button> */}
-      </div>
-    )}
-  </div>
-)}
+          {/* {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p>}
+          {successMessage && <p className={styles.successMessage}>{successMessage}</p>} */}
 
           <button className={styles.createbtn} disabled={isLoading}>
             {isLoading ? 'Submitting...' : 'Submit'}

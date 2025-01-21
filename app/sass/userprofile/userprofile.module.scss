@@ -5,6 +5,10 @@
     background-color: #fff;
     justify-content: space-between;
     border-radius: 8px;
+    @include for-size(tablet-only) {
+      width: 100%;
+      padding: 2px;
+    }
     .rightContainer{
         display: flex;
         flex-direction: column;
@@ -13,11 +17,38 @@
         padding: 24px;
         width: 260px;
         border-right: 1px solid #dfdfdf;
+        @include for-size(tablet-only) {
+          width: 100%;
+          padding: 2px;
+          flex-wrap: wrap;
+        }
+        .profileimg{
+          width: 100px;
+          height: 100px;
+          border: 1px solid #FF9B05;
+          border-radius: 50px;
+        }
         .usercode{
             font-size: 18px;
             color: #FF9B05;
+            @include for-size(tablet-only) {
+              font-size: 12px;
+              color: #FF9B05;
+              font-weight: 600;
+          }
         }
-        
+        p {
+          font-size: 14px;
+          color: #333;
+          margin: 0;
+          line-height: 1.5;
+    
+          @include for-size(tablet-only) {
+              font-size: 12px;
+              color: #666;
+              font-weight: 600;
+          }
+      }
     }
     .leftContainer{
         display: flex;
@@ -25,6 +56,10 @@
         width: 100%;
         gap: 20px;
         padding: 10px 24px;
+        @include for-size(tablet-only) {
+          width: 100%;
+          padding: 2px;
+        }
         .Basic{
             display: flex;
             width: 100%;
@@ -38,33 +73,85 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
+            @include for-size(tablet-only) {
+              width: 100%;
+              flex-wrap: wrap;
+            }
             .verified{
                 font-size: 14px;
                 color: #129B35;
+            }
+            p {
+              font-size: 14px;
+              color: #333;
+              margin: 0;
+              line-height: 1.5;
+        
+              @include for-size(tablet-only) {
+                  font-size: 12px;
+                  color: #666;
+                  font-weight: 600;
+              }
+          }
+          
+            .heading{
+              font-weight: bold;
             }
         }
         .infobox{
             display: flex;
             justify-content: space-between;
             width: 100%;
+            @include for-size(tablet-only) {
+              width: 100%;
+            }
             .locationbox{
                 width: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
+            p {
+              font-size: 14px;
+              color: #333;
+              margin: 0;
+              line-height: 1.5;
+        
+              @include for-size(tablet-only) {
+                  font-size: 12px;
+                  color: #666;
+                  font-weight: 600;
+              }
+          }
+          .heading{
+            font-weight: bold;
+          }
         }
     }
 }
 .orderContainer{
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
     width: 100%;
     gap: 10px;
     background-color: #f4f4f4;
     border-radius: 8px;
     margin-top: 20px;
     padding: 15px 0px;
+    @include for-size(tablet-only) {
+      width: 100%;
+      padding: 2px;
+    }
+    .name{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      font-weight: 600;
+      padding: 0px 10px;
+  }
 .summary{
     display: flex;
     align-items: center;
@@ -72,11 +159,30 @@
     padding: 10px 15px;
     background-color: #fff;
     justify-content: space-between;
+    @include for-size(tablet-only) {
+      width: 100%;
+      padding: 2px;
+      flex-wrap: wrap;
+      gap: 3px;
+    }
     .statusbox{
         display: flex;
         gap: 40px;
     }
+    p {
+      font-size: 14px;
+      color: #333;
+      margin: 0;
+      line-height: 1.5;
+
+      @include for-size(tablet-only) {
+          font-size: 12px;
+          color: #666;
+          font-weight: 600;
+      }
+  }
 }
+
 .userOrderbox{
   display: flex; 
   width: 100%;
@@ -84,12 +190,36 @@
   justify-content: space-between;
   background-color: #fff;
   padding: 0px 15px;
+  @include for-size(tablet-only) {
+    width: 100%;
+    padding: 2px;
+    flex-wrap: wrap;
+  }
     .imgContainer{
       display: flex; 
         gap: 10px;
         align-items: center;
         justify-content: center;
+        @include for-size(tablet-only) {
+          width: 100%;
+          padding: 2px;
+          flex-wrap: wrap;
+          justify-content: flex-start;
+        }
     }
+
+    p {
+      font-size: 14px;
+      color: #333;
+      margin: 0;
+      line-height: 1.5;
+
+      @include for-size(tablet-only) {
+          font-size: 12px;
+          color: #666;
+          font-weight: 600;
+      }
+  }
     
 }
 }
@@ -103,6 +233,8 @@
     font-weight: 600;
     @include for-size(tablet-only) {
       padding: 2px;
+      font-size: 12px;
+
     }
 }
 .orderPending{
@@ -114,6 +246,7 @@
     font-weight: 600;
     @include for-size(tablet-only) {
       padding: 2px;
+      font-size: 12px;
     }
 }
 .orderCancel{
@@ -125,6 +258,7 @@
     font-weight: 600;
     @include for-size(tablet-only) {
       padding: 2px;
+      font-size: 12px;
     }
 }
 
@@ -177,10 +311,7 @@
     }
   }
 
-  .name{
-    font-weight: 600;
-    padding: 0px 10px;
-}
+ 
 .location_text{
     font-size: 12px;
     font-weight: 200;
@@ -197,9 +328,13 @@
         display: flex;
         background-color: #ff9b05;
     color: #fff;
-    font-size: 12px;
+    font-size: 16px;
     border-radius: 30px;
-    padding: 5px 20px;    
+    padding: 5px 20px;   
+    @include for-size(tablet-only) {
+      padding: 2px;
+      font-size: 12px;
+    } 
  }
 }
 
@@ -224,17 +359,19 @@
   align-items: center;
   width: 100%;
   padding: 20px 150px;
+  @include for-size(tablet-only) {
+    width: 100%;
+    padding: 2px;
+  }
   main{
     max-width: 1440px !important;
     margin: 0px auto;
     padding: 10px 20px;
     display: flex;
-    height: 70vh;
     width: 100%;
    
   .create_profileForm{
     width: 100%;
-    height: 70vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -243,13 +380,76 @@
     background-color: #f4f4f4;
     border-radius: 8px;
     padding: 10px;
-    .profileimage{
-      display: flex;
-      border: 1px solid #FF9B05;
-      border-radius: 99px;
-      width: 70px;
-      height: 70px;
+    @include for-size(tablet-only) {
+      padding: 10px;
+      width: 100%;
+    }
+    // .profileimage{
+    //   position: relative;
+    //   border: 1px solid #FF9B05;
+    //   border-radius: 50px;
+    //   width: 100px;
+    //   height: 100px;
       
+    // }
+    // .previewImg {
+    //   position: absolute;
+    //   width: 100px;
+    //   height: 100px;
+    //   border-radius: 50%;
+    //   object-fit: cover;
+    //   margin-top: 10px;
+    // }
+    
+
+    .profileImageContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 50px;
+      // background-color: #f9f9f9;
+
+      .uploadLabel {
+        font-size: 16px;
+        font-weight: 600;
+        color: rgb(0, 162, 255);
+        margin-bottom: 10px;
+        cursor: pointer;
+      }
+      .uploadInput {
+        display: none;
+      }
+      
+    .imagePreview {
+      margin-top: 15px;
+      width: 120px;
+      height: 120px;
+      border: 2px solid #ddd;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #FF9B05;
+
+      .previewImg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    }
+    .input_items{
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      gap: 10px;
+      @include for-size(tablet-only) {
+        width: 100%;
+        flex-direction: column;
+      }
     }
     .datebox{
       display: flex;
@@ -258,29 +458,75 @@
       justify-content: flex-start;
       width: 100%;
       label{
-        color: #444;
-        font-size: 14px;
+        color: #000;
+        font-size: 16px;
+        @include for-size(tablet-only) {
+          padding: 2px;
+          font-size: 14px;
+        } 
       }
       .item{
         padding: 5px 4px;
         align-items: center;
-        color: #444;
+        color: #000;
+        font-size: 16px;
         width: 100%;
+        @include for-size(tablet-only) {
+          padding: 2px;
+          font-size: 14px;
+        } 
       }
     }
   .items{
     padding: 5px 4px;
     align-items: center;
-    color: #444;
+    color: #000;
+    font-size: 16px;
     width: 100%;
+    @include for-size(tablet-only) {
+      padding: 2px;
+      font-size: 14px;
+    } 
+  }
+  .emailitems{
+    padding: 5px 4px;
+    align-items: center;
+    color: #000;
+    font-size: 16px;
+    width: 100%;
+    cursor: not-allowed;
+    @include for-size(tablet-only) {
+      padding: 2px;
+      font-size: 14px;
+    } 
   }
   .createbtn{
     background-color: #FF9B05;
     align-items: center;
     border-radius: 8px;
-    padding: 5px 4px;
+    padding: 8px 14px;
     color: #fff;
+    font-size: 16px;
+    @include for-size(tablet-only) {
+      width: 100%;
+      font-size: 14px;
+    }
   }
 }
+}
+.pro{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+ 
+  ul{
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+    color: rgb(0, 157, 255);
+    font-size: 14px;
+  }
 }
 }

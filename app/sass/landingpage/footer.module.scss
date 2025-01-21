@@ -31,7 +31,7 @@
     }
     .footImg {
       display: flex;
-      gap: 1px;
+      gap: 4px;
       align-items: flex-end;
       margin-top: 150px;
       @include for-size(tablet-only){

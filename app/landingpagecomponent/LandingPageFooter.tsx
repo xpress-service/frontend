@@ -9,8 +9,8 @@ const LandingPageFooter = () => {
       <main>
       <div className={styles.footContainer}>
       <div className={styles.footImg}>
-        <Image src='/naija.png' alt='flag' width={40} height={40}/>
-        <Image src='/globe.png' alt='global' width={40} height={40}/>
+        <Image src='/naija.png' alt='flag' width={20} height={20}/>
+        <Image src='/globe.png' alt='global' width={20} height={20}/>
       </div>
       <ul>
         <h3>Company</h3>

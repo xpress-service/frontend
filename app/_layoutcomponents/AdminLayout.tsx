@@ -15,14 +15,14 @@ export default function AdminLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>, {serviceOwnerId}: {serviceOwnerId: string}) {
   return (
     <html lang="en">
       <body className={inter.className} style={{width:'100%', backgroundColor:'#ff9b05'}}>
         <div className={styles.layout_container}>
           <div className={styles.default}>
           <header className={styles.header}>
-            <Header />
+            <Header serviceOwnerId={serviceOwnerId}/>
           </header>
           <div className={styles.content}>
             <aside className={styles.sidebar}>

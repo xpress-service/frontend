@@ -3,8 +3,8 @@ import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
-import { useAuth } from '../../contexts/AuthContext';
-import styles from '../../sass/signin/signin.module.scss';
+import { useAuth } from '../../../contexts/AuthContext';
+import styles from '../../../sass/signin/signin.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -25,12 +25,12 @@ const SignIn = () => {
 
   const onSubmit = async (values: any, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', values);
+      const response = await axios.post('http://localhost:5000/api/adminAuth/admin-login', values);
 
       const { token, userId } = response.data;
       if (token && userId) {
         login(token, userId); // Call the Auth context login function
-        router.push('/userprofile/complete-profile'); // Redirect user
+        router.push('/admin/profile/update-admin'); // Redirect user
       } else {
         console.error('Token or Vendor ID missing in the response');
         alert('Login failed. Please try again later.');
@@ -73,7 +73,7 @@ const SignIn = () => {
                 <div className={styles.right}></div>
               </div>
 
-              <Link href="/sign-up">
+              <Link href="/admin/sign-up">
                 <button type="button" className={styles.createAcct}>Create Account</button>
               </Link>
             </Form>

@@ -6,6 +6,7 @@ import DefaultLayout from "@/app/_layoutcomponents/DefaultLayout";
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import styles from "../../sass/layout/dashboard.module.scss";
+import axios from 'axios'
 
 
 const orders = [
