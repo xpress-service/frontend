@@ -10,7 +10,8 @@ interface Order {
   quantity: number;
   status: string;
   userId: {
-    username: string;
+    firstname: string;
+    lastname: string;
     location: string;
     phone: string;
     email: string;
@@ -82,7 +83,7 @@ const OrderList = () => {
 
           <div className={styles.order_detail}>
             <h4>User Details</h4>
-            <p>Username: {order.userId.username}</p>
+            <p>Username: {`${order.userId.firstname}  ${order.userId.lastname}`}</p>
             <p>Location: {order.userId.location}</p>
             <p>Phone: {order.userId.phone}</p>
             <p>Email: {order.userId.email}</p>
