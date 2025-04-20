@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import styles from '../../sass/postservice/service.module.scss';
 import { useAuth } from '@/app/contexts/AuthContext';
 import DefaultLayout from '@/app/_layoutcomponents/DefaultLayout';
+import Swal from 'sweetalert2';
 
 interface ServiceFormValues {
   serviceName: string;
@@ -93,11 +94,11 @@ const AddService: React.FC = () => {
       );
   
       if (response.status === 200) {
-        swal.fire({
-          title: 'Success',
-          text: 'Service created successfully!',
-          type: 'success',
-          confirmButtonText: 'OK',
+        Swal.fire({
+          title: 'Success!',
+          text: 'Order placed successfully',
+          icon: 'success',
+          confirmButtonText: 'OK'
         });
       }
       router.push('/servicelist');
