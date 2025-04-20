@@ -4,7 +4,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import * as jwt_decode from 'jwt-decode';
-import swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 import styles from '../../sass/postservice/service.module.scss';
 import { useAuth } from '@/app/contexts/AuthContext';

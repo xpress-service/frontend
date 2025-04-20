@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../../../../sass/userprofile/userprofile.module.scss'
 import axios from 'axios';
 import * as jwt_decode from "jwt-decode";
-import swal from 'sweetalert2';
+import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 
 const CreateProfile = () => {
@@ -117,7 +117,7 @@ const CreateProfile = () => {
           },
         });
         if (response.status === 200) {
-          swal.fire({
+          Swal.fire({
             title: 'Success',
             text: 'Profile updated was successful',
             type: 'success', 
