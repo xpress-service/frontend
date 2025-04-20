@@ -50,7 +50,7 @@ const CreateProfile = () => {
       const decodedUser = jwt_decode.jwtDecode(token);
       console.log("Decoded user:", decodedUser);  
       try {
-        const response = await axios.get(`http://localhost:5000/api/profile`, {
+        const response = await axios.get(`https://backend-production-d818.up.railway.app/api/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

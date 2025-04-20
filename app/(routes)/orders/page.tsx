@@ -28,7 +28,7 @@ const OrderList = () => {
     const serviceOwnerId = localStorage.getItem('userId');
     if (serviceOwnerId) {
       try {
-        const response = await axios.get(`http://localhost:5000/api/orders/vendor/${serviceOwnerId}`);
+        const response = await axios.get(`https://backend-production-d818.up.railway.app/api/orders/vendor/${serviceOwnerId}`);
         setOrders(response.data);
       } catch (error: unknown) {
         if (error instanceof Error) {
@@ -42,7 +42,7 @@ const OrderList = () => {
 
   const handleOrderStatusChange = async (orderId: string, status: string) => {
     try {
-      const response = await axios.patch(`http://localhost:5000/api/orders/${orderId}`, { status });
+      const response = await axios.patch(`https://backend-production-d818.up.railway.app/api/orders/${orderId}`, { status });
       if (response.status === 200) {
         // Update the order status locally
         setOrders((prevOrders) =>

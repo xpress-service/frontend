@@ -165,7 +165,7 @@ const Tracking = () => {
   const fetchOrders = async (ownerId: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:5000/api/orders/vendor/${ownerId}`
+        `https://backend-production-d818.up.railway.app/api/orders/vendor/${ownerId}`
       );
       setOrders(response.data);
       response.data.forEach((order: any) => fetchTracking(order._id));
@@ -178,7 +178,7 @@ const Tracking = () => {
     try {
       console.log("Fetching tracking for order:", orderId); // Debugging line
       const response = await axios.get(
-        `http://localhost:5000/api/orders/tracking/order/${orderId}`
+        `https://backend-production-d818.up.railway.app/api/orders/tracking/order/${orderId}`
       );
   
       if (response.status === 200) {

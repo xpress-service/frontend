@@ -81,7 +81,7 @@ const Notification = () => {
 
     const fetchNotifications = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/orders/notifications/${userId}`);
+        const res = await axios.get(`https://backend-production-d818.up.railway.app/api/orders/notifications/${userId}`);
         const data: NotificationType[] = res.data;
         setMessages(res.data);
       } catch (err) {
@@ -125,7 +125,7 @@ const handlePayment = async (orderId:string | undefined) => {
         return;
       }
   try {
-    const res = await axios.post('http://localhost:5000/api/orders/api/payments/initiate', { orderId });
+    const res = await axios.post('https://backend-production-d818.up.railway.app/api/orders/api/payments/initiate', { orderId });
     window.location.href = res.data.authorization_url; // Redirect to Paystack
   } catch (err) {
     console.error('Payment error:', err);

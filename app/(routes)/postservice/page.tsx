@@ -82,7 +82,7 @@ const AddService: React.FC = () => {
 
   
       const response = await axios.post(
-        'http://localhost:5000/api/services',
+        'https://backend-production-d818.up.railway.app/api/services',
         formData,
         {
           headers: {

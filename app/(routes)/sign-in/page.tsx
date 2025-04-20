@@ -25,14 +25,14 @@ const SignIn = () => {
 
   const onSubmit = async (values: any, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', values);
+      const response = await axios.post('https://backend-production-d818.up.railway.app/api/auth/login', values);
       const { token, userId } = response.data;
   
       if (token) {
         login(token, userId); // Store authentication info
   
         // Fetch user profile to check if it is complete
-        const profileResponse = await axios.get(`http://localhost:5000/api/profile`, {
+        const profileResponse = await axios.get(`https://backend-production-d818.up.railway.app/api/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
   
