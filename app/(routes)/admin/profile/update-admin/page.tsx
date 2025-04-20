@@ -120,7 +120,7 @@ const CreateProfile = () => {
           Swal.fire({
             title: 'Success',
             text: 'Profile updated was successful',
-            type: 'success', 
+            icon: 'success', 
             confirmButtonText: 'OK',
           });
         }
