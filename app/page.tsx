@@ -9,6 +9,7 @@ export default function LandinPage() {
       <header>
         <Header />
       </header>
+      <div className={styles.content_wrapper}>
       <section>
         <main>
           <div className={styles.infoContainer}>
@@ -43,7 +44,7 @@ export default function LandinPage() {
               </div>
               <p>Connect your Store</p>
               <p>
-                It s a business model that enables the buying and selling of
+                It&#39;s a business model that enables the buying and selling of
                 goods and services over the internet.
               </p>
             </div>
@@ -204,7 +205,7 @@ export default function LandinPage() {
           <div className={styles.usersbox}>
             <div>
               <h3>Comment from past users</h3>
-              <p className={styles.text}>An expression of opinion either in speech or writing The most frequent comment was that service was fast, A comment is a remark or observation that expresses a person's observation or criticism. To comment is to make such a remark.</p>
+              <p className={styles.text}>An expression of opinion either in speech or writing The most frequent comment was that service was fast, A comment is a remark or observation that expresses a person&#39;s observation or criticism. To comment is to make such a remark.</p>
             </div>
             <div className={styles.partsContainer}>
               <div className={styles.leftpart}>
@@ -253,6 +254,7 @@ export default function LandinPage() {
           </div>
         </main>
       </section>
+      </div>
       <footer>
         <Footer />
       </footer>

@@ -24,6 +24,7 @@ const AddService: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { userId } = useAuth();
+   const [serviceOwnerId, setServiceOwnerId] = useState<string | null>(null); // Add state for serviceOwnerId
 
   const initialValues: ServiceFormValues = {
     serviceName: '',
@@ -111,7 +112,7 @@ const AddService: React.FC = () => {
   
 
   return (
-    <DefaultLayout>
+    <DefaultLayout serviceOwnerId={serviceOwnerId || ''}>
     <div className={styles.service_container}>
       <Formik
         initialValues={initialValues}

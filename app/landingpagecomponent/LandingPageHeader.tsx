@@ -33,7 +33,7 @@ const LandingPageHeader = () => {
           <Link href="sign-in">
             <button className={styles.login}>Login</button>
           </Link>
-          <Link href="/sign-up">
+          <Link href="/sign-in">
             <button className={styles.getstarted}>Get Started</button>
           </Link>
         </div>

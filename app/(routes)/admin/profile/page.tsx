@@ -38,7 +38,7 @@ const users = [
     }
   ]
   
-const page = () => {
+const Page = () => {
 
   const [profile, setProfile] = useState<any>({})
 
@@ -145,4 +145,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

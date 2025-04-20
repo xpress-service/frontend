@@ -41,9 +41,9 @@ const payments = [
         amount: '10,000'
     },
 ]
-const Transaction = () => {
+const Transaction = ({serviceOwnerId}:any) => {
   return (
-    <DefaultLayout>
+    <DefaultLayout serviceOwnerId={serviceOwnerId}>
     <div className={styles.transactionContainer}>
 <section className={styles.pageHistory}>
     <div>

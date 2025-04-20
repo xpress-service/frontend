@@ -71,7 +71,7 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <DefaultLayout>
+    <DefaultLayout serviceOwnerId="">
       <div className={styles.profile_container}>
         <div className={styles.rightContainer}>
           <Image src={profile?.profileImage} alt="img" width={80} height={70} className={styles.profileimg}/>

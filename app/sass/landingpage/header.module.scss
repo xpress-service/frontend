@@ -4,6 +4,8 @@
   width: 100%;
   background-color: #fff;
   padding: 20px 0px;
+  position: fixed;
+  top: 0;
 @include for-size(tablet-only){
   width: 100%;
 }
@@ -13,7 +15,7 @@
     padding: 0px 100px;
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    align-items: center;
     width: 100%;
     @include for-size(tablet-only){
       width: 100%;
@@ -30,7 +32,7 @@
       display: none;
     }
     li {
-      font-size: 24px;
+      font-size: 16px;
       font-weight: 500;
       line-height: 29.26px;
       text-align: left;
@@ -54,7 +56,7 @@
           color: #000;
           padding: 10px 20px;
           border: none;
-          font-size: 24px;
+          font-size: 16px;
           font-weight: 500;
           @include for-size(tablet-only){
             font-size: 16px;
@@ -71,7 +73,7 @@
           padding: 10px 20px;
           border: none;
           border-radius: 50px;
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 500;
           @include for-size(tablet-only){
             font-size: 12px;

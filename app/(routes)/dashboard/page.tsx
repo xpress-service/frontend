@@ -64,7 +64,7 @@ const ordersDetails = [
     amount: "15000",
   },
 ];
-const Dashboard = () => {
+const Dashboard = ({serviceOwnerId}:any) => {
 
   const { isAuthenticated } = useAuth();
   const router = useRouter();
@@ -74,7 +74,7 @@ const Dashboard = () => {
     return null;
   }
   return (
-    <DefaultLayout>
+    <DefaultLayout serviceOwnerId={serviceOwnerId}>
       <div className={styles.dashboard_container}>
         <div className={styles.order_wrapper}>
           {orders.map((order, id) => {

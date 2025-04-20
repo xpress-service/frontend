@@ -26,22 +26,44 @@ const SignIn = () => {
   const onSubmit = async (values: any, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', values);
-
       const { token, userId } = response.data;
-      if (token && userId) {
-        login(token, userId); // Call the Auth context login function
-        router.push('/userprofile/complete-profile'); // Redirect user
+  
+      if (token) {
+        login(token, userId); // Store authentication info
+  
+        // Fetch user profile to check if it is complete
+        const profileResponse = await axios.get(`http://localhost:5000/api/profile`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+  
+        const userProfile = profileResponse.data;
+        
+        // Check if required profile fields are filled
+        if (userProfile && 
+          userProfile.firstname && 
+          userProfile.lastname && 
+          userProfile.email && 
+          userProfile.nin &&
+          userProfile.location &&
+          userProfile.birthdate &&
+          userProfile.gender &&
+          userProfile.phone) {
+          router.push('/servicelist'); // Profile exists, go to servicelist
+        } else {
+          router.push('/userprofile/complete-profile'); // Incomplete profile, go to profile page
+        }
       } else {
-        console.error('Token or Vendor ID missing in the response');
+        console.error('Token or User ID missing in the response');
         alert('Login failed. Please try again later.');
       }
     } catch (error) {
       console.error('Error logging in:', error);
       alert('Login failed. Please check your email and password.');
     } finally {
-      setSubmitting(false); // Stop the Formik submitting state
+      setSubmitting(false);
     }
   };
+  
 
   return (
     <div className={styles.signIn_container}>

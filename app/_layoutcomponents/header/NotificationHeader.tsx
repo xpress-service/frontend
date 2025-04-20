@@ -20,3 +20,13 @@ const NotificationHeader = () => {
 };
 
 export default NotificationHeader;
+
+
+// const handlePayOnline = async () => {
+//   const res = await axios.post("/api/payments/initiate", {
+//     orderId: order._id,
+//     email: user.email,
+//   });
+
+//   window.location.href = res.data.authorization_url;
+// };

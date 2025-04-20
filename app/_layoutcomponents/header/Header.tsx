@@ -201,7 +201,7 @@
 
 // export default Header;
 
-
+ 'use client'
 import React, { useState, useEffect } from "react";
 import { TbNotification } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
@@ -226,6 +226,7 @@ interface ModalProps {
 
 const Modal: React.FC<ModalProps> = ({ order, onClose, onAction }) => {
   if (!order) return null;
+  
 
   const handleAction = (status: string) => {
     onAction(order._id, status); // Handle accept or reject action
@@ -394,9 +395,9 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
         <Image
           src={profile.profileImage}
           alt="Profile"
-          width={40}
-          height={40}
-          className={styles.profileImage}
+          width={30}
+          height={30}
+          className={styles.profileimg}
         />
       </div>
 
