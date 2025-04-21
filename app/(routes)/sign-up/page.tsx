@@ -51,25 +51,25 @@ const SignUp = () => {
             <Form>
               <button type="button" className={styles.closeIcon}>X</button>
               
-              <div>
-                <Field type="text" name="firstname" placeholder="First name" />
+              
+                <Field type="text" name="firstname" placeholder="First name" className={styles.inputField}/>
                 <ErrorMessage name="firstname" component="div" />
-              </div>
+              
 
-              <div>
-                <Field type="text" name="lastname" placeholder="Last name" />
+              
+                <Field type="text" name="lastname" placeholder="Last name" className={styles.inputField}/>
                 <ErrorMessage name="lastname" component="div" />
-              </div>
+              
 
-              <div>
-                <Field type="email" name="email" placeholder="Email or Phone number" />
+              
+                 <Field type="text" name="email" placeholder="Email or Phone number" className={styles.inputField}/>
                 <ErrorMessage name="email" component="div" />
-              </div>
+              
 
-              <div>
-                <Field type="password" name="password" placeholder="Password" />
+              
+                <Field type="password" name="password" placeholder="Password" className={styles.inputField}/>
                 <ErrorMessage name="password" component="div" />
-              </div>
+              
 
               <button type="submit" className={styles.loginBtn} disabled={isSubmitting}>Signup</button>
 
@@ -94,7 +94,7 @@ const SignUp = () => {
             <Image src='/signupIcon/noto_cloud.svg' alt='img' width={50} height={50} />
           </div>
           <div className={styles.bikeman}>
-            <Image src='/signupIcon/delivery-guy.svg' alt='img' width={480} height={480} />
+            <Image src='/signupIcon/delivery-guy.svg' alt='img' width={270} height={270} />
           </div>
         </div>
       </main>

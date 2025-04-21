@@ -2,6 +2,9 @@
 
 .landingpage_header_box {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #fff;
   padding: 20px 0px;
   position: fixed;
@@ -38,14 +41,23 @@
       line-height: 29.26px;
       text-align: left;
       color: #000;
+      list-style-type: none;
+      text-decoration: none;
 
       &:hover {
         border-bottom: 2px solid #FF9B05;
+        color: #FF9B05;
     }
      &:active {
         color: #FF9B05;
+         border-bottom: 2px solid #FF9B05;
     }
     }
+    a:-webkit-any-link {
+    color: #000;
+    cursor: pointer;
+    text-decoration: none;
+}
   }
   .landingpage_header_btn{
     display: flex;

@@ -14,11 +14,16 @@
       @include for-size(tablet-only){
         width: 100%;
         padding: 10px 10px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        display: flex
       }
 
     .header {
         flex-shrink: 0;
         position: sticky;
+        width: 100%;
       }
       .content {
         display: flex;

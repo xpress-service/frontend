@@ -358,7 +358,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 20px 150px;
+  padding: 20px 100px;
   @include for-size(tablet-only) {
     width: 100%;
     padding: 2px;
@@ -366,7 +366,7 @@
   main{
     max-width: 1440px !important;
     margin: 0px auto;
-    padding: 10px 20px;
+    padding: 10px 100px;
     display: flex;
     width: 100%;
    
@@ -461,7 +461,7 @@
         color: #000;
         font-size: 16px;
         @include for-size(tablet-only) {
-          padding: 2px;
+          padding: 0px;
           font-size: 14px;
         } 
       }
@@ -472,7 +472,7 @@
         font-size: 16px;
         width: 100%;
         @include for-size(tablet-only) {
-          padding: 2px;
+          padding: 0px;
           font-size: 14px;
         } 
       }
@@ -484,7 +484,7 @@
     font-size: 16px;
     width: 100%;
     @include for-size(tablet-only) {
-      padding: 2px;
+      padding: 0px;
       font-size: 14px;
     } 
   }
@@ -496,7 +496,7 @@
     width: 100%;
     cursor: not-allowed;
     @include for-size(tablet-only) {
-      padding: 2px;
+      padding: 0px;
       font-size: 14px;
     } 
   }

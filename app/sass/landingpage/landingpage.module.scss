@@ -152,7 +152,7 @@
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
-            width: 80%;
+            width: 85%;
           }
         }
         .render {
@@ -177,7 +177,7 @@
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
-            width: 80%;
+            width: 85%;
           }
         }
         .menu_order {
@@ -202,7 +202,7 @@
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
-            width: 80%;
+            width: 85%;
           }
         }
         .octicon {
@@ -227,7 +227,7 @@
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
-            width: 80%;
+            width: 85%;
           }
         }
         .delivery {
@@ -252,7 +252,7 @@
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
-            width: 80%;
+            width: 85%;
           }
         }
       }
@@ -365,8 +365,7 @@ color: #726E6E;
           align-items: center;
           justify-content: center;
           width: 100%;
-          padding-left: 20%;
-          gap: 20%;
+          padding-left: 10%;
           @include for-size(tablet-only){
             flex-direction: column;
             gap: 0%
@@ -375,7 +374,7 @@ color: #726E6E;
             position: relative;
             width: 50%;
             height: 300px;
-            margin-top: 5%;
+            // margin-top: 5%;
             @include for-size(tablet-only){
               flex-direction: column;
               width: 100%;
@@ -383,38 +382,39 @@ color: #726E6E;
             }
             .user1 {
               position: absolute;
-              margin-top: 0;
+              margin-top: 10px;
               margin-left: 50%;
               transform: translate(-50%, -50%);
             }
             .user2 {
               position: absolute;
-              margin-top: 25%;
-              margin-left: 85%;
+              margin-top: 15%;
+              margin-left: 73%;
               transform: translate(-50%, -50%);
             }
             .user3 {
               position: absolute;
-              margin-top: 75%;
-              margin-left: 85%;
+              margin-top: 39%;
+              margin-left: 65%;
               transform: translate(-50%, -50%);
             }
             .user4 {
               position: absolute;
-              margin-top: 75%;
-             margin-left: 15%;
+              margin-top: 38%;
+             margin-left: 29%;
               transform: translate(-50%, -50%);
             }
             .user5 {
               position: absolute;
-              margin-top: 25%;
-              margin-left: 15%;
+              margin-top: 16%;
+              margin-left: 24%;
               transform: translate(-50%, -50%);
             }
           }
           .rightpart{
             display: flex;
             flex-direction: column;
+            width: 40%;
             .name{
               font-size: 18px;
 font-weight: 700;
@@ -427,7 +427,7 @@ color: #000000;
               color:#3177FF;
             }
             .comment{
-              width: 40%;
+              width: 100%;
               color: #726E6E;
               @include for-size(tablet-only){
                 width: 100%;
@@ -438,5 +438,14 @@ color: #000000;
       }
   }
 }
+}
+footer{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include for-size(tablet-only){
+    width: 100%;
+  }
 }
 }

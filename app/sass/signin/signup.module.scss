@@ -15,7 +15,6 @@ width: 100%;
     padding: 10px 20px;
     display: flex;
     flex-direction: row-reverse;
-    height: 70vh;
     width: 50%;
     @include for-size(tablet-only){
         width: 100%;
@@ -27,35 +26,44 @@ width: 100%;
       gap: 17px;
       background-color: #fff;
       border: 2px solid #dfdfdf;
-      padding: 5px;
+      padding: 15px;
       text-align: center;
+      justify-content: center;
       @include for-size(tablet-only){
         width: 100%;
         gap: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
       }
-      @include for-size(Mobile-only){
-        width: 100%;
-        gap: 10px;
-      }
+     
       .closeIcon {
         display: flex;
         width: 100%;
         justify-content: flex-end;
         align-items: flex-start;
-        color: #dfdfdf;
-        font-size: 22px;
+        color: #b0acac;;
+        font-size: 16px;
         line-height: 24px;
         cursor: pointer;
+        outline: none;
+        border: none;
+        background: transparent;
       }
-      input {
+      .inputField{
         display: flex;
         width: 100%;
         border: 0.3px solid #ff9b05;
         border-radius: 50px;
-        padding: 5px;
+        padding: 12px 5px;
         text-align: center;
         align-items: center;
         justify-content: center;
+        outline: none;
+        color: #000;
+        font-size: 14px;
         &:hover{
             border: 0.5px solid rgb(47, 142, 232);
         }
@@ -70,12 +78,15 @@ width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 5px;
+        padding: 12px 5px;
         width: 100%;
         background-color: #ff9b05;
         border-radius: 50px;
+        outline: none;
         color: #fff;
         cursor: pointer;
+        border: none;
+        outline: none;
         &:hover{
             border: 0.5px solid rgb(47, 142, 232);
         }
@@ -109,15 +120,25 @@ width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 5px;
+        padding:12px 30px;
         width: 100%;
         background-color: #000000;
         border-radius: 50px;
         color: #fff;
+        font-size: 14px;
         cursor: pointer;
+        outline: none;
+        border: none;
         &:hover{
             border: 0.5px solid rgb(47, 142, 232);
         }
+
+        a:-webkit-any-link {
+          color: -webkit-link;
+          cursor: pointer;
+          text-decoration: none;
+          width: 100%;
+      }
        
       }
     }

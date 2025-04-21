@@ -18,6 +18,11 @@
   gap: 15px;
   @include for-size(tablet-only){
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
   }
   }
 
@@ -28,6 +33,9 @@
     justify-content: space-between;
     @include for-size(tablet-only){
       flex-direction: column-reverse;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .footImg {
       display: flex;
