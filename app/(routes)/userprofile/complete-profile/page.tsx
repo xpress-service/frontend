@@ -138,7 +138,7 @@ const CreateProfile = () => {
         }
   
         // Proceed with the profile update if token is valid
-        const response = await axios.put('http://localhost:5000/api/profile', data, {
+        const response = await axios.put('https://backend-production-d818.up.railway.app/api/profile', data, {
           headers: {
             'Content-Type': 'multipart/form-data',
             Authorization: `Bearer ${token}`,
