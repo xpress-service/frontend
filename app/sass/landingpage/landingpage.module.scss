@@ -28,16 +28,19 @@
       padding: 0px 100px;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       gap: 15px;
       margin-top: 16px;
       @include for-size(tablet-only) {
-        max-width: 100vw;
+        max-width: 100%;
         padding: 10px;
         flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
       }
       .infoContainer {
         display: flex;
-        width: 50%;
+        width: 45%;
         flex-direction: column;
         @include for-size(tablet-only) {
           width: 100%;
@@ -64,6 +67,40 @@
             line-height: 16px;
           }
         }
+      }
+      .bannerContent{
+        display: grid;
+grid-template-columns: repeat(2, 1fr); 
+gap: 8px; 
+width: 50%;
+align-items: center;
+justify-content: flex-end;
+text-align: left; 
+
+        @include for-size(tablet-only){
+          display: grid;
+          grid-template-columns: repeat(2, 1fr); 
+          gap: 4px; 
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          text-align: left; 
+        }
+        .bannerItem {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 2px;
+          .bannerImg{
+            border-radius: 50%;
+            @include for-size(tablet-only){
+              width: 80px;
+              height: 80px;
+            }
+          }
+        }
+       
       }
     }
   }
@@ -96,6 +133,8 @@
         @include for-size(tablet-only) {
           width: 100%;
           justify-content: flex-start;
+          align-items: center;
+          gap: 5px;
         }
         h3 {
           font-size: 48px;
@@ -103,7 +142,7 @@
           line-height: 56.88px;
           @include for-size(tablet-only) {
             width: 100%;
-            font-size: 28px;
+            font-size: 24px;
             line-height: 26px;
             text-align: center;
           }
@@ -115,10 +154,10 @@
           font-weight: 500;
           @include for-size(tablet-only) {
             width: 100%;
-            font-size: 18px;
+            font-size: 16px;
             line-height: 16px;
             font-weight: 400;
-            text-align: justify;
+            text-align: start;
           }
         }
       }
@@ -146,6 +185,10 @@
             line-height: 33.18px;
             width: 100%;
             text-align: center;
+            @include for-size(tablet-only){
+              font-size: 16px;
+              font-weight: 700;
+            }
           }
           p:nth-child(3) {
             font-size: 14px;
@@ -153,6 +196,10 @@
             line-height: 22.27px;
             text-align: justify;
             width: 85%;
+            @include for-size(tablet-only) {
+              text-align: start;
+              width: 100%;
+             }
           }
         }
         .render {
@@ -171,6 +218,10 @@
             line-height: 33.18px;
             width: 100%;
             text-align: center;
+            @include for-size(tablet-only){
+              font-size: 16px;
+              font-weight: 700;
+            }
           }
           p:nth-child(3) {
             font-size: 14px;
@@ -178,6 +229,10 @@
             line-height: 22.27px;
             text-align: justify;
             width: 85%;
+            @include for-size(tablet-only) {
+              text-align: start;
+              width: 100%;
+             }
           }
         }
         .menu_order {
@@ -196,6 +251,10 @@
             line-height: 33.18px;
             width: 100%;
             text-align: center;
+            @include for-size(tablet-only){
+              font-size: 16px;
+              font-weight: 700;
+            }
           }
           p:nth-child(3) {
             font-size: 14px;
@@ -203,6 +262,10 @@
             line-height: 22.27px;
             text-align: justify;
             width: 85%;
+            @include for-size(tablet-only) {
+              text-align: start;
+              width: 100%;
+             }
           }
         }
         .octicon {
@@ -221,6 +284,10 @@
             line-height: 33.18px;
             width: 100%;
             text-align: center;
+            @include for-size(tablet-only){
+              font-size: 16px;
+              font-weight: 700;
+            }
           }
           p:nth-child(3) {
             font-size: 14px;
@@ -228,6 +295,10 @@
             line-height: 22.27px;
             text-align: justify;
             width: 85%;
+            @include for-size(tablet-only) {
+              text-align: start;
+              width: 100%;
+             }
           }
         }
         .delivery {
@@ -246,6 +317,10 @@
             line-height: 33.18px;
             width: 100%;
             text-align: center;
+            @include for-size(tablet-only){
+              font-size: 16px;
+              font-weight: 700;
+            }
           }
           p:nth-child(3) {
             font-size: 14px;
@@ -253,6 +328,10 @@
             line-height: 22.27px;
             text-align: justify;
             width: 85%;
+            @include for-size(tablet-only) {
+             text-align: start;
+             width: 100%;
+            }
           }
         }
       }
@@ -283,6 +362,18 @@
             width: 100%;
             flex-direction: column;
         }
+        .landingImage{
+          display: flex;
+          align-items: flex-start;
+          justify-content: center;
+          @include for-size(tablet-only){
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            justify-content: center;
+            align-items: center;
+          }
+        }
         .rightSide {
           display: flex;
           flex-direction: column;
@@ -292,26 +383,70 @@
             font-size: 18px;
             font-weight: 600;
             line-height: 21.78px;
+            @include for-size(tablet-only){
+              font-size: 16px;
+            }
           }
           .rightItems {
             display: flex;
             padding: 10px;
             justify-content: space-between;
+            align-items: center;
             gap: 15px;
             @include for-size(tablet-only){
                 width: 100%;
                 flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
             }
 
             .items {
               display: flex;
               flex-direction: column;
-              gap: 15px;
+              justify-content: flex-start;
+              align-items: center;
               padding: 8px;
-              .title {
+              gap: 15px;
+              @include for-size(tablet-only){
+                width: 100%;
+                padding: 0;
+              }
+              .itemsBox{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                padding: 0;
+                gap: 8px;
+                @include for-size(tablet-only){
+                  width: 100%;
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                }
+              }
+              .itemsBox h3 {
                 font-size: 18px;
                 font-weight: 600;
                 line-height: 21.78px;
+                @include for-size(tablet-only){
+                  font-size: 14px;
+                }
+              }
+              .itemsBox p {
+                font-size: 16px;
+                font-weight: 600;
+                line-height: 21.78px;
+                @include for-size(tablet-only){
+                  font-size: 14px;
+                  color: dimgrey;
+                  width: 100%;
+                  font-style: normal;
+                  text-align: center;
+                }
               }
             }
           }
@@ -344,20 +479,24 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        gap: 15px;
+        gap: 8px;
         h3{
 font-size: 32px;
 font-weight: 600;
 line-height: 59.25px;
 text-align: center;
 color: #000000;
+@include for-size(tablet-only){
+  width: 100%;
+  font-size: 18px;
+}
         }
         .text{
 
 font-size: 14px;
 font-weight: 400;
 line-height: 21.09px;
-text-align: center;
+text-align: start;
 color: #726E6E;
         }
         .partsContainer{
@@ -368,17 +507,23 @@ color: #726E6E;
           padding-left: 10%;
           @include for-size(tablet-only){
             flex-direction: column;
-            gap: 0%
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            padding: 0;
           }
           .leftpart{
             position: relative;
             width: 50%;
             height: 300px;
-            // margin-top: 5%;
+            margin-top: 5%;
+            z-index: 1;
             @include for-size(tablet-only){
               flex-direction: column;
               width: 100%;
-              margin-top: 15px;
+              justify-content: center;
+              align-items: center;
+              margin-top: 10%;
             }
             .user1 {
               position: absolute;
@@ -415,16 +560,28 @@ color: #726E6E;
             display: flex;
             flex-direction: column;
             width: 40%;
+            @include for-size(tablet-only){
+              justify-content: center;
+              align-items: flex-start;
+              width: 100%;
+              margin-top: -83px;
+            }
             .name{
               font-size: 18px;
-font-weight: 700;
-color: #000000;
+              font-weight: 700;
+              color: #000000;
+              @include for-size(tablet-only){
+                font-size: 14px;
+              }
 
             }
             .profession{
               font-size: 18px;
               font-weight: 500;
               color:#3177FF;
+              @include for-size(tablet-only){
+                font-size: 14px;
+              }
             }
             .comment{
               width: 100%;

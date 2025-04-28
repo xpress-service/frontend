@@ -16,14 +16,51 @@ export default function LandinPage() {
             <p>grow your business now with our on-demand platform</p>
             <p>delivery | book Enjoy service near you.</p>
           </div>
-          <div>
-            <Image
-              src="/deliveryman.svg"
-              alt="image"
-              width={550}
-              height={500}
-            />
-          </div>
+          <div className={styles.bannerContent}>
+  <div className={styles.bannerItem}>
+    <Image
+      src="/deliveryman.svg"
+      alt="Delivery Man"
+      width={350}
+      height={350}
+      className={styles.bannerImg}
+    />
+    <p>Order your favourite meal</p>
+  </div>
+
+  <div className={styles.bannerItem}>
+    <Image
+      src="/mechanic.PNG"
+      alt="Mechanic"
+      width={300}
+      height={300}
+      className={styles.bannerImg}
+    />
+    <p>Call a Mechanic near you</p>
+  </div>
+
+  <div className={styles.bannerItem}>
+    <Image
+      src="/vert.jpg"
+      alt="Vertical Worker"
+      width={300}
+      height={300}
+      className={styles.bannerImg}
+    />
+    <p>Book Verterinary service</p>
+  </div>
+
+  <div className={styles.bannerItem}>
+    <Image
+      src="/tutor.PNG"
+      alt="Tutor"
+      width={300}
+      height={300}
+      className={styles.bannerImg}
+    />
+    <p>Hire a Tutor</p>
+  </div>
+</div>
         </main>
       </section>
 
@@ -106,88 +143,88 @@ export default function LandinPage() {
       <section className={styles.section_three}>
         <main>
           <div className={styles.serviceContainer}>
-            <Image src="/man.svg" alt="image" width={450} height={450} />
+            <Image src="/man.svg" alt="image" width={450} height={450} className={styles.landingImage}/>
             <div className={styles.rightSide}>
               <h3>Order service anywhere</h3>
               <div className={styles.rightItems}>
                 <div className={styles.items}>
-                  <div>
+                  <div className={styles.itemsBox}>
                     <Image
                       src="/services/mechanic.svg"
                       alt="image"
                       width={100}
                       height={100}
                     />
-                    <p className={styles.title}>Find A Mechanic</p>
+                    <h3>Find A Mechanic</h3>
                     <p>
                       Acess a skilled worker who repairs and maintains vehicle
                       engines and other machinery.
                     </p>
                   </div>
 
-                  <div>
+                  <div className={styles.itemsBox}>
                     <Image
                       src="/services/laundry.svg"
                       alt="image"
                       width={100}
                       height={100}
                     />
-                    <p className={styles.title}>Dry Cleaning Service</p>
+                    <h3>Dry Cleaning Service</h3>
                     <p>
                       the washing of clothing and other textiles, and, more
                       broadly, their drying and ironing as well.
                     </p>
                   </div>
 
-                  <div>
+                  <div className={styles.itemsBox}>
                     <Image
                       src="/services/tutor.svg"
                       alt="image"
                       width={100}
                       height={100}
                     />
-                    <p className={styles.title}>Home Tutors</p>
+                    <h3>Home Tutors</h3>
                     <p>it is a form of tutoring that occurs in the home</p>
                   </div>
                 </div>
 
                 <div className={styles.items}>
-                  <div>
+                <div className={styles.itemsBox}>
                     <Image
                       src="/services/fastfood.svg"
                       alt="image"
                       width={100}
                       height={100}
                     />
-                    <p className={styles.title}>Order Fast Food</p>
+                    <h3>Order Fast Food</h3>
                     <p>
                       Order easily prepared processed food served in snack bars
                       and restaurants as a quick meal or to be taken away.
                     </p>
                   </div>
 
-                  <div>
+                  <div className={styles.itemsBox}>
                     <Image
                       src="/services/hairdressing.svg"
                       alt="image"
                       width={100}
                       height={100}
                     />
-                    <p className={styles.title}>Hair Dressing</p>
+                    <h3>Hair Dressing</h3>
                     <p>
                       Having access to a person who cuts and styles hair as an
                       occupation.
                     </p>
                   </div>
 
-                  <div>
+                  <div className={styles.itemsBox}>
                     <Image
                       src="/services/vert.svg"
                       alt="image"
                       width={100}
                       height={100}
                     />
-                    <p className={styles.title}>Veterinary Service</p>
+                    <h3>Veterinary Service</h3>
                     <p>
                       relating to the diseases, injuries, and treatment of farm
                       and domestic animals.

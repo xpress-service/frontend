@@ -3,6 +3,9 @@
 .layout_container {
     height: 100vh;
     width: 100vw;
+    justify-content: center;
+    align-items: center;
+    display: flex;
     // background-color: #ff9b05;
     .default {
       display: flex;
@@ -11,6 +14,8 @@
       margin: 0px auto;
       height: 100vh;
       padding: 0px 100px;
+       justify-content: center;
+    align-items: center;
       @include for-size(tablet-only){
         width: 100%;
         padding: 10px 10px;
@@ -37,7 +42,7 @@
             bottom: 5%;
           }
           .main_content::-webkit-scrollbar {
-            display: none; /* For Chrome, Safari, and other WebKit browsers */
+            display: none; 
           }
       }
     }

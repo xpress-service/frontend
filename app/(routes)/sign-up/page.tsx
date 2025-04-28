@@ -33,7 +33,10 @@ const SignUp = () => {
 
   const onSubmit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
     try {
-      await axios.post('https://backend-production-d818.up.railway.app/api/auth/register', values);
+      await axios.post(
+        'https://backend-production-d818.up.railway.app/api/auth/register', 
+        // 'http://localhost:5000/api/auth/register',
+        values);
       alert('User registered successfully');
       router.push('/sign-in')
     } catch (error) {

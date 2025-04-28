@@ -10,6 +10,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 10;
 @include for-size(tablet-only){
   width: 100%;
 }

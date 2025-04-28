@@ -258,7 +258,10 @@ const ServiceList: React.FC = () => {
     // Fetch services
     const fetchServices = async () => {
       try {
-        const response = await axios.get('https://backend-production-d818.up.railway.app/api/services');
+        const response = await axios.get(
+          'https://backend-production-d818.up.railway.app/api/services',
+          // 'http://localhost:5000/api/services',
+        );
         setServices(response.data);
       } catch (error) {
         console.error('Error fetching services:', error);
@@ -282,7 +285,10 @@ const ServiceList: React.FC = () => {
 
     try {
       const userId = localStorage.getItem('userId'); // Replace with actual logged-in user's ID
-      const response = await axios.post('https://backend-production-d818.up.railway.app/api/orders', {
+      const response = await axios.post(
+        'https://backend-production-d818.up.railway.app/api/orders',
+        // 'http://localhost:5000/api/orders',
+         {
         serviceId,
         userId,
         serviceOwnerId,

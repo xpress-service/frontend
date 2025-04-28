@@ -30,9 +30,9 @@ const LandingPageHeader = () => {
           </li>
         </ul>
         <div className={styles.landingpage_header_btn}>
-          <Link href="sign-in">
+          {/* <Link href="sign-in">
             <button className={styles.login}>Login</button>
-          </Link>
+          </Link> */}
           <Link href="/sign-in">
             <button className={styles.getstarted}>Get Started</button>
           </Link>

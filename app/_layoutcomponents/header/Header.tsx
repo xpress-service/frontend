@@ -279,7 +279,10 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     const serviceOwnerId = localStorage.getItem("userId");
     if (serviceOwnerId) {
     try {
-      const response = await axios.get(`https://backend-production-d818.up.railway.app/api/orders/vendor/${serviceOwnerId}`);
+      const response = await axios.get(
+        `https://backend-production-d818.up.railway.app/api/orders/vendor/${serviceOwnerId}`,
+        // `http://localhost:5000/api/orders/vendor/${serviceOwnerId}`,
+      );
       setOrders(response.data); 
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -297,7 +300,8 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     if (serviceOwnerId) {
       try {
         const response = await axios.get(
-          `https://backend-production-d818.up.railway.app/api/orders/notifications/${serviceOwnerId}`
+          `https://backend-production-d818.up.railway.app/api/orders/notifications/${serviceOwnerId}`,
+          // `http://localhost:5000/api/orders/notifications/${serviceOwnerId}`,
         );
         const formattedNotifications = response.data.map((notification: any) => ({
           orderId: notification.orderId._id,
@@ -336,7 +340,10 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     if (token) {
       const decodedUser = jwt_decode.jwtDecode(token);
       try {
-        const response = await axios.get(`https://backend-production-d818.up.railway.app/api/profile`, {
+        const response = await axios.get(
+          `https://backend-production-d818.up.railway.app/api/profile`,
+          // `http://localhost:5000/api/profile`, 
+          {
           headers: {
             Authorization: `Bearer ${token}`,
           },
