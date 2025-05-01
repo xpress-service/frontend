@@ -1,4 +1,15 @@
 @import '../mixins/mediaquery';
+.profile_box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  gap: 24px;
+  @include for-size(tablet-only) {
+    width: 100%;
+    padding: 2px;
+  }
 .profile_container{
     display: flex;
     width: 100%;
@@ -129,6 +140,7 @@
         }
     }
 }
+}
 .orderContainer{
     display: flex;
     flex-direction: column;
@@ -138,11 +150,11 @@
     gap: 10px;
     background-color: #f4f4f4;
     border-radius: 8px;
-    margin-top: 20px;
-    padding: 15px 0px;
+    padding: 15px 20px;
     @include for-size(tablet-only) {
       width: 100%;
       padding: 2px;
+
     }
     .name{
       width: 100%;
@@ -155,14 +167,17 @@
 .summary{
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 100%; 
     padding: 10px 15px;
     background-color: #fff;
     justify-content: space-between;
     @include for-size(tablet-only) {
       width: 100%;
       padding: 2px;
-      flex-wrap: wrap;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
       gap: 3px;
     }
     .statusbox{
@@ -187,13 +202,15 @@
   display: flex; 
   width: 100%;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 50px;
   background-color: #fff;
   padding: 0px 15px;
   @include for-size(tablet-only) {
     width: 100%;
     padding: 2px;
     flex-wrap: wrap;
+    gap: 5px;
   }
     .imgContainer{
       display: flex; 
@@ -220,7 +237,17 @@
           font-weight: 600;
       }
   }
-    
+  .orders_info_box{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 40px;
+    @include for-size(tablet-only){
+      width: 100%;
+    }
+  }  
+  
 }
 }
 

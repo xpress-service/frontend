@@ -125,28 +125,28 @@ const AddService: React.FC = () => {
             <h1>Add a New Service</h1>
             {errorMessage && <div className={styles.error}>{errorMessage}</div>}
 
-            <div>
+            <div className={styles.input_box}>
               <label>Service Name</label>
               <Field type="text" name="serviceName" className={styles.formfields} />
-              <ErrorMessage name="serviceName" component="div" />
+              <ErrorMessage name="serviceName" component="div" className={styles.error}/>
             </div>
 
-            <div>
+            <div className={styles.input_box}>
               <label>Category</label>
               <Field type="text" name="category" className={styles.formfields} />
-              <ErrorMessage name="category" component="div" />
+              <ErrorMessage name="category" component="div" className={styles.error} />
             </div>
 
-            <div>
+            <div className={styles.input_box}>
               <label>Description</label>
               <Field as="textarea" name="description" className={styles.formfields} />
-              <ErrorMessage name="description" component="div" />
+              <ErrorMessage name="description" component="div" className={styles.error}/>
             </div>
 
-            <div>
+            <div className={styles.input_box}>
               <label>Price</label>
               <Field type="number" name="price" className={styles.formfields} />
-              <ErrorMessage name="price" component="div" />
+              <ErrorMessage name="price" component="div" className={styles.error}/>
             </div>
 
             <div className={styles.availability}>
@@ -154,7 +154,7 @@ const AddService: React.FC = () => {
               <Field type="checkbox" name="availability" />
             </div>
 
-            <div>
+            <div className={styles.input_box}>
               <label htmlFor="file">Upload Image</label>
               <input
                 id="file"
@@ -167,7 +167,7 @@ const AddService: React.FC = () => {
                   }
                 }}
               />
-              <ErrorMessage name="imageUrl" component="div" />
+              <ErrorMessage name="imageUrl" component="div" className={styles.error}/>
             </div>
 
             <div className={styles.add_servicebtn_con}>
@@ -176,8 +176,10 @@ const AddService: React.FC = () => {
               </button>
             </div>
           </Form>
+          
         )}
       </Formik>
+      
     </div>
     </DefaultLayout>
   );

@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     height: 100vh;
     // max-width: 1440px !important;
     // margin: 0px auto;
@@ -17,27 +17,37 @@
     .addService_form{
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-start;
+        align-items: flex-start;
         background-color: #f4f4f4;
         border-radius: 10px;
         gap: 15px;
         width: 100%;
         padding: 10px;
         margin-top: 15px;
+        color: #000;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         @include for-size(tablet-only){
             width: 100%;
             height: 100%;
-            justify-content: center;
+            padding: 10px;
+            justify-content: flex-start;
+            align-items: center;
         }
 
         h1{
             font-size: 16px;
             font-weight: 700;
         }
+        .error{
+            display: flex;
+            color: red;
+        }
         .formfields{
             display: flex;
             width: 100%;
-            border: 0.5px solid #dfdfdf;
+            border: 0.5px solid #ff9b05;
+            outline: none;
             border-radius: 10px;
             align-items: center;
             justify-content: center;
@@ -45,8 +55,17 @@
             @include for-size(tablet-only){
                 width: 100%;
                 justify-content: center;
+                padding: 15px 0px;
+                border-radius: 8px;
             }
         }
+        .input_box{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+       
     }
     .availability{
         display: flex;
@@ -61,7 +80,8 @@
         button{
             background-color: #ff9b05;
             border-radius: 10px;
-            color: #fff;
+            color: #000;
+            border:1px solid #f4f4f4;
             justify-content: center;
             align-items: center;
             padding: 10px;
@@ -76,46 +96,48 @@
 .services_list_box{
     display: flex;
     flex-direction: column;
-    background-color: #f4f4f4;
+    // background-color: #f4f4f4;
     border-radius: 8px;
-    overflow-y: auto;
-    // max-width: 1440px !important;
-    // margin: 0px auto;
-    // padding: 0px 100px;
-    @include for-size(tablet-only){
-        width: 100%;
-        height: 100%;
-        padding: 0px 10px;
-    }
-    .services_list_box::-webkit-scrollbar {
-        display: none; /* For Chrome, Safari, and other WebKit browsers */
-      }
-    .service_wrapper{
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 50px;
-        width: 100%;
-        // height: 100%;
-        padding: 10px 10px;
-        margin-top: 15px;
-        gap: 15px;
-       
-        @include for-size(tablet-only){
-            width: 100%;
-            height: 100%;
-        }
+  width: 100%;
+  height: 100%;
+  align-items: center;
+    padding: 0px 10px;
+   @include for-size(tablet-only){
+    width: 100%;
+    height: 100%;
+    padding: 0;
+   } 
+    // .service_wrapper{
+    //     display: flex;
+    //     flex-direction: column;
+    //     align-items: center;
+    //     margin-bottom: 50px;
+    //     width: 100%;
+    //     height: 100%;
+    //     padding: 0;
+    //     gap: 15px;
+    //     @include for-size(tablet-only){
+    //         width: 100%;
+    //         height: 100%;
+    //         padding: 0;
+    //     }
 
         .create_service{
             width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0px 10px;
+            padding: 0;
+            margin-bottom: 20px;
+            @include for-size(tablet-only){
+                width: 100%;
+                padding: 0;
+            }
 
             h1{
                 font-size: medium;
                 font-weight: 700;
-                color: #000;
+                color: #fff;
             }
 
             button{
@@ -123,10 +145,11 @@
                 align-items: center;
                 justify-content: center;
                 padding: 10px 10px;
-                border: 0.3px solid #ff9b05;
+                border: 0.3px solid #f4f4f4;
                 background: transparent;
                 border-radius: 10px;
-                color: rgb(0, 174, 255);
+                // color: rgb(0, 174, 255);
+                color: #000;
             }
         }
         .service_list {
@@ -134,7 +157,15 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
             gap: 20px; 
             width: 100%;
-            padding: 10px; 
+            // padding: 10px; 
+            align-items: stretch;
+            @include for-size(tablet-only){
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px; 
+                width: 100%;
+                padding: 0;
+            }
             .service_card {
               display: flex;
               flex-direction: column;
@@ -146,41 +177,85 @@
               background-color: #fff;
               box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
               transition: transform 0.2s ease, box-shadow 0.2s ease;
-          
+          @include for-size(tablet-only){
+            width: 100%;
+            padding: 4px;
+            gap: 8px;
+          }
               &:hover {
                 transform: scale(1.05);
                 box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
                 background-color: #f4f4f4;
               }
-          
+         
+          }
               .deco {
                 display: flex;
                 width: 100%;
                 flex-direction: column;
                 justify-content: center;
-                align-items: center;
+                align-items: flex-start;
                 gap: 10px;
+                text-align: start;
           
                 .service_image {
                   width: 100%;
-                  max-height: 200px;
+                  height: 200px;
                   object-fit: cover;
                   border-radius: 8px;
                   overflow: hidden;
+                  @include for-size(tablet-only){
+                    width: 100%;
+                    height: 120px;
+                  }
                 }
+                h2{
+                    font-size: 16px;
+                    color: #000;
+                    font-weight: 700;
+                    text-align: start;
+                    @include for-size(tablet-only){
+                        font-size: 14px;
+                        text-align: start;
+                    }
               }
-          
-              .cardBottom {
+              p{
+                font-size: 16px;
+                    color: #444;
+                    font-weight: 400;
+                    text-align: start;
+                    @include for-size(tablet-only){
+                        font-size: 14px;
+                        text-align: start;
+                    }
+              }
+              p:nth-child(4){
+                display: -webkit-box;
+                overflow: hidden;
+                -webkit-line-clamp: 1;
+                line-clamp: 1;
+                -webkit-box-orient: vertical;
+                text-overflow: ellipsis;
+              }
+              p:nth-child(5){
+                color: green;
+              }
+            }
+            .cardBottom {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: center;
+                align-items: flex-start;
                 padding-top: 10px;
                 gap: 8px;
-                text-align: center;
+                text-align: start;
+                p{
+                    font-size: 14px;
+                    color: #444;
+                    text-align: start;
+                }
               }
-            }
           }
           
           
@@ -191,13 +266,17 @@
         width: 100%;
         padding: 10px 10px;
         border-radius: 15px;
+        border: none;
         align-items: center;
         justify-content: center;
         color: #fff;
         cursor: pointer;
+        @include for-size(tablet-only){
+            width: 100%;
+        }
     }
 }
-}
+// }
 
 .order_container{
     display: flex;

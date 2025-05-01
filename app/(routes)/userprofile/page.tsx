@@ -75,6 +75,7 @@ const UserProfile = () => {
 
   return (
     <DefaultLayout serviceOwnerId="">
+      <div className={styles.profile_box}>
       <div className={styles.profile_container}>
         <div className={styles.rightContainer}>
           <Image src={profile?.profileImage} alt="img" width={80} height={70} className={styles.profileimg}/>
@@ -165,12 +166,14 @@ const UserProfile = () => {
                 <p className={styles.location_text}>{user.location}</p>
               </div>
               </div>
+              <div className={styles.orders_info_box}>
               <p className={`${styles.status} ${statusClass}`}>
                     {user.status}
                   </p>
               <p>{user.profession}</p>
               <p>${user.amount}</p>
               <BsThreeDots size={16}/>
+              </div>
             </div>
           
           )
@@ -178,6 +181,7 @@ const UserProfile = () => {
         <div className={styles.viewbox}>
         <button className={styles.viewbtn}>View More</button>
         </div>
+      </div>
       </div>
     </DefaultLayout>
   );

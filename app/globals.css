@@ -3,6 +3,12 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: #ff9b05;
   overflow: hidden;
+  padding: 0;
+  margin: 0;
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; */
 }
 *{
   margin: 0;
