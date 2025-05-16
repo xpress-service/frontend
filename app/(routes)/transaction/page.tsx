@@ -64,11 +64,11 @@ const Transaction = ({serviceOwnerId}:any) => {
     </div>
 </section>
 <section className={styles.activity}>
-    <p  className={styles.trans_activity}>All Activity</p>
+    <p  className={styles.trans_activity}>All activity</p>
     <div className={styles.calenderbox}>
         <div className={styles.calender}>
         <CgCalendar size={24}/>
-       <p> February 10 - February 21</p>
+       <p> Feb 10 - Feb 21</p>
         </div>
     <p  className={styles.trans_clear}>Clear All</p>
     </div>
@@ -95,13 +95,13 @@ const Transaction = ({serviceOwnerId}:any) => {
             <p>{payment.date}</p>
             </div>
             <div className={styles.checkbox}>
-                <TbTransactionBitcoin size={24}/>
+                <TbTransactionBitcoin size={16}/>
             <p>{payment.method}</p>
             </div>
-            <div>
+            <div className={styles.pay}>
             <p>{payment.service}</p>
             </div>
-            <div>
+            <div className={styles.pay}>
             <p className={statusClass}>{payment.status}</p>
             </div>
             <BsThreeDots size={16}/>

@@ -52,7 +52,7 @@ const SignUp = () => {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
           {({ isSubmitting }) => (
             <Form>
-              <button type="button" className={styles.closeIcon}>X</button>
+              {/* <button type="button" className={styles.closeIcon}>X</button> */}
               
               
                 <Field type="text" name="firstname" placeholder="First name" className={styles.inputField}/>

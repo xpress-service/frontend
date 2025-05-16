@@ -195,6 +195,9 @@ text-align: left;
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
+            text-justify: inter-word;
+            word-spacing: normal;
+            hyphens: auto;
             width: 85%;
             @include for-size(tablet-only) {
               text-align: start;
@@ -228,6 +231,9 @@ text-align: left;
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
+            text-justify: inter-word;
+            word-spacing: normal;
+            hyphens: auto;
             width: 85%;
             @include for-size(tablet-only) {
               text-align: start;
@@ -261,6 +267,9 @@ text-align: left;
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
+            text-justify: inter-word;
+            word-spacing: normal;
+            hyphens: auto;
             width: 85%;
             @include for-size(tablet-only) {
               text-align: start;
@@ -294,6 +303,9 @@ text-align: left;
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
+            text-justify: inter-word;
+            word-spacing: normal;
+            hyphens: auto;
             width: 85%;
             @include for-size(tablet-only) {
               text-align: start;
@@ -327,6 +339,9 @@ text-align: left;
             font-weight: 300;
             line-height: 22.27px;
             text-align: justify;
+            text-justify: inter-word;
+            word-spacing: normal;
+            hyphens: auto;
             width: 85%;
             @include for-size(tablet-only) {
              text-align: start;
@@ -560,6 +575,7 @@ color: #726E6E;
             display: flex;
             flex-direction: column;
             width: 40%;
+            gap: 4px;
             @include for-size(tablet-only){
               justify-content: center;
               align-items: flex-start;

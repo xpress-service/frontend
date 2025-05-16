@@ -41,7 +41,8 @@ const users = [
 
 
 const UserProfile = () => {
-  const [profile, setProfile] = useState<any>({})
+  const [profile, setProfile] = useState<any>({});
+  const [order, setOrder] =useState<any>([]);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -70,7 +71,38 @@ const UserProfile = () => {
         console.log("No token found");
       }
     };
+
+
+    const fetchOrderData = async (orderId: string) => {
+      const token = localStorage.getItem("authToken");
+      console.log("Token:", token);  // Log the token to see if it's there
+      if (token) {
+        const decodedUser = jwt_decode.jwtDecode(token);
+        console.log("Decoded user:", decodedUser);  // Log the decoded token to ensure it's valid
+        try {
+          const response = await axios.get(
+            `https://backend-production-d818.up.railway.app/api/profile`, 
+            // `http://localhost:5000/api/tracking/order/${orderId}`,
+            {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          if (response.status === 200){
+            console.log('This is my response:', response)
+            setOrder(response.data)
+          }
+        } catch (error) {
+          console.error("Failed to fetch user data", error);
+        }
+      } else {
+        console.log("No token found");
+      }
+    };
+
+
     fetchUserData();
+    fetchOrderData(order);
   }, []);
 
   return (
@@ -86,7 +118,7 @@ const UserProfile = () => {
         <div className={styles.leftContainer}>
           <div className={styles.Basic}>
             <p  className={styles.basic_info}>Basic Info</p>
-            <BiPencil size={16} />
+            <BiPencil size={12} />
           </div>
           <div className={styles.info}>
             <div>
@@ -129,15 +161,15 @@ const UserProfile = () => {
           <div className={styles.summary}>
             <div className={styles.statusbox}>
             <p className={styles.orderComplete}>Completed</p>
-            <p>122</p>
+            <p>{order.Approved}</p>
           </div>
           <div className={styles.statusbox}>
             <p className={styles.orderPending}>Pending</p>
-            <p>15</p>
+            <p>{order.Pending}</p>
           </div>
           <div className={styles.statusbox}>
             <p className={styles.orderCancel}>Cancel</p>
-            <p>45</p>
+            <p>{order.Rejected}</p>
           </div>
           </div>
         

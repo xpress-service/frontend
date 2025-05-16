@@ -1,34 +1,60 @@
+@import '../mixins//mediaquery';
 .transactionContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  gap: 15px;
+  gap: 5px;
   background-color: #f4f4f4;
   border-radius: 9px;
-
+  width: 100%;
+@include for-size(tablet-only){
+  width: 100%;
+  padding: 0 10px;
+  margin-top: 40px;
+}
   .pageHistory {
     display: flex;
-    width: 100%;
     justify-content: space-between;
-    padding: 10px 15px;
-
+    align-items: center;
+    padding: 10px;
+  @include for-size(tablet-only){
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
     .trans_details {
       color: #000000;
       font-weight: 600;
-      font-size: 18px;
+      font-size: 16px;
+      @include for-size(tablet-only){
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+      }
     }
     .trans_history {
-      color: #000000;
+      color: #666;
       font-weight: 300;
-      font-size: 14px;
+      font-size: 16px;
+      @include for-size(tablet-only){
+        font-size: 14px;
+        font-weight: 500;
+        color: #666;
+      }
     }
     .pages {
       color: #000000;
       font-weight: 600;
       font-size: 14px;
+      @include for-size(tablet-only){
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+      }
     }
     .arrows {
       display: flex;
+      justify-content: flex-end;
+      align-items: center;
       gap: 5px;
       .iconcircle {
         border: 0.5px solid #dfdfdf;
@@ -41,28 +67,45 @@
   }
   .activity {
     display: flex;
-    width: 100%;
     justify-content: space-between;
-    padding: 10px 15px;
-
+    align-items: flex-start;
+    padding: 10px;
+    @include for-size(tablet-only){
+       justify-content: space-between;
+       align-items: flex-start;
+      }
     .trans_activity {
       color: #000000;
       font-weight: 600;
       font-size: 16px;
+      @include for-size(tablet-only){
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+      }
     }
     .calenderbox {
       display: flex;
       flex-direction: column;
+      align-items: flex-end;
       gap: 15px;
       .calender {
         display: flex;
+        align-items: flex-start;
         gap: 10px;
         width: 100%;
-
+@include for-size(tablet-only){
+       gap: 2px;
+      }
         p {
           color: #000000;
           font-weight: 600;
           font-size: 14px;
+          @include for-size(tablet-only){
+        font-size: 14px;
+        font-weight: 500;
+        color: #000;
+      }
         }
       }
       .trans_clear {
@@ -77,33 +120,74 @@
   .paymentbox {
     display: flex;
     flex-direction: column;
-    width: 100%;
     background-color: #f4f4f4;
     padding: 10px 0px;
     margin-top: 8px;
+    @include for-size(tablet-only){
+       justify-content: center;
+       align-items: center;
+       width: 100%;
+      }
 
     .payments {
       display: flex;
-      width: 100%;
       justify-content: space-between;
+      align-items: center;
       background-color: #fff;
       padding: 10px 15px;
       margin-top: 8px;
-
+@include for-size(tablet-only){
+  display: flex;   
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+      }
       .checkbox {
         display: flex;
         gap: 15px;
         align-items: center;
         justify-content: center;
+        @include for-size(tablet-only){
+         display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
       }
+      p{
+        font-size: 12px;
+        font-weight: 400;
+        color: #666;
+      }
+      }
+      .pay{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2px;
+         p{
+        font-size: 14px;
+        font-weight: 400;
+        color: #666;
+         @include for-size(tablet-only){
+      font-size: 12px;
     }
-  }
-  .statusApproved {
+      }
+.statusApproved {
     color: #019827;
     font-size: 14px;
+    @include for-size(tablet-only){
+      font-size: 12px;
+    }
   }
   .statusCancel {
     color: #ff0c0c;
     font-size: 14px;
+     @include for-size(tablet-only){
+      font-size: 12px;
+    }
   }
+      }
+    }
+  }
+  
 }

@@ -73,6 +73,7 @@ const Tracking = () => {
 
   return (
     <DefaultLayout serviceOwnerId={serviceOwnerId || ""}>
+      <div className={styles.tracking_container}>
       <h2>Order Tracking</h2>
       {orders.length === 0 ? (
         <p>No orders available</p>
@@ -138,6 +139,7 @@ const Tracking = () => {
           </div>
         ))
       )}
+      </div>
     </DefaultLayout>
   );
 };

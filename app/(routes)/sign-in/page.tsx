@@ -81,7 +81,7 @@ const SignIn = () => {
         >
           {({ isSubmitting }) => (
             <Form>
-              <button type="button" className={styles.closeIcon}>X</button>
+              {/* <button type="button" className={styles.closeIcon}>X</button> */}
 
               <Field type="text" name="email" placeholder="Email or Phone number" className={styles.inputField} />
               <ErrorMessage name="email" component="div" className={styles.error} />

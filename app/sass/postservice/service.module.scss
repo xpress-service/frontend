@@ -5,9 +5,6 @@
     align-items: center;
     justify-content: flex-start;
     height: 100vh;
-    // max-width: 1440px !important;
-    // margin: 0px auto;
-    // padding: 0px 100px;
     @include for-size(tablet-only){
         width: 100%;
         height: 100%;
@@ -107,20 +104,6 @@
     height: 100%;
     padding: 0;
    } 
-    // .service_wrapper{
-    //     display: flex;
-    //     flex-direction: column;
-    //     align-items: center;
-    //     margin-bottom: 50px;
-    //     width: 100%;
-    //     height: 100%;
-    //     padding: 0;
-    //     gap: 15px;
-    //     @include for-size(tablet-only){
-    //         width: 100%;
-    //         height: 100%;
-    //         padding: 0;
-    //     }
 
         .create_service{
             width: 100%;
@@ -129,9 +112,11 @@
             align-items: center;
             padding: 0;
             margin-bottom: 20px;
+             margin-top: 20px;
             @include for-size(tablet-only){
                 width: 100%;
                 padding: 0;
+                margin-top: 20px;
             }
 
             h1{
@@ -148,7 +133,6 @@
                 border: 0.3px solid #f4f4f4;
                 background: transparent;
                 border-radius: 10px;
-                // color: rgb(0, 174, 255);
                 color: #000;
             }
         }
@@ -157,7 +141,6 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
             gap: 20px; 
             width: 100%;
-            // padding: 10px; 
             align-items: stretch;
             @include for-size(tablet-only){
                 display: grid;
@@ -283,13 +266,15 @@
     flex-wrap: wrap;
     justify-content: center;
     background-color: #fff;
-    // max-width: 1440px !important;
-    // margin: 0px auto;
     padding: 8px 0px;
     border-radius: 10px;
     gap: 15px;
+    margin-top: 20px;
     @include for-size(tablet-only){
-        width: 100%;
+       display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 16px; 
+  width: 100%;
     }
 
     .order_card{
@@ -302,7 +287,7 @@
         width: 300px;
         border-radius: 10px;
         @include for-size(tablet-only){
-            width: 100%;
+            width: 90%;
         }
         h3{
             font-size: 14px;

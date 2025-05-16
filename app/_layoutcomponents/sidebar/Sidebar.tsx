@@ -1,13 +1,27 @@
 import { MdOutlineDashboard } from "react-icons/md";
-import { BiAnalyse } from "react-icons/bi";
 import { MdOutlinePerson } from "react-icons/md";
 import { MdOutlineTrackChanges } from "react-icons/md";
+import { CiHome } from "react-icons/ci"; 
+import { FaFirstOrder } from "react-icons/fa";
+import { GrTransaction } from "react-icons/gr";
 import styles from '../../sass/layout/layout.module.scss'
 import Link from "next/link";
+import Image from "next/image";
+
+
+
 
 const Sidebar = () => {
     return(
         <div className={styles.sidebarItems}>
+            <div className={styles.logo_box}>
+        <Image 
+        src='/logo.jpg'
+        alt="logo"
+        width={50}
+        height={50}
+        />
+            </div>
              <Link href='/dashboard'>
             <div className={styles.icons}>
            
@@ -20,7 +34,7 @@ const Sidebar = () => {
             <Link href='/servicelist'>
             <div className={styles.icons}>
            
-            <MdOutlineDashboard size={26} className={styles.iconsActive}/>
+            <CiHome size={26} className={styles.iconsActive}/>
             <p>HOME</p>
            
             </div>
@@ -29,7 +43,7 @@ const Sidebar = () => {
             <Link href='/orders'>
             <div className={styles.icons}>
            
-            <MdOutlineDashboard size={26} className={styles.iconsActive}/>
+            <FaFirstOrder size={26} className={styles.iconsActive}/>
             <p>ORDERS</p>
            
             </div>
@@ -50,7 +64,7 @@ const Sidebar = () => {
             </Link>
             <Link href='transaction'>
             <div className={styles.icons}>
-            <BiAnalyse size={26} className={styles.iconsActive}/>
+            <GrTransaction size={26} className={styles.iconsActive}/>
             <p>TRANSACTION</p>
             </div>
             </Link>

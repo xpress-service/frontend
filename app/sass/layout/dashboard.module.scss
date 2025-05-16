@@ -5,18 +5,31 @@
   flex-direction: column;
   gap: 30px;
   @include for-size(tablet-only) {
-    width: 100%;
+        width: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
   }
   .order_wrapper {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     gap: 10px;
-    padding: 8px 0px;
+    padding: 8px 15px;
     background-color: #f4f4f4;
     border-radius: 10px;
     @include for-size(tablet-only) {
-      width: 100%;
+             width: 100%;
+        padding: 0px 15px;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
     }
   }
   .order_container {
@@ -29,10 +42,23 @@
     @include for-size(tablet-only) {
       width: 100%;
     }
+    p{
+      font-size: 16px;
+      font-weight: 500;
+      @include for-size(tablet-only){
+        font-size: 14px;
+        font-weight: 400;
+        text-align: start;
+      }
+    }
     .item_name {
-      font-size: 18px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 500;
       line-height: 21.94px;
+      @include for-size(tablet-only){
+        font-size: 14px;
+        font-weight: 500;
+      }
     }
     .progressbar {
       display: flex;
@@ -44,15 +70,19 @@
       background-color: #ff9b05;
       padding: 5px 10px;
       border-radius: 8px;
+      border: none;
+      outline: none;
     }
   }
 
   .orderDetails {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     gap: 10px;
-    padding: 8px 0px;
+    padding: 8px 15px;
     background-color: #f4f4f4;
     border-radius: 10px;
     @include for-size(tablet-only) {
@@ -60,9 +90,13 @@
     }
     h3 {
       padding: 8px;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 500;
       color: #000000;
+      @include for-size(tablet-only){
+        font-size: 14px;
+        font-weight: 500;
+      }
     }
 
     .details_wrapper {
@@ -76,22 +110,37 @@
       @include for-size(tablet-only) {
         width: 100%;
         gap: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
       }
       .userbox {
         display: flex;
         gap: 15px;
         @include for-size(tablet-only) {
           flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 0;
         }
         .item_name {
-          font-size: 18px;
-          font-weight: 600;
+          font-size: 16px;
+          font-weight: 500;
           line-height: 21.94px;
+          @include for-size(tablet-only){
+            font-size: 14px;
+            font-weight: 500;
+          }
         }
+
         .location {
           font-size: 12px;
           font-weight: 300;
           line-height: 17.07px;
+          @include for-size(tablet-only){
+            font-size: 12px;
+            font-weight: 400;
+          }
         }
       }
       .status {
@@ -142,12 +191,25 @@
           width: 100%;
         }
         .item_name {
-          font-size: 18px;
-          font-weight: 600;
+          font-size: 16px;
+          font-weight: 500;
           line-height: 21.94px;
           @include for-size(tablet-only) {
-            font-size: 12px;
+            font-size: 14px;
+            font-weight: 500;
           }
+        }
+      }
+      .itembox_container{
+        display: flex;
+        width: 80%;
+        align-items: center;
+        justify-content: space-between;
+        @include for-size(tablet-only){
+          display: flex;
+          width: 100%;
+          justify-content: space-between;
+          align-items: center;
         }
       }
     }
@@ -157,6 +219,7 @@
         color: #000000;
         @include for-size(tablet-only){
             width: 20px;
+            font-size: 14px;
           }
     }
   }

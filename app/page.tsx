@@ -25,7 +25,7 @@ export default function LandinPage() {
       height={350}
       className={styles.bannerImg}
     />
-    <p>Order your favourite meal</p>
+    <p>Order for your favourite meal</p>
   </div>
 
   <div className={styles.bannerItem}>
