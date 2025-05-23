@@ -85,13 +85,137 @@
   border: 1px solid #dfdfdf;
   border-radius: 50px;
   padding: 8px 0;
-  margin-left: 22%;
+  margin-left: 21%;
   @include for-size(tablet-only){
     width: 100%;
     padding: 4px 0;
     margin: 0 auto;
+    // position: relative;
+    display: flex;
+    // justify-content: space-between;
   }
 
+
+  .hamburger {
+    display: none;
+      @include for-size(tablet-only){
+  position: fixed;
+  display: flex;
+  top: 0px;
+  right: 0px;
+  z-index: 1001;
+  // background: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  // box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+  svg {
+    color: #333;
+  }
+}
+
+.mobileMenu {
+  display: none;
+   @include for-size(tablet-only){
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 200px;
+  background-color: #fff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.15);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column !important;
+  padding: 80px 24px 24px;
+  z-index: 10;
+   }
+  a {
+    padding: 14px 0;
+    font-size: 18px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    transition: color 0.2s;
+    text-decoration: none;
+
+    &:hover {
+      color: #0070f3;
+      text-decoration: none;
+    }
+  }
+
+}
+
+.showMenu {
+  display: none;
+  @include for-size(tablet-only){
+ transform: translateX(0%);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  position: absolute;
+  }
+}
+
+.overlay {
+  display: none;
+  @include for-size(tablet-only){
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+  }
+}
+
+.userbox_mobile{
+   display: none;
+    @include for-size(tablet-only){
+      width: 100%;
+      position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 20px;
+    margin-top: -20px;
+    }
+     .profileimg{
+      @include for-size(tablet-only){
+        width: 60px;
+        height: 60px;
+        border-radius: 1px solid #FF9B05;
+        border-radius: 50px;
+      }
+    }
+    .notificationButton {
+      position: relative;
+      background: none;
+      border: none;
+      cursor: pointer;
+    .badge{
+        @include for-size(tablet-only){
+        position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+        }
+      }
+    }
+  }
   .searchbox{
     display: flex;
     align-items: center;
@@ -102,7 +226,7 @@
     max-width: 500px;
     margin-left: 10px;
     @include for-size(tablet-only){
-      width: 100%;
+      width: 80%;
       margin: 2px;
       padding-left: 0px;
     }
@@ -128,6 +252,7 @@
     @include for-size(tablet-only){
       display: none;
     }
+
     .profileimg{
       width: 40px;
       height: 40px;
@@ -302,7 +427,6 @@ a{
       background-color: #bbb;
     }
   }
-  
 }
 
 

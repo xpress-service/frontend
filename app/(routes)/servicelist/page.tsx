@@ -5,6 +5,7 @@ import styles from '../../sass/postservice/service.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import DefaultLayout from '@/app/_layoutcomponents/DefaultLayout';
+import { useSearch } from "../../_layoutcomponents/searchContext";
 
 interface Service {
   _id: string;
@@ -22,6 +23,7 @@ const ServiceList: React.FC = () => {
   const [loadingStates, setLoadingStates] = useState<{ [key: string]: boolean }>({});
   const [message, setMessage] = useState<string | null>(null);
   const [serviceOwnerId, setServiceOwnerId] = useState<string | null>(null); 
+  const { searchQuery } = useSearch();
 
   useEffect(() => {
     // Fetch services
@@ -72,6 +74,10 @@ const ServiceList: React.FC = () => {
     }
   };
 
+ const filteredService = services.filter((service) =>
+  service?.serviceName?.toLowerCase().includes(searchQuery.toLowerCase())
+);
+
   return (
     <DefaultLayout serviceOwnerId={serviceOwnerId || ''}>
       <div className={styles.services_list_box}>
@@ -83,7 +89,7 @@ const ServiceList: React.FC = () => {
             </Link>
           </div>
           <div className={styles.service_list}>
-            {services.map((service) => (
+             {(searchQuery ? filteredService : services).map((service) => (
               <div key={service._id} className={styles.service_card}>
                 <div className={styles.deco}>
                   <Image

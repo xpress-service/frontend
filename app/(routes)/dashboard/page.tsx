@@ -7,12 +7,13 @@ import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import styles from "../../sass/layout/dashboard.module.scss";
 import axios from 'axios';
+import { useSearch } from "../../_layoutcomponents/searchContext";
 
 interface Order {
   _id: string;
   serviceId: {
     serviceName: string;
-    amount: number;
+    price: number;
   };
   quantity: number;
   status: string;
@@ -30,6 +31,7 @@ const Dashboard = ({ serviceOwnerId }: any) => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
+    const { searchQuery } = useSearch();
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -58,27 +60,29 @@ const Dashboard = ({ serviceOwnerId }: any) => {
     }
   };
 
-  // Example progress calculation (mock)
   const calculateProgress = (status: string) => {
-    switch (status) {
+    switch (status.toLowerCase()) {
       case 'pending':
-        return '25%';
-      case 'in-progress':
+        return '0%';
+      case 'approved':
         return '50%';
-      case 'almost-done':
-        return '75%';
-      case 'completed':
+      case 'completed':  
         return '100%';
+      case 'rejected':
+        return '0%';
       default:
         return '0%';
     }
   };
 
+ const filteredOrders = orders.filter((order) =>
+  order?.serviceId?.serviceName?.toLowerCase().includes(searchQuery.toLowerCase())
+);
   return (
     <DefaultLayout serviceOwnerId={serviceOwnerId}>
       <div className={styles.dashboard_container}>
         <div className={styles.order_wrapper}>
-          {orders.map((order, id) => {
+          {(searchQuery ? filteredOrders : orders).map((order, id) => {
             const progress = calculateProgress(order.status);
             return (
               <div key={id} className={styles.order_container}>
@@ -89,7 +93,15 @@ const Dashboard = ({ serviceOwnerId }: any) => {
                 <div>
                   <p>{progress}</p>
                   <div className={styles.progressbar}>
-                    <div style={{ width: progress, background: 'green', height: '6px' }} />
+                     <div
+                      style={{
+                        width: progress,
+                        background: order.status === 'approved' ? 'green' : 'gray',
+                        height: '6px',
+                        borderRadius: '3px',
+                        transition: 'width 0.3s ease-in-out'
+                      }}
+                    />
                   </div>
                 </div>
                 <button>View</button>
@@ -100,34 +112,38 @@ const Dashboard = ({ serviceOwnerId }: any) => {
 
         <div className={styles.orderDetails}>
           <h3>ORDER DETAILS</h3>
-          {orders.map((item, id) => {
+         {orders.map((item, id) => {
             let statusClass = "";
             switch (item.status) {
-              case "completed":
-                statusClass = styles.statusCompleted;
+              case "approved":
+                statusClass = styles.statusApproved; // Define this class in your CSS
                 break;
               case "pending":
                 statusClass = styles.statusPending;
                 break;
-              case "cancel":
-                statusClass = styles.statusCanceled;
+              case "rejected":
+                statusClass = styles.statusRejected; // Or statusCanceled if preferred
                 break;
               default:
                 statusClass = "";
             }
 
             const fullName = `${item.userId.firstname} ${item.userId.lastname}`;
-            const imageSrc = item.userId.profileImage ?? "/default-avatar.png";
+
 
             return (
               <div key={id} className={styles.details_wrapper}>
                 <div className={styles.userbox}>
-                  <Image
-                    src={imageSrc}
-                    alt="Profile"
-                    width={30}
-                    height={30}
-                  />
+                 {item.userId?.profileImage ? (
+  <Image
+    src={item.userId.profileImage}
+    alt="Profile"
+    width={30}
+    height={30}
+  />
+) : (
+  <div style={{ width: 30, height: 30, backgroundColor: '#ccc', borderRadius: '50%' }} />
+)}
                   <div>
                     <p className={styles.item_name}>{fullName}</p>
                     <p className={styles.location}>{item.userId.location}</p>
@@ -142,7 +158,7 @@ const Dashboard = ({ serviceOwnerId }: any) => {
                     <p className={styles.item_name}>{item.serviceId.serviceName}</p>
                   </div>
                   <div className={styles.itembox}>
-                    <p className={styles.item_name}>${item.serviceId.amount}</p>
+                    <p className={styles.item_name}>${item.serviceId.price}</p>
                   </div>
                   <BsThreeDots className={styles.dots} />
                 </div>

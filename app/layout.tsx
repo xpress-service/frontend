@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from './contexts/AuthContext';
+import DefaultLayout from './_layoutcomponents/DefaultLayout';
+import ClientLayoutWrapper from './_layoutcomponents/ClientLayoutWrapper';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className} style={{width:'100%', backgroundColor:'#ff9b05'}}>
       <AuthProvider>
+         <ClientLayoutWrapper>
+      <DefaultLayout serviceOwnerId="">
         {children}
+      </DefaultLayout>
+    </ClientLayoutWrapper>
       </AuthProvider>
       </body>
     </html>

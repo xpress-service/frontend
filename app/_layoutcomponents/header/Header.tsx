@@ -6,6 +6,14 @@ import Image from "next/image";
 import axios from "axios";
 import styles from "../../sass/layout/layout.module.scss";
 import * as jwt_decode from "jwt-decode";
+import { FaFirstOrder, FaHamburger } from "react-icons/fa";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { GrClose, GrTransaction } from "react-icons/gr";
+import Link from "next/link";
+import { MdDashboard, MdTrackChanges } from "react-icons/md";
+import { HiHome } from "react-icons/hi";
+import { BiUser } from "react-icons/bi";
+import { useSearch } from "../searchContext";
 
 // Modal Component
 interface Order {
@@ -61,6 +69,8 @@ interface Notification {
   message: string;
   order: Order; 
 }
+
+
 // Header Component
 const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -69,6 +79,8 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
   const [showDropdown, setShowDropdown] = useState(false); // Toggle for dropdown
   const [orders, setOrders] = useState<Order[]>([]);
   const [profile, setProfile] = useState<any>({});
+  const [showMenu, setShowMenu] = useState(false);
+   const { searchQuery, setSearchQuery } = useSearch();
 
 
     // Fetch vendor's orders
@@ -164,8 +176,75 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     <div className={styles.layout_header}>
       <div className={styles.searchbox}>
         <CiSearch size={24} />
-        <input placeholder="Search..." />
+        <input placeholder="Search..." 
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        />
       </div>
+      {/* Hamburger Icon - Mobile Only */}
+      <div className={styles.hamburger} onClick={() => setShowMenu(!showMenu)}>
+  {showMenu ? (
+    <GrClose size={18} />
+  ) : (
+    <GiHamburgerMenu size={24} style={{ marginRight: '6px' }} />
+  )}
+</div>
+{/* Mobile Menu */}
+      {showMenu && (
+        <div className={`${styles.mobileMenu} ${showMenu ? styles.showMenu : ''}`}>
+                    <div className={styles.userbox_mobile}>
+        {/* Notification Icon */}
+        <button
+          onClick={() => setShowDropdown((prev) => !prev)} // Toggle dropdown
+          className={styles.notificationButton}
+        >
+          <TbNotification size={12} />
+          {notifications.length > 0 && <span className={styles.badge}>{notifications.length}</span>}
+        </button>
+
+    
+        {/* Notification Dropdown */}
+        {showDropdown && (
+          <div className={styles.notificationDropdown}>
+            {notifications.length > 0 ? (
+              notifications.map((notification) => (
+                <div
+                  key={notification.orderId}
+                  className={styles.notificationItem}
+                  onClick={() => handleNotificationClick(notification)}
+                >
+                  <p>{notification.message}</p>
+                </div>
+              ))
+            ) : (
+              <p className={styles.noNotifications}>No notifications</p>
+            )}
+          </div>
+        )}
+
+        {/* Profile Image */}
+        <Image
+          src={profile.profileImage}
+          alt="Profile"
+          width={30}
+          height={30}
+          className={styles.profileimg}
+        />
+      </div>
+          <Link href="/dashboard">
+          <MdDashboard size={16}/> Dashboard</Link>
+          <Link href="/servicelist">
+          <HiHome size={16}/> Home</Link>
+          <Link href="/orders">
+          <FaFirstOrder size={16}/> Orders</Link>
+          <Link href="/ordertracking">
+          <MdTrackChanges size={16}/> Tracking</Link>
+          <Link href="/transaction">
+          <GrTransaction size={16} /> Transaction</Link>
+          <Link href="/userprofile">
+          <BiUser size={16}/> Profile</Link>
+        </div>
+      )}
       <div className={styles.userbox}>
         {/* Notification Icon */}
         <button
@@ -176,6 +255,7 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
           {notifications.length > 0 && <span className={styles.badge}>{notifications.length}</span>}
         </button>
 
+    
         {/* Notification Dropdown */}
         {showDropdown && (
           <div className={styles.notificationDropdown}>
