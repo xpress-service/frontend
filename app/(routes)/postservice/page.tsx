@@ -10,6 +10,7 @@ import { useAuth } from '@/app/contexts/AuthContext';
 import DefaultLayout from '@/app/_layoutcomponents/DefaultLayout';
 import Swal from 'sweetalert2';
 
+
 interface ServiceFormValues {
   serviceName: string;
   category: string;
@@ -113,7 +114,6 @@ const AddService: React.FC = () => {
   
 
   return (
-    <DefaultLayout serviceOwnerId={serviceOwnerId || ''}>
     <div className={styles.service_container}>
       <Formik
         initialValues={initialValues}
@@ -181,7 +181,6 @@ const AddService: React.FC = () => {
       </Formik>
       
     </div>
-    </DefaultLayout>
   );
 };
 

@@ -5,11 +5,16 @@
   gap: 5px;
   background-color: #f4f4f4;
   border-radius: 9px;
-  width: 100%;
+  width: 97%;
+  max-width: 100vw;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    // padding: 0 20px;
+    margin-top: 70px;
 @include for-size(tablet-only){
   width: 100%;
-  padding: 0 10px;
-  margin-top: 40px;
+  padding: 0;
+  margin-top: 20px;
 }
   .pageHistory {
     display: flex;

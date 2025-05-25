@@ -1,9 +1,9 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DefaultLayout from '@/app/_layoutcomponents/DefaultLayout';
 import styles from '../../sass/postservice/service.module.scss';
 import { useSearch } from "../../_layoutcomponents/searchContext";
+
 
 interface Order {
   _id: string;
@@ -78,7 +78,6 @@ const OrderList = () => {
 );
 
   return (
-    <DefaultLayout serviceOwnerId={serviceOwnerId || ''}>
   <div className={styles.order_container}>
    {(searchQuery ? filteredOrders : orders).map((order) => (
       <div
@@ -123,7 +122,6 @@ const OrderList = () => {
       </div>
     )}
   </div>
-</DefaultLayout>
   );
 };
 

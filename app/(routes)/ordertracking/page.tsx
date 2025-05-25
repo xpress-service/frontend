@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import DefaultLayout from "@/app/_layoutcomponents/DefaultLayout";
 import styles from "../../sass/tracking/tracking.module.scss";
 import { MdInsertLink } from "react-icons/md";
 import { GrCompliance, GrLocation } from "react-icons/gr";
 import { SlLink } from "react-icons/sl";
 import axios from "axios";
+
 
 interface Steps {
   [key: string]: string; // Store actual tracking status
@@ -72,7 +72,6 @@ const Tracking = () => {
   }, [steps]);
 
   return (
-    <DefaultLayout serviceOwnerId={serviceOwnerId || ""}>
       <div className={styles.tracking_container}>
       <h2>Order Tracking</h2>
       {orders.length === 0 ? (
@@ -140,7 +139,6 @@ const Tracking = () => {
         ))
       )}
       </div>
-    </DefaultLayout>
   );
 };
 

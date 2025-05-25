@@ -14,14 +14,18 @@ import Image from "next/image";
 const Sidebar = () => {
     return(
         <div className={styles.sidebarItems}>
+             <Link href="/">
             <div className={styles.logo_box}>
+           
         <Image 
         src='/logo.jpg'
         alt="logo"
         width={50}
         height={50}
         />
+       
             </div>
+             </Link>
              <Link href='/dashboard'>
             <div className={styles.icons}>
            

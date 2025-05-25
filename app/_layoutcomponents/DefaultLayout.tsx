@@ -3,8 +3,6 @@ import { Inter } from "next/font/google";
 import Header from "../_layoutcomponents/header/Header";
 import Sidebar from "../_layoutcomponents/sidebar/Sidebar";
 import styles from "../sass/layout/layout.module.scss";
-import { SearchProvider } from "../_layoutcomponents/searchContext"; 
-import ClientLayoutWrapper from '../_layoutcomponents/ClientLayoutWrapper';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,7 +20,6 @@ export default function DefaultLayout({ children, serviceOwnerId }: DefaultLayou
   return (
     <html lang="en">
       <body className={inter.className}>
-         <ClientLayoutWrapper>
         <div className={styles.layout_container}>
           <div className={styles.default}>
             <header className={styles.header}>
@@ -36,7 +33,6 @@ export default function DefaultLayout({ children, serviceOwnerId }: DefaultLayou
             </div>
           </div>
         </div>
-        </ClientLayoutWrapper>
       </body>
     </html>
   );

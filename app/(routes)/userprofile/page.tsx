@@ -1,6 +1,5 @@
 'use client'
 import React, {useState, useEffect} from "react";
-import DefaultLayout from "@/app/_layoutcomponents/DefaultLayout";
 import Image from "next/image";
 import { BiPencil } from "react-icons/bi";
 import { GrLocation } from "react-icons/gr";
@@ -8,6 +7,8 @@ import styles from "../../sass/userprofile/userprofile.module.scss";
 import { BsThreeDots } from "react-icons/bs";
 import * as jwt_decode from "jwt-decode";
 import axios from 'axios';
+import Link from "next/link";
+
 
 const users = [
   {
@@ -106,7 +107,6 @@ const UserProfile = () => {
   }, []);
 
   return (
-    <DefaultLayout serviceOwnerId="">
       <div className={styles.profile_box}>
       <div className={styles.profile_container}>
         <div className={styles.rightContainer}>
@@ -118,7 +118,9 @@ const UserProfile = () => {
         <div className={styles.leftContainer}>
           <div className={styles.Basic}>
             <p  className={styles.basic_info}>Basic Info</p>
+            <Link href="/userprofile/complete-profile">
             <BiPencil size={12} />
+            </Link>
           </div>
           <div className={styles.info}>
             <div>
@@ -215,7 +217,6 @@ const UserProfile = () => {
         </div>
       </div>
       </div>
-    </DefaultLayout>
   );
 };
 

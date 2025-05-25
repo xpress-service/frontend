@@ -2,12 +2,12 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../contexts/AuthContext';
-import DefaultLayout from "@/app/_layoutcomponents/DefaultLayout";
 import Image from "next/image";
 import { BsThreeDots } from "react-icons/bs";
 import styles from "../../sass/layout/dashboard.module.scss";
 import axios from 'axios';
 import { useSearch } from "../../_layoutcomponents/searchContext";
+
 
 interface Order {
   _id: string;
@@ -79,7 +79,7 @@ const Dashboard = ({ serviceOwnerId }: any) => {
   order?.serviceId?.serviceName?.toLowerCase().includes(searchQuery.toLowerCase())
 );
   return (
-    <DefaultLayout serviceOwnerId={serviceOwnerId}>
+  
       <div className={styles.dashboard_container}>
         <div className={styles.order_wrapper}>
           {(searchQuery ? filteredOrders : orders).map((order, id) => {
@@ -97,7 +97,7 @@ const Dashboard = ({ serviceOwnerId }: any) => {
                       style={{
                         width: progress,
                         background: order.status === 'approved' ? 'green' : 'gray',
-                        height: '6px',
+                        height: '2px',
                         borderRadius: '3px',
                         transition: 'width 0.3s ease-in-out'
                       }}
@@ -167,7 +167,6 @@ const Dashboard = ({ serviceOwnerId }: any) => {
           })}
         </div>
       </div>
-    </DefaultLayout>
   );
 };
 

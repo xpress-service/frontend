@@ -4,7 +4,6 @@ import axios from 'axios';
 import styles from '../../sass/postservice/service.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
-import DefaultLayout from '@/app/_layoutcomponents/DefaultLayout';
 import { useSearch } from "../../_layoutcomponents/searchContext";
 
 interface Service {
@@ -79,7 +78,6 @@ const ServiceList: React.FC = () => {
 );
 
   return (
-    <DefaultLayout serviceOwnerId={serviceOwnerId || ''}>
       <div className={styles.services_list_box}>
         {/* <div className={styles.service_wrapper}> */}
           <div className={styles.create_service}>
@@ -120,8 +118,7 @@ const ServiceList: React.FC = () => {
             ))}
           </div>
         {/* </div> */}
-      </div>
-    </DefaultLayout>
+      </div> 
   );
 };
 

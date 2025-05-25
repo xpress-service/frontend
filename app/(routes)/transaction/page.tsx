@@ -1,4 +1,3 @@
-import DefaultLayout from '@/app/_layoutcomponents/DefaultLayout'
 import React from 'react'
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md'
 import styles from '../../sass/transaction/transaction.module.scss'
@@ -41,9 +40,8 @@ const payments = [
         amount: '10,000'
     },
 ]
-const Transaction = ({serviceOwnerId}:any) => {
+const Transaction = () => {
   return (
-    <DefaultLayout serviceOwnerId={serviceOwnerId}>
     <div className={styles.transactionContainer}>
 <section className={styles.pageHistory}>
     <div>
@@ -110,8 +108,7 @@ const Transaction = ({serviceOwnerId}:any) => {
 })}
 </section>
     </div>
- 
-    </DefaultLayout>
+
   )
 }
 
