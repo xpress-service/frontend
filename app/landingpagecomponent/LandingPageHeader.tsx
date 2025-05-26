@@ -16,8 +16,8 @@ const LandingPageHeader = () => {
           <li className={pathname === '/' ? styles.active : ''}>
             <Link href='/'>Home</Link>
           </li>
-          <li className={pathname === '/book' ? styles.active : ''}>
-            <Link href='/book'>Book</Link>
+          <li className={pathname === '/servicelist' ? styles.active : ''}>
+            <Link href='/servicelist'>Book</Link>
           </li>
           <li className={pathname === '/notification' ? styles.active : ''}>
             <Link href='/notification'>Notification</Link>

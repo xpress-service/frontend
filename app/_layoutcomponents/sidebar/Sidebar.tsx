@@ -7,6 +7,7 @@ import { GrTransaction } from "react-icons/gr";
 import styles from '../../sass/layout/layout.module.scss'
 import Link from "next/link";
 import Image from "next/image";
+import { CgChart, CgShoppingCart } from "react-icons/cg";
 
 
 
@@ -26,6 +27,16 @@ const Sidebar = () => {
        
             </div>
              </Link>
+
+            <Link href='/'>
+            <div className={styles.icons}>
+           
+            <CiHome size={26} className={styles.iconsActive}/>
+            <p>HOME</p>
+           
+            </div>
+            </Link>
+
              <Link href='/dashboard'>
             <div className={styles.icons}>
            
@@ -38,8 +49,8 @@ const Sidebar = () => {
             <Link href='/servicelist'>
             <div className={styles.icons}>
            
-            <CiHome size={26} className={styles.iconsActive}/>
-            <p>HOME</p>
+            <CgShoppingCart size={26} className={styles.iconsActive}/>
+            <p>SERVICES</p>
            
             </div>
             </Link>

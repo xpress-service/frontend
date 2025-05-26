@@ -14,6 +14,7 @@ import { MdDashboard, MdTrackChanges } from "react-icons/md";
 import { HiHome } from "react-icons/hi";
 import { BiUser } from "react-icons/bi";
 import { useSearch } from "../searchContext";
+import { CgShoppingCart } from "react-icons/cg";
 
 // Modal Component
 interface Order {
@@ -89,8 +90,8 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     if (serviceOwnerId) {
     try {
       const response = await axios.get(
-        `https://backend-production-d818.up.railway.app/api/orders/vendor/${serviceOwnerId}`,
-        // `http://localhost:5000/api/orders/vendor/${serviceOwnerId}`,
+        // `https://backend-production-d818.up.railway.app/api/orders/vendor/${serviceOwnerId}`,
+        `http://localhost:5000/api/orders/vendor/${serviceOwnerId}`,
       );
       setOrders(response.data); 
     } catch (error: unknown) {
@@ -109,8 +110,8 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     if (serviceOwnerId) {
       try {
         const response = await axios.get(
-          `https://backend-production-d818.up.railway.app/api/orders/notifications/${serviceOwnerId}`,
-          // `http://localhost:5000/api/orders/notifications/${serviceOwnerId}`,
+          // `https://backend-production-d818.up.railway.app/api/orders/notifications/${serviceOwnerId}`,
+          `http://localhost:5000/api/orders/notifications/${serviceOwnerId}`,
         );
         const formattedNotifications = response.data.map((notification: any) => ({
           orderId: notification.orderId._id,
@@ -150,8 +151,8 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
       const decodedUser = jwt_decode.jwtDecode(token);
       try {
         const response = await axios.get(
-          `https://backend-production-d818.up.railway.app/api/profile`,
-          // `http://localhost:5000/api/profile`, 
+          // `https://backend-production-d818.up.railway.app/api/profile`,
+          `http://localhost:5000/api/profile`, 
           {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -231,10 +232,12 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
           className={styles.profileimg}
         />
       </div>
+          <Link href="/">
+          <HiHome size={16}/> Home</Link>
           <Link href="/dashboard">
           <MdDashboard size={16}/> Dashboard</Link>
           <Link href="/servicelist">
-          <HiHome size={16}/> Home</Link>
+          <CgShoppingCart size={16}/> Services</Link>
           <Link href="/orders">
           <FaFirstOrder size={16}/> Orders</Link>
           <Link href="/ordertracking">

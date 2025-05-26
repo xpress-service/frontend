@@ -22,9 +22,9 @@ export default function DefaultLayout({ children, serviceOwnerId }: DefaultLayou
       <body className={inter.className}>
         <div className={styles.layout_container}>
           <div className={styles.default}>
-            <header className={styles.header}>
+            {/* <header className={styles.header}> */}
               <Header serviceOwnerId={serviceOwnerId} />
-            </header>
+            {/* </header> */}
             <div className={styles.content}>
               <aside className={styles.sidebar}>
                 <Sidebar />
