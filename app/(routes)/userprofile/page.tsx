@@ -9,53 +9,41 @@ import * as jwt_decode from "jwt-decode";
 import axios from 'axios';
 import Link from "next/link";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-const users = [
-  {
-    id: '1',
-    image: "/users/Ellipse 24.svg",
-    name:'Tosin Gabriel',
-    location:'Ojo, Lagos',
-    status:'Completed',
-    profession: 'Car repairer',
-    amount: '7,500'
-  },
-  {
-    id: '1',
-    image: '/users/Ellipse 24.svg',
-    name:'Tosin Gabriel',
-    location:'Ojo, Lagos',
-    status:'Pending',
-    profession: 'hair dresser',
-    amount: '11,500'
-  },
-  {
-    id: '1',
-    image: '/users/Ellipse 24.svg',
-    name:'Tosin Gabriel',
-    location:'Ojo, Lagos',
-    status:'Cancel',
-    profession: 'Fast food',
-    amount: '8,500'
-  }
-]
-
+interface Order {
+  _id: string;
+  serviceId: {
+    serviceName: string;
+    price: number;
+  };
+  quantity: number;
+  status: string;
+  userId: {
+    firstname: string;
+    lastname: string;
+    location: string;
+    phone: string;
+    email: string;
+    profileImage: string | null;
+  };
+}
 
 const UserProfile = () => {
   const [profile, setProfile] = useState<any>({});
-  const [order, setOrder] =useState<any>([]);
+  const [order, setOrder] = useState<any>([]);
+  const [orders, setOrders] = useState<Order[]>([])
 
   useEffect(() => {
     const fetchUserData = async () => {
       const token = localStorage.getItem("authToken");
-      console.log("Token:", token);  // Log the token to see if it's there
+      console.log("Token:", token);  
       if (token) {
         const decodedUser = jwt_decode.jwtDecode(token);
-        console.log("Decoded user:", decodedUser);  // Log the decoded token to ensure it's valid
+        console.log("Decoded user:", decodedUser);  
         try {
           const response = await axios.get(
-            `https://backend-production-d818.up.railway.app/api/profile`, 
-            // 'http://localhost:5000/api/profile',
+            `${baseUrl}/profile`, 
             {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -76,14 +64,13 @@ const UserProfile = () => {
 
     const fetchOrderData = async (orderId: string) => {
       const token = localStorage.getItem("authToken");
-      console.log("Token:", token);  // Log the token to see if it's there
+      console.log("Token:", token);  
       if (token) {
         const decodedUser = jwt_decode.jwtDecode(token);
-        console.log("Decoded user:", decodedUser);  // Log the decoded token to ensure it's valid
+        console.log("Decoded user:", decodedUser);  
         try {
           const response = await axios.get(
-            `https://backend-production-d818.up.railway.app/api/profile`, 
-            // `http://localhost:5000/api/tracking/order/${orderId}`,
+            `${baseUrl}/profile`, 
             {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -101,7 +88,24 @@ const UserProfile = () => {
       }
     };
 
-
+    const fetchVendorOrders = async () => {
+    const serviceOwnerId = localStorage.getItem('userId');
+    if (serviceOwnerId) {
+      try {
+        const response = await axios.get(
+          `${baseUrl}/orders/vendor/${serviceOwnerId}`,
+        );
+        setOrders(response.data);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.error('Error fetching orders:', error.message);
+        } else {
+          console.error('Unknown error occurred while fetching orders.');
+        }
+      }
+    }
+  };
+    fetchVendorOrders()
     fetchUserData();
     fetchOrderData(order);
   }, []);
@@ -175,9 +179,9 @@ const UserProfile = () => {
           </div>
           </div>
         
-        {users.map((user, id) =>{
+        {orders.map((item, id) =>{
            let statusClass = "";
-           switch (user.status) {
+           switch (item.status) {
              case "Completed":
                statusClass = styles.statusCompleted;
                break;
@@ -194,18 +198,18 @@ const UserProfile = () => {
             
             <div key={id} className={styles.userOrderbox}>
               <div className={styles.imgContainer}>
-              <Image src={user.image} alt="img" width={40} height={40}/>
+              <Image src={item.userId?.profileImage || "/default-profile.png"} alt="img" width={40} height={40}/>
               <div>
-                <p>{user.name}</p>
-                <p className={styles.location_text}>{user.location}</p>
+                <p>{item.userId.firstname}</p>
+                <p className={styles.location_text}>{item.userId.location}</p>
               </div>
               </div>
               <div className={styles.orders_info_box}>
               <p className={`${styles.status} ${statusClass}`}>
-                    {user.status}
+                    {item.status}
                   </p>
-              <p>{user.profession}</p>
-              <p>${user.amount}</p>
+              <p>{item.serviceId.serviceName}</p>
+              <p>${item.serviceId.price}</p>
               <BsThreeDots size={16}/>
               </div>
             </div>

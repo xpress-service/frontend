@@ -6,6 +6,7 @@ import { GrCompliance, GrLocation } from "react-icons/gr";
 import { SlLink } from "react-icons/sl";
 import axios from "axios";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 interface Steps {
   [key: string]: string; // Store actual tracking status
@@ -33,8 +34,7 @@ const Tracking = () => {
   const fetchOrders = async (ownerId: string) => {
     try {
       const response = await axios.get(
-        `https://backend-production-d818.up.railway.app/api/orders/vendor/${ownerId}`,
-        // `http://localhost:5000/api/orders/vendor/${ownerId}`,
+        `${baseUrl}/orders/vendor/${ownerId}`,
       );
       setOrders(response.data);
       response.data.forEach((order: any) => fetchTracking(order._id));
@@ -47,8 +47,7 @@ const Tracking = () => {
     try {
       console.log("Fetching tracking for order:", orderId); // Debugging line
       const response = await axios.get(
-        `https://backend-production-d818.up.railway.app/api/orders/tracking/order/${orderId}`,
-        // `http://localhost:5000/api/orders/tracting/order/${orderId}`,
+        `${baseUrl}/orders/tracking/order/${orderId}`,
       );
   
       if (response.status === 200) {

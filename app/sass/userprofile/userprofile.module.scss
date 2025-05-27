@@ -23,7 +23,7 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 8px;
-    padding: 15px 10px;
+    padding: 15px 20px;
     gap: 4px;
     @include for-size(tablet-only) {
       width: 100%;
@@ -159,12 +159,12 @@
     justify-content: flex-start;
     width: 100%;
     gap: 10px;
-    background-color: #f4f4f4;
+    background-color: #fff;
     border-radius: 8px;
-    padding: 15px 10px;
+    padding: 15px 20px;
     @include for-size(tablet-only) {
       width: 100%;
-      padding: 0 8px;
+      padding: 0 10px;
 
     }
     .name{
@@ -181,7 +181,7 @@
     align-items: center;
     width: 100%; 
     padding: 10px 10px;
-    background-color: #fff;
+    background-color: #f4f4f4;
     justify-content: space-between;
     @include for-size(tablet-only) {
       width: 100%;
@@ -216,11 +216,11 @@
   align-items: center;
   justify-content: flex-start;
   gap: 50px;
-  background-color: #fff;
+  background-color: #f4f4f4;
   padding: 0px 10px;
   @include for-size(tablet-only) {
     width: 100%;
-    padding: 2px;
+    padding: 0 10px;
     flex-wrap: wrap;
     gap: 5px;
   }

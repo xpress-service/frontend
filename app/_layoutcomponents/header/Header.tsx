@@ -6,7 +6,7 @@ import Image from "next/image";
 import axios from "axios";
 import styles from "../../sass/layout/layout.module.scss";
 import * as jwt_decode from "jwt-decode";
-import { FaFirstOrder, FaHamburger } from "react-icons/fa";
+import { FaFirstOrder } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose, GrTransaction } from "react-icons/gr";
 import Link from "next/link";
@@ -15,6 +15,8 @@ import { HiHome } from "react-icons/hi";
 import { BiUser } from "react-icons/bi";
 import { useSearch } from "../searchContext";
 import { CgShoppingCart } from "react-icons/cg";
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 // Modal Component
 interface Order {
@@ -36,7 +38,7 @@ const Modal: React.FC<ModalProps> = ({ order, onClose, onAction }) => {
 
   const handleAction = (status: string) => {
     onAction(order._id, status); // Handle accept or reject action
-    onClose(); // Close modal after action
+    onClose();
   };
 
   return (
@@ -57,7 +59,6 @@ const Modal: React.FC<ModalProps> = ({ order, onClose, onAction }) => {
 };
 
 
-// Define Types for Order and Notification
 interface Order {
   _id: string;
   serviceName: string;
@@ -90,8 +91,7 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     if (serviceOwnerId) {
     try {
       const response = await axios.get(
-        // `https://backend-production-d818.up.railway.app/api/orders/vendor/${serviceOwnerId}`,
-        `http://localhost:5000/api/orders/vendor/${serviceOwnerId}`,
+        `${baseUrl}/orders/vendor/${serviceOwnerId}`,
       );
       setOrders(response.data); 
     } catch (error: unknown) {
@@ -110,8 +110,7 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     if (serviceOwnerId) {
       try {
         const response = await axios.get(
-          // `https://backend-production-d818.up.railway.app/api/orders/notifications/${serviceOwnerId}`,
-          `http://localhost:5000/api/orders/notifications/${serviceOwnerId}`,
+          `${baseUrl}/orders/notifications/${serviceOwnerId}`,
         );
         const formattedNotifications = response.data.map((notification: any) => ({
           orderId: notification.orderId._id,
@@ -124,7 +123,7 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
           },
         }));
         setNotifications(formattedNotifications);
-        console.log("Notifications:", formattedNotifications); // Debug log
+        console.log("Notifications:", formattedNotifications); 
       } catch (error) {
         console.error("Error fetching notifications:", error);
       }
@@ -136,7 +135,7 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
   const handleNotificationClick = (notification: Notification) => {
     setSelectedOrder(notification.order);
     setIsModalOpen(true);
-    setShowDropdown(false); // Close the dropdown when a notification is clicked
+    setShowDropdown(false);
   };
 
   // Close the modal
@@ -151,8 +150,7 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
       const decodedUser = jwt_decode.jwtDecode(token);
       try {
         const response = await axios.get(
-          // `https://backend-production-d818.up.railway.app/api/profile`,
-          `http://localhost:5000/api/profile`, 
+          `${baseUrl}/profile`, 
           {
           headers: {
             Authorization: `Bearer ${token}`,

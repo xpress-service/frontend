@@ -16,6 +16,7 @@ interface Service {
   imageUrl: string;
   serviceOwnerId: string;
 }
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 const ServiceList: React.FC = () => {
   const [services, setServices] = useState<Service[]>([]);
@@ -29,8 +30,7 @@ const ServiceList: React.FC = () => {
     const fetchServices = async () => {
       try {
         const response = await axios.get(
-          'https://backend-production-d818.up.railway.app/api/services',
-          // 'http://localhost:5000/api/services',
+          `${baseUrl}/services`,
         );
         setServices(response.data);
       } catch (error) {
@@ -40,8 +40,8 @@ const ServiceList: React.FC = () => {
 
     fetchServices();
 
-    // Fetch serviceOwnerId (e.g., from local storage or API)
-    const storedOwnerId = localStorage.getItem('serviceOwnerId'); // Replace with actual logic
+    // Fetch serviceOwnerId (from local storage or API)
+    const storedOwnerId = localStorage.getItem('serviceOwnerId'); 
     if (storedOwnerId) {
       setServiceOwnerId(storedOwnerId);
     } else {
@@ -54,10 +54,9 @@ const ServiceList: React.FC = () => {
     setMessage(null);
 
     try {
-      const userId = localStorage.getItem('userId'); // Replace with actual logged-in user's ID
+      const userId = localStorage.getItem('userId'); 
       const response = await axios.post(
-        'https://backend-production-d818.up.railway.app/api/orders',
-        // 'http://localhost:5000/api/orders',
+        `${baseUrl}/orders`,
          {
         serviceId,
         userId,

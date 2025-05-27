@@ -9,6 +9,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 const SignIn = () => {
   const { login } = useAuth();
   const router = useRouter();
@@ -26,8 +28,7 @@ const SignIn = () => {
   const onSubmit = async (values: any, { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }) => {
     try {
       const response = await axios.post(
-        'https://backend-production-d818.up.railway.app/api/auth/login',
-        // 'http://localhost:5000/api/auth/login',
+        `${baseUrl}/auth/login`,
          values);
       const { token, userId } = response.data;
   
@@ -36,7 +37,7 @@ const SignIn = () => {
   
         // Fetch user profile to check if it is complete
         const profileResponse = await axios.get(
-          `https://backend-production-d818.up.railway.app/api/profile`, 
+          `${baseUrl}/profile`, 
           // 'http://localhost:5000/api/profile',
           {
           headers: { Authorization: `Bearer ${token}` },

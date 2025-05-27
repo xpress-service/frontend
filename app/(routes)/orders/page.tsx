@@ -4,6 +4,7 @@ import axios from 'axios';
 import styles from '../../sass/postservice/service.module.scss';
 import { useSearch } from "../../_layoutcomponents/searchContext";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 interface Order {
   _id: string;
@@ -31,8 +32,7 @@ const OrderList = () => {
     if (serviceOwnerId) {
       try {
         const response = await axios.get(
-          `https://backend-production-d818.up.railway.app/api/orders/vendor/${serviceOwnerId}`,
-          // `http://localhost:5000/api/orders/vendor/${serviceOwnerId}`,
+          `${baseUrl}/orders/vendor/${serviceOwnerId}`,
         );
         setOrders(response.data);
       } catch (error: unknown) {
@@ -48,8 +48,7 @@ const OrderList = () => {
   const handleOrderStatusChange = async (orderId: string, status: string) => {
     try {
       const response = await axios.patch(
-        `https://backend-production-d818.up.railway.app/api/orders/${orderId}`, 
-        // `http://localhost:5000/api/orders/${orderId}`,
+        `${baseUrl}/orders/${orderId}`, 
         { status });
       if (response.status === 200) {
         // Update the order status locally

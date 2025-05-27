@@ -132,7 +132,7 @@
             h1{
                 font-size: medium;
                 font-weight: 700;
-                color: #fff;
+                color: #000;
             }
 
             button{
@@ -140,10 +140,11 @@
                 align-items: center;
                 justify-content: center;
                 padding: 10px 10px;
-                border: 0.3px solid #f4f4f4;
+                border: 0.3px solid #ff9b05;
                 background: transparent;
                 border-radius: 10px;
-                color: #fff;
+                color: #000;
+                cursor: pointer;
             }
         }
         .service_list {

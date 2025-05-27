@@ -7,9 +7,9 @@ import * as jwt_decode from 'jwt-decode';
 import { useRouter } from 'next/navigation';
 import styles from '../../sass/postservice/service.module.scss';
 import { useAuth } from '@/app/contexts/AuthContext';
-import DefaultLayout from '@/app/_layoutcomponents/DefaultLayout';
 import Swal from 'sweetalert2';
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 interface ServiceFormValues {
   serviceName: string;
@@ -25,7 +25,7 @@ const AddService: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const { userId } = useAuth();
-   const [serviceOwnerId, setServiceOwnerId] = useState<string | null>(null); // Add state for serviceOwnerId
+   const [serviceOwnerId, setServiceOwnerId] = useState<string | null>(null); 
 
   const initialValues: ServiceFormValues = {
     serviceName: '',
@@ -83,8 +83,7 @@ const AddService: React.FC = () => {
 
   
       const response = await axios.post(
-        'https://backend-production-d818.up.railway.app/api/services',
-        // 'http://localhost:5000/api/services',
+        `${baseUrl}/services`,
         formData,
         {
           headers: {

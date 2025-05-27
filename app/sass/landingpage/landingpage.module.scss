@@ -17,7 +17,8 @@
     }
   section {
     width: 100%;
-    background-color: #ff9b05;
+    background-color: #f4f4f4;
+    flex-shrink: 1;
     padding: 20px 0px;
     @include for-size(tablet-only) {
       width: 100vw

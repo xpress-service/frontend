@@ -5,6 +5,7 @@ import axios from 'axios';
 import NotificationHeader from '@/app/_layoutcomponents/header/NotificationHeader';
 import styles from '../../sass/transaction/notification.module.scss';
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 type NotificationType = {
     _id: string;
@@ -23,8 +24,7 @@ const Notification = () => {
     const fetchNotifications = async () => {
       try {
         const res = await axios.get(
-          `https://backend-production-d818.up.railway.app/api/orders/notifications/${userId}`,
-          // `http://localhost:5000/api/orders/notifications/${userId}`,
+          `${baseUrl}/orders/notifications/${userId}`,
         );
         const data: NotificationType[] = res.data;
         setMessages(res.data);

@@ -21,7 +21,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className} style={{width:'100%', backgroundColor:'#ff9b05'}}>
+      <body className={inter.className} style={{width:'100%', backgroundColor:'#f4f2ee'}}>
       <AuthProvider>
         {children}
       </AuthProvider>

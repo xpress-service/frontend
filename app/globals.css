@@ -1,7 +1,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #ff9b05;
+  /* background-color: #ff9b05; */
+  background-color: #f4f4f4;
   overflow-y: scroll;
   overflow-x: hidden;
   padding: 0;

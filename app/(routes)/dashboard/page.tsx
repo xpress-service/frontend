@@ -8,6 +8,7 @@ import styles from "../../sass/layout/dashboard.module.scss";
 import axios from 'axios';
 import { useSearch } from "../../_layoutcomponents/searchContext";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 interface Order {
   _id: string;
@@ -27,7 +28,7 @@ interface Order {
   };
 }
 
-const Dashboard = ({ serviceOwnerId }: any) => {
+const Dashboard = () => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
@@ -46,8 +47,7 @@ const Dashboard = ({ serviceOwnerId }: any) => {
     if (serviceOwnerId) {
       try {
         const response = await axios.get(
-          `https://backend-production-d818.up.railway.app/api/orders/vendor/${serviceOwnerId}`,
-          // `http://localhost:5000/api/orders/vendor/${serviceOwnerId}`,
+          `${baseUrl}/orders/vendor/${serviceOwnerId}`,
         );
         setOrders(response.data);
       } catch (error: unknown) {

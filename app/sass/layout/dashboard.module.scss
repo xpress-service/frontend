@@ -27,8 +27,9 @@
     width: 100%;
     gap: 10px;
     padding: 8px;
-    background-color: #f4f4f4;
+    background-color: #fafafa;
     border-radius: 10px;
+   box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
     @include for-size(tablet-only) {
              width: 100%;
         padding: 10px;
@@ -70,12 +71,12 @@
       display: flex;
       width: 250px;
         height: 1px;
-      border-bottom: 2px solid #ff9;
+      border-bottom: 2px solid #f8deb8;
       @include for-size(tablet-only){
         display: flex;
       width: 100px;
       height: 1px;
-      border-bottom: 2px solid #ff9;
+      border-bottom: 2px solid #f8deb8;
       }
     }
      
@@ -102,8 +103,9 @@
     width: 100%;
     gap: 10px;
     padding: 8px;
-    background-color: #f4f4f4;
+    background-color: #fafafa;
     border-radius: 10px;
+    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
     @include for-size(tablet-only) {
       width: 100%;
     }
