@@ -33,6 +33,7 @@ const UserProfile = () => {
   const [profile, setProfile] = useState<any>({});
   const [order, setOrder] = useState<any>([]);
   const [orders, setOrders] = useState<Order[]>([])
+   const [visibleCount, setVisibleCount] = useState(10);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -110,6 +111,14 @@ const UserProfile = () => {
     fetchOrderData(order);
   }, []);
 
+const handleToggleView = () => {
+  if (visibleCount >= orders.length) {
+    setVisibleCount(10); // Reset back to 10 (View Less)
+  } else {
+    setVisibleCount(prev => prev + 10); // Show 10 more (View More)
+  }
+};
+
   return (
       <div className={styles.profile_box}>
       <div className={styles.profile_container}>
@@ -179,7 +188,7 @@ const UserProfile = () => {
           </div>
           </div>
         
-        {orders.map((item, id) =>{
+        {orders.slice(0, visibleCount).map((item, id) => {
            let statusClass = "";
            switch (item.status) {
              case "Completed":
@@ -216,9 +225,14 @@ const UserProfile = () => {
           
           )
         })}
-        <div className={styles.viewbox}>
-        <button className={styles.viewbtn}>View More</button>
-        </div>
+         {/* View More / View Less Button */}
+      <div className={styles.viewbox}>
+        {orders.length > 10 && (
+          <button onClick={handleToggleView} className={styles.viewbtn}>
+            {visibleCount >= orders.length ? 'View Less' : 'View More'}
+          </button>
+        )}
+      </div>
       </div>
       </div>
   );

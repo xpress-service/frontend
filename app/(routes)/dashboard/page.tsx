@@ -7,6 +7,7 @@ import { BsThreeDots } from "react-icons/bs";
 import styles from "../../sass/layout/dashboard.module.scss";
 import axios from 'axios';
 import { useSearch } from "../../_layoutcomponents/searchContext";
+import { CgClose } from "react-icons/cg";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -32,6 +33,9 @@ const Dashboard = () => {
   const { isAuthenticated } = useAuth();
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+const [isModalOpen, setIsModalOpen] = useState(false);
+
     const { searchQuery } = useSearch();
 
   useEffect(() => {
@@ -104,7 +108,15 @@ const Dashboard = () => {
                     />
                   </div>
                 </div>
-                <button>View</button>
+               <button
+            onClick={() => {
+              setSelectedOrder(order);
+              setIsModalOpen(true);
+            }}
+          >
+            View
+          </button>
+
               </div>
             );
           })}
@@ -135,15 +147,15 @@ const Dashboard = () => {
               <div key={id} className={styles.details_wrapper}>
                 <div className={styles.userbox}>
                  {item.userId?.profileImage ? (
-  <Image
-    src={item.userId.profileImage}
-    alt="Profile"
-    width={30}
-    height={30}
-  />
-) : (
-  <div style={{ width: 30, height: 30, backgroundColor: '#ccc', borderRadius: '50%' }} />
-)}
+        <Image
+          src={item.userId.profileImage}
+          alt="Profile"
+          width={30}
+          height={30}
+        />
+      ) : (
+            <div style={{ width: 30, height: 30, backgroundColor: '#ccc', borderRadius: '50%' }} />
+          )}
                   <div>
                     <p className={styles.item_name}>{fullName}</p>
                     <p className={styles.location}>{item.userId.location}</p>
@@ -160,13 +172,56 @@ const Dashboard = () => {
                   <div className={styles.itembox}>
                     <p className={styles.item_name}>${item.serviceId.price}</p>
                   </div>
-                  <BsThreeDots className={styles.dots} />
+                  <BsThreeDots size={16} className={styles.dots} />
                 </div>
               </div>
             );
           })}
         </div>
+
+        {isModalOpen && selectedOrder && (
+  <div className={styles.modalOverlay}>
+    <div className={styles.modalContent}>
+      <button onClick={() => setIsModalOpen(false)} className={styles.closeButton}>
+        <CgClose size={16}/>
+      </button>
+
+      <div className={styles.userbox}>
+        {selectedOrder.userId?.profileImage ? (
+          <Image
+            src={selectedOrder.userId.profileImage}
+            alt="Profile"
+            width={40}
+            height={40}
+          />
+        ) : (
+          <div style={{ width: 30, height: 30, backgroundColor: '#ccc', borderRadius: '50%' }} />
+        )}
+        <div>
+          <p className={styles.item_name}>
+            Name: {selectedOrder.userId.firstname} {selectedOrder.userId.lastname}
+          </p>
+          <p className={styles.location}>Location: {selectedOrder.userId.location}</p>
+        </div>
       </div>
+
+      <div className={styles.itembox_container}>
+        <div className={styles.itembox}>
+          <p className={`${styles.status} ${styles[`status${selectedOrder.status.charAt(0).toUpperCase() + selectedOrder.status.slice(1)}`]}`}>
+            Staus: {selectedOrder.status}
+          </p>
+        </div>
+        <div className={styles.itembox}>
+          <p className={styles.item_name}>Service ordered: {selectedOrder.serviceId.serviceName}</p>
+        </div>
+        <div className={styles.itembox}>
+          <p className={styles.item_name}>Price: ${selectedOrder.serviceId.price}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+</div>    
   );
 };
 
