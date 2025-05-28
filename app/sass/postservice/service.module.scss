@@ -9,7 +9,6 @@
     box-sizing: border-box;
     overflow-x: hidden;
     height: 100vh;
-    // margin-top: 70px;
     padding: 0 20px;
     @include for-size(tablet-only){
         width: 100%;
@@ -22,12 +21,11 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        background-color: #f4f4f4;
+        background-color: #fff;
         border-radius: 10px;
         gap: 15px;
         width: 100%;
-        padding: 10px 10px;
-        margin-top: 15px;
+        padding: 10px 20px;
         color: #000;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         @include for-size(tablet-only){
@@ -48,13 +46,13 @@
         }
         .formfields{
             display: flex;
-            width: 100%;
-            border: 0.5px solid #ff9b05;
+            width: 97%;
+            border: 1px solid #ff9b05;
             outline: none;
             border-radius: 10px;
             align-items: center;
             justify-content: center;
-            padding: 5px;
+            padding: 15px;
             @include for-size(tablet-only){
                 width: 100%;
                 justify-content: center;
@@ -283,12 +281,13 @@
     width: 100%;
     box-sizing: border-box;
     overflow-x: hidden;
+    margin-bottom: 60px;
     @include for-size(tablet-only){
        display: grid;
   grid-template-columns: repeat(2, 1fr); 
   gap: 16px; 
   width: 100%;
-  margin-top: 20px;
+  padding: 10px 20px;
     }
 
     .order_card{

@@ -5,7 +5,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  // margin-top: 70px;
   margin-bottom: 40px;
   gap: 10px;
   box-sizing: border-box;
@@ -18,7 +17,6 @@
     align-items: center;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px;
     padding: 10px;
   }
   h2{
@@ -200,13 +198,18 @@
     @include for-size(tablet-only) {
       width: 100%;
       display: flex;
-      // flex-direction: column;
-      // align-items: flex-start;
-      // gap: 10px;
+    }
+    p {
+      font-size: 16px;
+      padding: 0 3px;
+      @include for-size(tablet-only){
+        font-size: 14px;
+      }
     }
     .complainbtns {
       display: flex;
       gap: 10px;
+      padding: 0 3px;
       @include for-size(tablet-only){
         display: flex;
         justify-content: flex-end;

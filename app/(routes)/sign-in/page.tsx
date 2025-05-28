@@ -33,16 +33,14 @@ const SignIn = () => {
       const { token, userId } = response.data;
   
       if (token) {
-        login(token, userId); // Store authentication info
+        login(token, userId); 
   
         // Fetch user profile to check if it is complete
         const profileResponse = await axios.get(
           `${baseUrl}/profile`, 
-          // 'http://localhost:5000/api/profile',
           {
           headers: { Authorization: `Bearer ${token}` },
         });
-  
         const userProfile = profileResponse.data;
         
         // Check if required profile fields are filled
@@ -55,9 +53,9 @@ const SignIn = () => {
           userProfile.birthdate &&
           userProfile.gender &&
           userProfile.phone) {
-          router.push('/servicelist'); // Profile exists, go to servicelist
+          router.push('/servicelist'); 
         } else {
-          router.push('/userprofile/complete-profile'); // Incomplete profile, go to profile page
+          router.push('/userprofile/complete-profile'); 
         }
       } else {
         console.error('Token or User ID missing in the response');
@@ -71,7 +69,6 @@ const SignIn = () => {
     }
   };
   
-
   return (
     <div className={styles.signIn_container}>
       <main>

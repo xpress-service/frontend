@@ -21,8 +21,8 @@ export default function LandinPage() {
     <Image
       src="/deliveryman.svg"
       alt="Delivery Man"
-      width={350}
-      height={350}
+      width={300}
+      height={300}
       className={styles.bannerImg}
     />
     <p>Order for your favourite meal</p>

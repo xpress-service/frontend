@@ -27,6 +27,7 @@ width: 100%;
       border: 2px solid #dfdfdf;
       padding: 5px;
       text-align: center;
+      padding: 12px 15px;
       @include for-size(tablet-only){
         width: 100%;
         gap: 30px;
@@ -136,6 +137,9 @@ width: 100%;
             border: 0.5px solid rgb(47, 142, 232);
         }
        
+      }
+      a{
+        text-decoration: none;
       }
     }
     .rightside_login {

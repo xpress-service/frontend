@@ -95,6 +95,7 @@ text-align: left;
           gap: 2px;
           .bannerImg{
             border-radius: 50%;
+            width: 260px;
             @include for-size(tablet-only){
               width: 80px;
               height: 80px;
