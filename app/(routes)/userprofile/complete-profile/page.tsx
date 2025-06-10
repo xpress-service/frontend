@@ -6,6 +6,8 @@ import * as jwt_decode from "jwt-decode";
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation';
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 interface FormData {
   role: string;
   servicesOffered: string[];
@@ -51,8 +53,7 @@ const CreateProfile = () => {
       console.log("Decoded user:", decodedUser);  
       try {
         const response = await axios.get(
-          `https://backend-production-d818.up.railway.app/api/profile`, 
-          // 'http://localhost:5000/api/profile',
+          `${baseUrl}/profile`, 
           {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -142,8 +143,7 @@ const CreateProfile = () => {
   
         // Proceed with the profile update if token is valid
         const response = await axios.put(
-          'https://backend-production-d818.up.railway.app/api/profile', 
-          // 'http://localhost:5000/api/profile',
+          `${baseUrl}/profile`, 
           data, {
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -165,6 +165,12 @@ const CreateProfile = () => {
         } else {
           setErrorMessage(error.message || "An unknown error occurred.");
         }
+         Swal.fire({
+            title: 'Error!',
+            text: 'Profile update failed',
+            icon: 'error',
+            confirmButtonText: 'OK'
+          });
       } finally {
         setIsLoading(false);
       }
@@ -300,20 +306,11 @@ const CreateProfile = () => {
     ) : (
       // Show selected services once an option is selected
       <div className={styles.pro}>
-        {/* <h4>Selected Services:</h4> */}
         <ul >
           {formData.servicesOffered.map((service, index) => (
             <li key={index}>{service}</li>
           ))}
         </ul>
-        {/* <button
-          onClick={() => {
-            // Reset the selection and show the dropdown again
-            setFormData({ ...formData, servicesOffered: [] });
-          }}
-        >
-          Edit Selection
-        </button> */}
       </div>
     )}
   </div>

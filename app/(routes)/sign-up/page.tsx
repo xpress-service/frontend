@@ -7,6 +7,9 @@ import styles from '../../sass/signin/signup.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
+
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 interface FormValues {
   firstname: string;
@@ -34,13 +37,26 @@ const SignUp = () => {
   const onSubmit = async (values: FormValues, { setSubmitting }: FormikHelpers<FormValues>) => {
     try {
       await axios.post(
-        'https://backend-production-d818.up.railway.app/api/auth/register', 
-        // 'http://localhost:5000/api/auth/register',
+        `${baseUrl}/auth/register`, 
         values);
-      alert('User registered successfully');
+      // alert('User registered successfully');
+      Swal.fire({
+    title: 'Success',
+    text: 'User registered successfully.',
+    icon: 'success',
+    timer: 2000,
+    showConfirmButton: false
+  });
       router.push('/sign-in')
     } catch (error) {
       console.error('Error registering user:', error);
+      Swal.fire({
+    title: 'Error',
+    text: 'Registration failed. Please try again.',
+    icon: 'error',
+    timer: 2000,
+    showConfirmButton: false
+  });
     } finally {
       setSubmitting(false);
     }

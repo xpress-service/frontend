@@ -1,5 +1,5 @@
  'use client'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import { TbNotification } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
 import Image from "next/image";
@@ -23,13 +23,25 @@ interface Order {
   _id: string;
   serviceName: string;
   quantity: number;
-  userName: string;
+  firstname: string;
+   vendorName: string;
+}
+
+interface Notification {
+  orderId: string;
+  message: string;
+  order: Order; 
 }
 
 interface ModalProps {
   order: Order | null;
   onClose: () => void;
   onAction: (orderId: string, status: string) => void;
+}
+
+interface UserPaymentModalProps {
+  order: Order;
+  onClose: () => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ order, onClose, onAction }) => {
@@ -47,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({ order, onClose, onAction }) => {
         <h2>Order Details</h2>
         <p>Service: {order.serviceName}</p>
         <p>Quantity: {order.quantity}</p>
-        <p>User: {order.userName}</p>
+        <p>User: {order.firstname}</p>
         <div className={styles.modalActions}>
           <button onClick={() => handleAction("Approved")}>Accept</button>
           <button onClick={() => handleAction("Rejected")}>Reject</button>
@@ -59,19 +71,50 @@ const Modal: React.FC<ModalProps> = ({ order, onClose, onAction }) => {
 };
 
 
-interface Order {
-  _id: string;
-  serviceName: string;
-  quantity: number;
-  userName: string;
-}
+const UserPaymentModal: React.FC<UserPaymentModalProps> = ({ order, onClose },  orderId:string) => {
+  const handlePaymentChoice = async (method: 'online' | 'offline') => {
+    try {
+      // Step 1: Update payment method
+      const res = await axios.patch(`${baseUrl}/orders/payment-method/${orderId}`, {
+        method,
+      });
+  console.log(res.data)
+      if (method === 'online') {
+        // Step 2: Initiate Paystack payment
+        const initiateRes = await axios.post(`${baseUrl}/orders/payments/initiate`, {
+          orderId: order._id,
+        });
 
-interface Notification {
-  orderId: string;
-  message: string;
-  order: Order; 
-}
+        const paymentUrl = initiateRes.data.authorization_url;
+        window.location.href = paymentUrl;
+      } else {
+        alert('Offline payment selected. Follow vendor instructions.');
+        onClose();
+      }
+    } catch (error: any) {
+      console.error('Error processing payment:', error);
+      alert('Payment process failed. Try again.');
+    }
+  };
 
+
+  
+  return (
+    <div className={styles.modal}>
+      <div className={styles.modalContent}>
+        <h2>Choose Payment Method</h2>
+        <p>Service: {order.serviceName}</p>
+        <p>Quantity: {order.quantity}</p>
+        <p>Vendor: {order.firstname}</p>
+        <div className={styles.modalActions}>
+          <button onClick={() => handlePaymentChoice('online')}>Pay Online</button>
+          <button onClick={() => handlePaymentChoice('offline')}>Pay Offline</button>
+        </div>
+        <button className={styles.closeModal} onClick={onClose}>Close</button>
+      </div>
+    </div>
+  );
+};
 
 // Header Component
 const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
@@ -83,6 +126,21 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
   const [profile, setProfile] = useState<any>({});
   const [showMenu, setShowMenu] = useState(false);
    const { searchQuery, setSearchQuery } = useSearch();
+   const [isVendor, setIsVendor] = useState<boolean>(false); 
+const [userRole, setUserRole] = useState<string | null>(null);
+
+
+const handleVendorAction = async (orderId: string, status: string) => {
+  try {
+    await axios.patch(`${baseUrl}/orders/status/${orderId}`, { status });
+    alert(`Order ${status}`);
+    fetchVendorOrders(); // Refresh order list
+  } catch (error) {
+    console.error("Error updating order status:", error);
+    alert("Failed to update order status");
+  }
+};
+
 
 
     // Fetch vendor's orders
@@ -91,7 +149,7 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     if (serviceOwnerId) {
     try {
       const response = await axios.get(
-        `${baseUrl}/orders/vendor/${serviceOwnerId}`,
+        `${baseUrl}/orders/notifications/${serviceOwnerId}`,
       );
       setOrders(response.data); 
     } catch (error: unknown) {
@@ -106,37 +164,76 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
 
   // Fetch notifications for the vendor
   const fetchNotifications = async () => {
-    const serviceOwnerId = localStorage.getItem("userId");
-    if (serviceOwnerId) {
-      try {
-        const response = await axios.get(
-          `${baseUrl}/orders/notifications/${serviceOwnerId}`,
-        );
-        const formattedNotifications = response.data.map((notification: any) => ({
+  const serviceOwnerId = localStorage.getItem("userId");
+
+  if (serviceOwnerId) {
+    try {
+      const response = await axios.get(
+        `${baseUrl}/orders/notifications/${serviceOwnerId}`
+      );
+
+      console.log("Raw notification response:", response.data);
+
+      const formattedNotifications = response.data.map((notification: any) => {
+        const user = notification.orderId.userId;
+
+        return {
           orderId: notification.orderId._id,
           message: notification.message,
           order: {
             _id: notification.orderId._id,
-            serviceName: notification.message.split(":")[1].trim(),
-            quantity: 1,
-            userName: "Unknown",
+            serviceName: notification.message.split(":")[1]?.trim(),
+            quantity: notification.orderId.quantity,
+            userName: user
+              ? `${user.firstname} ${user.lastname}`
+              : "Unknown",
           },
-        }));
-        setNotifications(formattedNotifications);
-        console.log("Notifications:", formattedNotifications); 
-      } catch (error) {
-        console.error("Error fetching notifications:", error);
-      }
-    }
-  };
-  
+        };
+      });
 
-  // Open modal with the selected order
+      setNotifications(formattedNotifications);
+      console.log("Formatted notifications:", formattedNotifications);
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+    }
+  }
+};
+
+  
+  //fetch notification for customer
+  const fetchUserNotifications = async () => {
+  const userId = localStorage.getItem("userId"); // this should be the ID of the customer
+  if (userId) {
+    try {
+      const response = await axios.get(`${baseUrl}/orders/notifications/user/${userId}`);
+      const formattedNotifications = response.data.map((notification: any) => ({
+        orderId: notification.orderId._id,
+        message: notification.message,
+        order: {
+          _id: notification.orderId._id,
+          serviceName: notification.message.split(":")[1]?.trim() || '',
+          quantity: notification.orderId.quantity,
+          vendorName: "Unknown",
+        },
+      }));
+      setNotifications(formattedNotifications);
+      console.log("User Notifications:", formattedNotifications);
+    } catch (error) {
+      console.error("Error fetching user notifications:", error);
+    }
+  }
+};
+
   const handleNotificationClick = (notification: Notification) => {
-    setSelectedOrder(notification.order);
-    setIsModalOpen(true);
-    setShowDropdown(false);
-  };
+  setSelectedOrder(notification.order);
+  setIsModalOpen(true);
+
+  if (notification.message.toLowerCase().includes("accepted")) {
+    setIsVendor(false);
+  } else {
+    setIsVendor(true);
+  }
+};
 
   // Close the modal
   const handleCloseModal = () => {
@@ -165,11 +262,32 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
     }
   };
 
+  // useEffect(() => {
+  //   fetchNotifications();
+  //   fetchUserData();
+  //   fetchVendorOrders();
+  //   fetchUserNotifications()
+  // }, [serviceOwnerId]);
+
   useEffect(() => {
-    fetchNotifications();
+  const token = localStorage.getItem("authToken");
+  if (token) {
+    const decodedUser: any = jwt_decode.jwtDecode(token);
+    const role = decodedUser.role;
+
+    setUserRole(role);
     fetchUserData();
-    fetchVendorOrders();
-  }, [serviceOwnerId]);
+
+    if (role === "vendor") {
+      fetchNotifications(); // vendor
+      fetchVendorOrders();
+    } else {
+      fetchUserNotifications(); // customer
+    }
+  }
+}, [serviceOwnerId]);
+
+console.log("Fetching notifications for serviceOwnerId:", serviceOwnerId);
 
   return (
     <div className={styles.layout_header}>
@@ -197,13 +315,15 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
           onClick={() => setShowDropdown((prev) => !prev)} // Toggle dropdown
           className={styles.notificationButton}
         >
-          <TbNotification size={12} />
+          <TbNotification size={16} />
           {notifications.length > 0 && <span className={styles.badge}>{notifications.length}</span>}
         </button>
 
     
         {/* Notification Dropdown */}
         {showDropdown && (
+          <>
+           <div className="overlay"></div>
           <div className={styles.notificationDropdown}>
             {notifications.length > 0 ? (
               notifications.map((notification) => (
@@ -219,6 +339,7 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
               <p className={styles.noNotifications}>No notifications</p>
             )}
           </div>
+          </>
         )}
 
         {/* Profile Image */}
@@ -286,10 +407,22 @@ const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
         />
       </div>
 
-      {/* Modal */}
-      {isModalOpen && selectedOrder && (
-        <Modal order={selectedOrder} onClose={handleCloseModal} onAction={() => {}} />
-      )}
+    {isModalOpen && selectedOrder && (
+  isVendor ? (
+    <Modal
+      order={selectedOrder}
+      onClose={handleCloseModal}
+      onAction={handleVendorAction} // You'll need to define this
+    />
+  ) : (
+    <UserPaymentModal
+      order={selectedOrder}
+      onClose={handleCloseModal}
+    />
+  )
+)}
+
+
     </div>
   );
 };

@@ -5,6 +5,7 @@ import styles from '../../sass/postservice/service.module.scss';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSearch } from "../../_layoutcomponents/searchContext";
+import Swal from 'sweetalert2';
 
 interface Service {
   _id: string;
@@ -63,10 +64,28 @@ const ServiceList: React.FC = () => {
         serviceOwnerId,
         quantity: 1,
       });
+       const status = response.status;
       setMessage(response.data.message || 'Order placed successfully!');
+      if(status === 201){
+      Swal.fire({
+        title: 'Success',
+        text:'Order placed successfully',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false
+      })
+      }
     } catch (error) {
       setMessage('Failed to place the order. Please try again.');
       console.error('Error placing order:', error);
+
+      Swal.fire({
+    title: 'Error',
+    text: 'Failed to place the order. Please try again.',
+    icon: 'error',
+    timer: 2000,
+    showConfirmButton: false
+  });
     } finally {
       setLoadingStates((prev) => ({ ...prev, [serviceId]: false }));
     }

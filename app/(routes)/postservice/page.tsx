@@ -95,7 +95,7 @@ const AddService: React.FC = () => {
   
       if (response.status === 200) {
         Swal.fire({
-          title: 'Success!',
+          title: 'Success',
           text: 'Order placed successfully',
           icon: 'success',
           confirmButtonText: 'OK'
@@ -106,6 +106,13 @@ const AddService: React.FC = () => {
       setErrorMessage(
         error.response?.data?.message || error.message || 'An error occurred.'
       );
+      Swal.fire({
+    title: 'Error!',
+    text: 'Failed to post the order. Please try again.',
+    icon: 'error',
+    timer: 2000,
+    showConfirmButton: false
+  });
     } finally {
       setLoading(false);
     }
