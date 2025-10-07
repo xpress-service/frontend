@@ -1,0 +1,219 @@
+@import '../mixins/mediaquery';
+
+.payment_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 20px;
+
+  @include for-size(tablet-only) {
+    padding: 10px;
+  }
+
+  .payment_card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+
+    @include for-size(tablet-only) {
+      padding: 30px 20px;
+      max-width: 100%;
+    }
+
+    .loading_section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+
+      .loading_icon {
+        font-size: 48px;
+        color: #ff9b05;
+        animation: spin 1s linear infinite;
+      }
+
+      h2 {
+        font-size: 24px;
+        font-weight: 600;
+        color: #212529;
+        margin: 0;
+      }
+
+      p {
+        font-size: 16px;
+        color: #6c757d;
+        margin: 0;
+      }
+    }
+
+    .result_section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+
+      .success_icon {
+        font-size: 64px;
+        color: #28a745;
+        margin-bottom: 8px;
+      }
+
+      .error_icon {
+        font-size: 64px;
+        color: #dc3545;
+        margin-bottom: 8px;
+      }
+
+      h2 {
+        font-size: 28px;
+        font-weight: 700;
+        color: #212529;
+        margin: 0;
+
+        @include for-size(tablet-only) {
+          font-size: 24px;
+        }
+      }
+
+      .success_message {
+        font-size: 16px;
+        color: #28a745;
+        margin: 0;
+        font-weight: 500;
+      }
+
+      .error_message {
+        font-size: 16px;
+        color: #dc3545;
+        margin: 0;
+        font-weight: 500;
+      }
+
+      .order_summary {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 24px;
+        width: 100%;
+        text-align: left;
+
+        h3 {
+          font-size: 18px;
+          font-weight: 600;
+          color: #212529;
+          margin: 0 0 16px 0;
+          text-align: center;
+        }
+
+        .summary_item {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 8px 0;
+          border-bottom: 1px solid #e9ecef;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          span:first-child {
+            font-weight: 500;
+            color: #495057;
+          }
+
+          span:last-child {
+            font-weight: 600;
+            color: #212529;
+
+            &.amount {
+              color: #28a745;
+              font-size: 18px;
+              font-weight: 700;
+            }
+
+            &.platform_fee {
+              color: #ff9b05;
+              font-size: 14px;
+              font-weight: 600;
+            }
+
+            &.vendor_amount {
+              color: #6c757d;
+              font-size: 16px;
+              font-weight: 600;
+            }
+
+            &.reference {
+              font-family: monospace;
+              font-size: 12px;
+              background: #e9ecef;
+              padding: 4px 8px;
+              border-radius: 4px;
+            }
+          }
+        }
+      }
+
+      .action_buttons {
+        display: flex;
+        gap: 16px;
+        width: 100%;
+
+        @include for-size(tablet-only) {
+          flex-direction: column;
+        }
+
+        .primary_btn, .secondary_btn {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-size: 14px;
+          font-weight: 600;
+          text-decoration: none;
+          transition: all 0.2s ease;
+          flex: 1;
+
+          @include for-size(tablet-only) {
+            width: 100%;
+          }
+        }
+
+        .primary_btn {
+          background: linear-gradient(135deg, #ff9b05 0%, #ffb347 100%);
+          color: white;
+          border: none;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 155, 5, 0.4);
+          }
+        }
+
+        .secondary_btn {
+          background: transparent;
+          color: #6c757d;
+          border: 2px solid #e9ecef;
+
+          &:hover {
+            background: #f8f9fa;
+            border-color: #dee2e6;
+            color: #495057;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

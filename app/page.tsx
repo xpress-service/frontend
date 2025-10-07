@@ -1,296 +1,445 @@
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./sass/landingpage/landingpage.module.scss";
 import Header from "./landingpagecomponent/LandingPageHeader";
 import Footer from "./landingpagecomponent/LandingPageFooter";
 
-export default function LandinPage() {
+export default function LandingPage() {
   return (
     <div className={styles.Container}>
       <header>
         <Header />
       </header>
       <div className={styles.content_wrapper}>
-      <section>
-        <main>
-          <div className={styles.infoContainer}>
-            <p>grow your business now with our on-demand platform</p>
-            <p>delivery | book Enjoy service near you.</p>
-          </div>
-          <div className={styles.bannerContent}>
-  <div className={styles.bannerItem}>
-    <Image
-      src="/deliveryman.svg"
-      alt="Delivery Man"
-      width={300}
-      height={300}
-      className={styles.bannerImg}
-    />
-    <p>Order for your favourite meal</p>
-  </div>
-
-  <div className={styles.bannerItem}>
-    <Image
-      src="/mechanic.PNG"
-      alt="Mechanic"
-      width={300}
-      height={300}
-      className={styles.bannerImg}
-    />
-    <p>Call a Mechanic near you</p>
-  </div>
-
-  <div className={styles.bannerItem}>
-    <Image
-      src="/vert.jpg"
-      alt="Vertical Worker"
-      width={300}
-      height={300}
-      className={styles.bannerImg}
-    />
-    <p>Book Verterinary service</p>
-  </div>
-
-  <div className={styles.bannerItem}>
-    <Image
-      src="/tutor.PNG"
-      alt="Tutor"
-      width={300}
-      height={300}
-      className={styles.bannerImg}
-    />
-    <p>Hire a Tutor</p>
-  </div>
-</div>
-        </main>
-      </section>
-
-      <section className={styles.section_two}>
-        <main>
-          <div className={styles.oderItems}>
-            <h3>How we work</h3>
-            <p>
-              Get to know the policy about our services, and the brief narration
-              on how it help to solve societal problem
-            </p>
-          </div>
-          <div className={styles.services}>
-            <div className={styles.store}>
-              {/* */}
-              <div className={styles.store_icon}>
-                <Image src="/store.svg" alt="icon" width={20} height={20} />
-              </div>
-              <p>Connect your Store</p>
-              <p>
-                It&#39;s a business model that enables the buying and selling of
-                goods and services over the internet.
+        {/* Hero Section */}
+        <section className={styles.hero_section}>
+          <main>
+            <div className={styles.infoContainer}>
+              <h1 className={styles.hero_title}>
+                Grow Your Business with Our On-Demand Platform
+              </h1>
+              <p className={styles.hero_subtitle}>
+                Connect with local service providers and customers instantly. 
+                From food delivery to home services - we've got you covered.
               </p>
-            </div>
-
-            <div className={styles.render}>
-              <div className={styles.render_icon}>
-                <Image src="/render.svg" alt="icon" width={20} height={20} />
+              <div className={styles.hero_buttons}>
+                <Link href="/sign-up">
+                  <button className={styles.primary_btn}>Get Started</button>
+                </Link>
+                <Link href="/servicelist">
+                  <button className={styles.secondary_btn}>Explore Services</button>
+                </Link>
               </div>
-              <p>Sell Product/Render Service</p>
-              <p>
-                A business model that enables the buying and selling of goods
-                and services over the internet.
-              </p>
-            </div>
-
-            <div className={styles.menu_order}>
-              {/* */}
-              <div className={styles.menu_order_icon}>
-                <Image
-                  src="/menu-order.svg"
-                  alt="icon"
-                  width={20}
-                  height={20}
-                />
-              </div>
-              <p>Book/Order</p>
-              <p>Web based mechanism that facilitates Ordering by Customer</p>
-            </div>
-
-            <div className={styles.octicon}>
-              {/* */}
-              <div className={styles.icon_completed}>
-                <Image
-                  src="/octicon-completed.svg"
-                  alt="icon"
-                  width={20}
-                  height={20}
-                />
-              </div>
-              <p>Order Complete</p>
-              <p>the clarify that the order is completed in process line.</p>
-            </div>
-
-            <div className={styles.delivery}>
-              {/* */}
-              <div className={styles.delivery_icon}>
-                <Image src="/delivery.svg" alt="icon" width={20} height={20} />
-              </div>
-              <p>Wait for delivery</p>
-              <p>
-                It express that the request made from order will be deliver
-                soon, as it await to get delivered.
-              </p>
-            </div>
-          </div>
-        </main>
-      </section>
-
-      <section className={styles.section_three}>
-        <main>
-          <div className={styles.serviceContainer}>
-            <Image src="/man.svg" alt="image" width={450} height={450} className={styles.landingImage}/>
-            <div className={styles.rightSide}>
-              <h3>Order service anywhere</h3>
-              <div className={styles.rightItems}>
-                <div className={styles.items}>
-                  <div className={styles.itemsBox}>
-                    <Image
-                      src="/services/mechanic.svg"
-                      alt="image"
-                      width={100}
-                      height={100}
-                    />
-                    <h3>Find A Mechanic</h3>
-                    <p>
-                      Acess a skilled worker who repairs and maintains vehicle
-                      engines and other machinery.
-                    </p>
-                  </div>
-
-                  <div className={styles.itemsBox}>
-                    <Image
-                      src="/services/laundry.svg"
-                      alt="image"
-                      width={100}
-                      height={100}
-                    />
-                    <h3>Dry Cleaning Service</h3>
-                    <p>
-                      the washing of clothing and other textiles, and, more
-                      broadly, their drying and ironing as well.
-                    </p>
-                  </div>
-
-                  <div className={styles.itemsBox}>
-                    <Image
-                      src="/services/tutor.svg"
-                      alt="image"
-                      width={100}
-                      height={100}
-                    />
-                    <h3>Home Tutors</h3>
-                    <p>it is a form of tutoring that occurs in the home</p>
-                  </div>
+              <div className={styles.hero_stats}>
+                <div className={styles.stat_item}>
+                  <span className={styles.stat_number}>10K+</span>
+                  <span className={styles.stat_label}>Happy Customers</span>
                 </div>
-
-                <div className={styles.items}>
-                <div className={styles.itemsBox}>
-                    <Image
-                      src="/services/fastfood.svg"
-                      alt="image"
-                      width={100}
-                      height={100}
-                    />
-                    <h3>Order Fast Food</h3>
-                    <p>
-                      Order easily prepared processed food served in snack bars
-                      and restaurants as a quick meal or to be taken away.
-                    </p>
-                  </div>
-
-                  <div className={styles.itemsBox}>
-                    <Image
-                      src="/services/hairdressing.svg"
-                      alt="image"
-                      width={100}
-                      height={100}
-                    />
-                    <h3>Hair Dressing</h3>
-                    <p>
-                      Having access to a person who cuts and styles hair as an
-                      occupation.
-                    </p>
-                  </div>
-
-                  <div className={styles.itemsBox}>
-                    <Image
-                      src="/services/vert.svg"
-                      alt="image"
-                      width={100}
-                      height={100}
-                    />
-                    <h3>Veterinary Service</h3>
-                    <p>
-                      relating to the diseases, injuries, and treatment of farm
-                      and domestic animals.
-                    </p>
-                  </div>
+                <div className={styles.stat_item}>
+                  <span className={styles.stat_number}>500+</span>
+                  <span className={styles.stat_label}>Service Providers</span>
+                </div>
+                <div className={styles.stat_item}>
+                  <span className={styles.stat_number}>50+</span>
+                  <span className={styles.stat_label}>Cities Covered</span>
                 </div>
               </div>
             </div>
-          </div>
-        </main>
-      </section>
+            <div className={styles.bannerContent}>
+              <div className={styles.bannerItem}>
+                <div className={styles.service_card}>
+                  <Image
+                    src="/deliveryman.svg"
+                    alt="Food delivery service - Order your favorite meals"
+                    width={300}
+                    height={300}
+                    className={styles.bannerImg}
+                  />
+                  <h3>Food Delivery</h3>
+                  <p>Order your favorite meals from local restaurants</p>
+                </div>
+              </div>
 
-      <section className={styles.usersContainer}>
-        <main>
-          <div className={styles.usersbox}>
-            <div>
-              <h3>Comment from past users</h3>
-              <p className={styles.text}>An expression of opinion either in speech or writing The most frequent comment was that service was fast, A comment is a remark or observation that expresses a person&#39;s observation or criticism. To comment is to make such a remark.</p>
-            </div>
-            <div className={styles.partsContainer}>
-              <div className={styles.leftpart}>
-                <Image
-                  src="/users/Ellipse 33.svg"
-                  alt="img"
-                  width={60}
-                  height={60}
-                  className={styles.user1}
-                />
-                <Image
-                  src="/users/Ellipse 34.svg"
-                  alt="img"
-                  width={60}
-                  height={60}
-                  className={styles.user2}
-                />
-                <Image
-                  src="/users/Ellipse 24.svg"
-                  alt="img"
-                  width={60}
-                  height={60}
-                  className={styles.user3}
-                />
-                <Image
-                  src="/users/Ellipse 33.svg"
-                  alt="img"
-                  width={60}
-                  height={60}
-                  className={styles.user4}
-                />
-                <Image
-                  src="/users/Ellipse 24.svg"
-                  alt="img"
-                  width={60}
-                  height={60}
-                  className={styles.user5}
-                />
+              <div className={styles.bannerItem}>
+                <div className={styles.service_card}>
+                  <Image
+                    src="/mechanic.PNG"
+                    alt="Auto repair service - Professional mechanics near you"
+                    width={300}
+                    height={300}
+                    className={styles.bannerImg}
+                  />
+                  <h3>Auto Repair</h3>
+                  <p>Professional mechanics available 24/7</p>
+                </div>
               </div>
-              <div className={styles.rightpart}>
-                <p className={styles.name}>Godwin George</p>
-                <p className={styles.profession}>Farmer</p>
-                <p className={styles.comment}>ServiceXpress is a productive website, which has help me to get qucik access to car repairer when my car broke down at the middle of a journey. </p>
+
+              <div className={styles.bannerItem}>
+                <div className={styles.service_card}>
+                  <Image
+                    src="/vert.jpg"
+                    alt="Veterinary service - Professional pet care"
+                    width={300}
+                    height={300}
+                    className={styles.bannerImg}
+                  />
+                  <h3>Pet Care</h3>
+                  <p>Professional veterinary services for your pets</p>
+                </div>
+              </div>
+
+              <div className={styles.bannerItem}>
+                <div className={styles.service_card}>
+                  <Image
+                    src="/tutor.PNG"
+                    alt="Tutoring service - Expert tutors for all subjects"
+                    width={300}
+                    height={300}
+                    className={styles.bannerImg}
+                  />
+                  <h3>Tutoring</h3>
+                  <p>Expert tutors for all subjects and levels</p>
+                </div>
               </div>
             </div>
-          </div>
-        </main>
-      </section>
+          </main>
+        </section>
+
+        {/* How It Works Section */}
+        <section className={styles.section_two}>
+          <main>
+            <div className={styles.sectionHeader}>
+              <h2>How ServiceXpress Works</h2>
+              <p>
+                Experience seamless service booking with our simple 4-step process. 
+                From browsing to completion, we make it easy for you.
+              </p>
+            </div>
+            <div className={styles.process_timeline}>
+              <div className={styles.process_step}>
+                <div className={styles.step_number}>1</div>
+                <div className={styles.step_icon}>
+                  <Image src="/store.svg" alt="Browse services icon" width={24} height={24} />
+                </div>
+                <h3>Browse Services</h3>
+                <p>
+                  Explore our wide range of services from trusted local providers 
+                  in your area with transparent pricing and reviews.
+                </p>
+              </div>
+
+              <div className={styles.process_step}>
+                <div className={styles.step_number}>2</div>
+                <div className={styles.step_icon}>
+                  <Image src="/menu-order.svg" alt="Book service icon" width={24} height={24} />
+                </div>
+                <h3>Book & Pay</h3>
+                <p>
+                  Select your preferred service, choose date and time, 
+                  and make secure payments through our platform.
+                </p>
+              </div>
+
+              <div className={styles.process_step}>
+                <div className={styles.step_number}>3</div>
+                <div className={styles.step_icon}>
+                  <Image src="/render.svg" alt="Service delivery icon" width={24} height={24} />
+                </div>
+                <h3>Get Service</h3>
+                <p>
+                  Professional service providers arrive at your location 
+                  with all necessary tools and expertise.
+                </p>
+              </div>
+
+              <div className={styles.process_step}>
+                <div className={styles.step_number}>4</div>
+                <div className={styles.step_icon}>
+                  <Image src="/octicon-completed.svg" alt="Service completed icon" width={24} height={24} />
+                </div>
+                <h3>Rate & Review</h3>
+                <p>
+                  Service completed! Rate your experience and help others 
+                  make informed decisions about service providers.
+                </p>
+              </div>
+            </div>
+          </main>
+        </section>
+
+        {/* Featured Services Section */}
+        <section className={styles.section_three}>
+          <main>
+            <div className={styles.serviceContainer}>
+              <div className={styles.leftSide}>
+                <Image 
+                  src="/man.svg" 
+                  alt="Professional service provider ready to help" 
+                  width={450} 
+                  height={450} 
+                  className={styles.landingImage}
+                />
+                <div className={styles.image_overlay}>
+                  <div className={styles.overlay_content}>
+                    <h3>24/7 Available</h3>
+                    <p>Professional services at your fingertips</p>
+                  </div>
+                </div>
+              </div>
+              <div className={styles.rightSide}>
+                <div className={styles.services_header}>
+                  <h2>Premium Services Across All Categories</h2>
+                  <p>Discover our comprehensive range of professional services, all vetted and rated by our community.</p>
+                </div>
+                <div className={styles.services_grid}>
+                  <div className={styles.service_card_featured}>
+                    <div className={styles.service_icon}>
+                      <Image
+                        src="/services/mechanic.svg"
+                        alt="Auto repair service"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                    <div className={styles.service_content}>
+                      <h3>Auto Repair</h3>
+                      <p>Expert mechanics for all vehicle types. Emergency roadside assistance available.</p>
+                      <div className={styles.service_features}>
+                        <span>• 24/7 Emergency</span>
+                        <span>• Certified Mechanics</span>
+                        <span>• Warranty Included</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.service_card_featured}>
+                    <div className={styles.service_icon}>
+                      <Image
+                        src="/services/laundry.svg"
+                        alt="Laundry and dry cleaning service"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                    <div className={styles.service_content}>
+                      <h3>Laundry & Dry Cleaning</h3>
+                      <p>Professional cleaning services with pickup and delivery. Eco-friendly options available.</p>
+                      <div className={styles.service_features}>
+                        <span>• Free Pickup</span>
+                        <span>• Same Day Service</span>
+                        <span>• Eco-Friendly</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.service_card_featured}>
+                    <div className={styles.service_icon}>
+                      <Image
+                        src="/services/tutor.svg"
+                        alt="Professional tutoring service"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                    <div className={styles.service_content}>
+                      <h3>Expert Tutoring</h3>
+                      <p>Qualified tutors for all subjects and levels. Online and in-person sessions available.</p>
+                      <div className={styles.service_features}>
+                        <span>• All Subjects</span>
+                        <span>• Flexible Schedule</span>
+                        <span>• Progress Tracking</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.service_card_featured}>
+                    <div className={styles.service_icon}>
+                      <Image
+                        src="/services/fastfood.svg"
+                        alt="Food delivery service"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                    <div className={styles.service_content}>
+                      <h3>Food Delivery</h3>
+                      <p>Fast delivery from your favorite local restaurants. Track your order in real-time.</p>
+                      <div className={styles.service_features}>
+                        <span>• 30min Delivery</span>
+                        <span>• Live Tracking</span>
+                        <span>• Quality Guaranteed</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.service_card_featured}>
+                    <div className={styles.service_icon}>
+                      <Image
+                        src="/services/hairdressing.svg"
+                        alt="Professional hairdressing service"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                    <div className={styles.service_content}>
+                      <h3>Beauty & Wellness</h3>
+                      <p>Professional stylists and beauticians. Home salon services and spa treatments.</p>
+                      <div className={styles.service_features}>
+                        <span>• Home Service</span>
+                        <span>• Licensed Professionals</span>
+                        <span>• Premium Products</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className={styles.service_card_featured}>
+                    <div className={styles.service_icon}>
+                      <Image
+                        src="/services/vert.svg"
+                        alt="Veterinary service"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                    <div className={styles.service_content}>
+                      <h3>Pet Care</h3>
+                      <p>Comprehensive veterinary services for all pets. Emergency care and routine checkups.</p>
+                      <div className={styles.service_features}>
+                        <span>• Emergency Care</span>
+                        <span>• Home Visits</span>
+                        <span>• All Pet Types</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.services_cta}>
+                  <Link href="/servicelist">
+                    <button className={styles.explore_btn}>Explore All Services</button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </main>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className={styles.testimonials_section}>
+          <main>
+            <div className={styles.testimonials_header}>
+              <h2>What Our Customers Say</h2>
+              <p>Join thousands of satisfied customers who trust ServiceXpress for their daily needs</p>
+            </div>
+            
+            <div className={styles.testimonials_grid}>
+              <div className={styles.testimonial_card}>
+                <div className={styles.testimonial_rating}>
+                  ⭐⭐⭐⭐⭐
+                </div>
+                <p className={styles.testimonial_text}>
+                  "ServiceXpress saved my day! When my car broke down in the middle of nowhere, 
+                  I found a mechanic within minutes. Fast, reliable, and professional service."
+                </p>
+                <div className={styles.testimonial_author}>
+                  <Image
+                    src="/users/Ellipse 33.svg"
+                    alt="Godwin George profile"
+                    width={50}
+                    height={50}
+                    className={styles.author_avatar}
+                  />
+                  <div className={styles.author_info}>
+                    <p className={styles.author_name}>Godwin George</p>
+                    <p className={styles.author_role}>Business Owner</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.testimonial_card}>
+                <div className={styles.testimonial_rating}>
+                  ⭐⭐⭐⭐⭐
+                </div>
+                <p className={styles.testimonial_text}>
+                  "The food delivery service is amazing! Fresh food delivered hot and on time. 
+                  The app is so easy to use and the customer service is top-notch."
+                </p>
+                <div className={styles.testimonial_author}>
+                  <Image
+                    src="/users/Ellipse 34.svg"
+                    alt="Sarah Johnson profile"
+                    width={50}
+                    height={50}
+                    className={styles.author_avatar}
+                  />
+                  <div className={styles.author_info}>
+                    <p className={styles.author_name}>Sarah Johnson</p>
+                    <p className={styles.author_role}>Marketing Manager</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.testimonial_card}>
+                <div className={styles.testimonial_rating}>
+                  ⭐⭐⭐⭐⭐
+                </div>
+                <p className={styles.testimonial_text}>
+                  "Found an excellent tutor for my daughter through ServiceXpress. 
+                  Her grades improved significantly. Highly recommend this platform!"
+                </p>
+                <div className={styles.testimonial_author}>
+                  <Image
+                    src="/users/Ellipse 24.svg"
+                    alt="Michael Chen profile"
+                    width={50}
+                    height={50}
+                    className={styles.author_avatar}
+                  />
+                  <div className={styles.author_info}>
+                    <p className={styles.author_name}>Michael Chen</p>
+                    <p className={styles.author_role}>Parent & Engineer</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className={styles.trust_indicators}>
+              <div className={styles.trust_item}>
+                <h3>4.9/5</h3>
+                <p>Average Rating</p>
+              </div>
+              <div className={styles.trust_item}>
+                <h3>10,000+</h3>
+                <p>Reviews</p>
+              </div>
+              <div className={styles.trust_item}>
+                <h3>99%</h3>
+                <p>Customer Satisfaction</p>
+              </div>
+              <div className={styles.trust_item}>
+                <h3>24/7</h3>
+                <p>Support Available</p>
+              </div>
+            </div>
+          </main>
+        </section>
+
+        {/* Call to Action Section */}
+        <section className={styles.cta_section}>
+          <main>
+            <div className={styles.cta_content}>
+              <h2>Ready to Get Started?</h2>
+              <p>Join ServiceXpress today and connect with thousands of service providers in your area</p>
+              <div className={styles.cta_buttons}>
+                <Link href="/sign-up">
+                  <button className={styles.cta_primary}>Join as Customer</button>
+                </Link>
+                <Link href="/sign-up">
+                  <button className={styles.cta_secondary}>Become a Provider</button>
+                </Link>
+              </div>
+              <p className={styles.cta_note}>No setup fees • Cancel anytime • 24/7 support</p>
+            </div>
+          </main>
+        </section>
       </div>
       <footer>
         <Footer />

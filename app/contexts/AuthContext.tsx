@@ -4,8 +4,11 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface AuthContextProps {
   isAuthenticated: boolean;
   userId: string | null;
-  login: (token: string, userId: string) => void;
+  userRole: string | null;
+  isLoading: boolean;
+  login: (token: string, userId: string, role: string) => void;
   logout: () => void;
+  checkAuthStatus: () => void;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
@@ -13,32 +16,91 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [userId, setUserId] = useState<string | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const checkAuthStatus = () => {
+    // Optimize by reducing loading time and state updates
+    try {
+      const token = localStorage.getItem('authToken');
+      const storedUserId = localStorage.getItem('userId');
+      const storedUserRole = localStorage.getItem('userRole');
+      
+      if (token && storedUserId) {
+        setIsAuthenticated(true);
+        setUserId(storedUserId);
+        setUserRole(storedUserRole);
+        setIsLoading(false);
+      } else {
+        setIsAuthenticated(false);
+        setUserId(null);
+        setUserRole(null);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      console.error('Error checking auth status:', error);
+      setIsAuthenticated(false);
+      setUserId(null);
+      setUserRole(null);
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
+    // Immediate check without delay for better performance
     const token = localStorage.getItem('authToken');
     const storedUserId = localStorage.getItem('userId');
+    const storedUserRole = localStorage.getItem('userRole');
+    
     if (token && storedUserId) {
       setIsAuthenticated(true);
       setUserId(storedUserId);
+      setUserRole(storedUserRole);
     }
+    setIsLoading(false);
   }, []);
 
-  const login = (token: string, userId: string) => {
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('userId', userId);
-    setIsAuthenticated(true);
-    setUserId(userId);
+  const login = (token: string, userId: string, role: string) => {
+    try {
+      localStorage.setItem('authToken', token);
+      localStorage.setItem('userId', userId);
+      localStorage.setItem('userRole', role);
+      setIsAuthenticated(true);
+      setUserId(userId);
+      setUserRole(role);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error during login:', error);
+      setIsLoading(false);
+    }
   };
 
   const logout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userId');
-    setIsAuthenticated(false);
-    setUserId(null);
+    try {
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('userId');
+      localStorage.removeItem('userRole');
+      localStorage.removeItem('redirectAfterLogin');
+      setIsAuthenticated(false);
+      setUserId(null);
+      setUserRole(null);
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error during logout:', error);
+      setIsLoading(false);
+    }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, userId, login, logout }}>
+    <AuthContext.Provider value={{ 
+      isAuthenticated, 
+      userId, 
+      userRole, 
+      isLoading, 
+      login, 
+      logout, 
+      checkAuthStatus 
+    }}>
       {children}
     </AuthContext.Provider>
   );

@@ -2,124 +2,491 @@
 
 .notification_container {
   width: 100%;
-  background-color: #ff9b05;
-  height: 100vh;
-  padding: 0px;
-  padding: 0px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  min-height: 100vh;
+  padding: 20px;
 
-  .notificationbox {
-    max-width: 1440px !important;
+  @include for-size(tablet-only) {
+    padding: 10px;
+  }
+
+  .loading_container {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 50vh;
+    gap: 20px;
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #ff9b05;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    p {
+      color: #6c757d;
+      font-size: 16px;
+    }
+  }
+
+  .notificationbox {
+    width: 100%;
+    max-width: 100%;
 
     .noticebox {
-      display: flex;
-      flex-direction: column;
-      background: #f4f4f4;
-      width: 100%;
-      border-radius: 10px;
-      gap: 8px;
-      padding: 15px 0px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
       margin-top: 20px;
-      .notice{
-        width: 100%;
-        background-color: #fff;
-        font-size: 18px;
-        font-weight: 600;
-        padding: 10px 10px;
-      }
-      .msg {
+      
+      .notice_header {
         display: flex;
-        width: 100%;
-        margin-top: 10px;
-        justify-content: space-between;
-        background-color: #fff;
-        padding: 6px 15px;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(135deg, #ff9b05 0%, #ffb347 100%);
+        color: white;
+        padding: 20px 24px;
+        
+        .header_icon {
+          font-size: 24px;
+        }
+        
+        h2 {
+          font-size: 20px;
+          font-weight: 600;
+          margin: 0;
+          flex: 1;
+        }
+        
+        .count {
+          background: rgba(255, 255, 255, 0.2);
+          padding: 4px 12px;
+          border-radius: 20px;
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+      
+      .empty_notifications {
+        text-align: center;
+        padding: 60px 20px;
+        color: #6c757d;
+        
+        .empty_icon {
+          font-size: 64px;
+          color: #dee2e6;
+          margin-bottom: 20px;
+        }
+        
+        h3 {
+          font-size: 20px;
+          margin-bottom: 8px;
+          color: #495057;
+        }
+        
+        p {
+          font-size: 14px;
+          margin: 0;
+        }
+      }
+      
+      .notifications_list {
+        padding: 0;
+      }
+    }
+  }
+}
 
-        .date_time {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
-          .notification_time {
-            display: flex;
-            width: 100%;
-            justify-content: flex-end;
-          }
+// Notification Item Styles
+.notification_item {
+  padding: 20px 24px;
+  border-bottom: 1px solid #f8f9fa;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  
+  &:hover {
+    background: #f8f9fa;
+  }
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &.unread {
+    background: linear-gradient(90deg, rgba(255, 155, 5, 0.05) 0%, transparent 100%);
+    border-left: 4px solid #ff9b05;
+    
+    &:hover {
+      background: linear-gradient(90deg, rgba(255, 155, 5, 0.08) 0%, rgba(248, 249, 250, 0.8) 100%);
+    }
+  }
+  
+  .notification_header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    position: relative;
+    
+    .notification_content {
+      flex: 1;
+      
+      .notification_message {
+        font-size: 14px;
+        line-height: 1.5;
+        color: #212529;
+        margin: 0 0 8px 0;
+        font-weight: 500;
+      }
+      
+      .notification_meta {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #6c757d;
+        font-size: 12px;
+        
+        .time_icon {
+          font-size: 12px;
+        }
+        
+        .time {
+          font-weight: 400;
+        }
+      }
+    }
+    
+    .unread_dot {
+      width: 8px;
+      height: 8px;
+      background: #ff9b05;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+  }
+}
+
+// Notification Type Icons
+.icon_success {
+  color: #28a745;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.icon_error {
+  color: #dc3545;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.icon_warning {
+  color: #ffc107;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.icon_default {
+  color: #6c757d;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+// Notification Type Backgrounds
+.notification_success {
+  border-left-color: #28a745;
+}
+
+.notification_error {
+  border-left-color: #dc3545;
+}
+
+.notification_warning {
+  border-left-color: #ffc107;
+}
+
+.notification_default {
+  border-left-color: #6c757d;
+}
+
+// Order Details
+.order_details {
+  margin-top: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  
+  .service_info {
+    h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #212529;
+      margin: 0 0 8px 0;
+    }
+    
+    .order_meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      color: #6c757d;
+      
+      .price {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-weight: 600;
+        color: #28a745;
+      }
+    }
+  }
+}
+
+// Payment Section
+.payment_section {
+  margin-top: 16px;
+  padding: 16px;
+  background: linear-gradient(135deg, #fff7e6 0%, #fff3d9 100%);
+  border: 2px solid #ff9b05;
+  border-radius: 12px;
+  
+  .payment_prompt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    
+    .payment_icon {
+      font-size: 24px;
+      color: #ff9b05;
+      flex-shrink: 0;
+    }
+    
+    .payment_text {
+      flex: 1;
+      
+      p {
+        margin: 0;
+        
+        &:first-child {
+          font-weight: 700;
+          color: #d97706;
+          font-size: 14px;
+        }
+        
+        &:last-child {
+          font-size: 12px;
+          color: #92400e;
+          margin-top: 2px;
         }
       }
     }
   }
 }
 
-//Notification Header styles
-.note_header{
+// Action Buttons
+.action_buttons {
+  display: flex;
+  justify-content: center;
+  
+  .pay_online_btn {
     display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    border: 1px solid #dfdfdf;
-    border-radius: 50px;
-    padding: 6px 8px;
-    @include for-size(tablet-only){
-      width: 100%;
-      padding: 3px 4px;
-      margin: 0px;
-    }
-  
-    .searchbox{
-      display: flex;
-      align-items: center;
-      border: 1px solid #ECEBEB;
-      background-color: #ECEBEB;
-      border-radius: 50px;
-      padding: 5px;
-      max-width: 300px;
-      padding-left: 5px;
-      @include for-size(tablet-only){
-        width: 100%;
-        padding-left: 0px;
-      }
-      
-      input{
-    border: none;
-    outline: none;
-    flex: 1;
-    padding: 5px;
-    background: transparent;
-    @include for-size(tablet-only){
-      width: 100%;
-    }
-      
-      }
-    }
-  
-    .userbox{
-      width: 10%;
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
-      @include for-size(tablet-only){
-        display: none;
-        
-      }
-     
-    }
-   }
-  
-.notice_con{
-    
-    display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex: 1;
-    position: fixed;
+    gap: 8px;
+    background: linear-gradient(135deg, #ff9b05 0%, #ffb347 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 24px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 200px;
+    box-shadow: 0 2px 8px rgba(255, 155, 5, 0.3);
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(255, 155, 5, 0.4);
+      background: linear-gradient(135deg, #e8890b 0%, #ff9b05 100%);
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn_spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  }
 }
 
-.modal{
-    width: 500px;
-    height: 400px;
-    position: relative;
+// Status Indicators
+.paid_status {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(40, 167, 69, 0.1) 0%, rgba(40, 167, 69, 0.05) 100%);
+  border: 2px solid rgba(40, 167, 69, 0.3);
+  border-radius: 8px;
+  color: #28a745;
+  font-size: 14px;
+  font-weight: 600;
+  
+  .paid_icon {
+    font-size: 18px;
+  }
+}
+
+.rejected_status {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, rgba(220, 53, 69, 0.1) 0%, rgba(220, 53, 69, 0.05) 100%);
+  border: 2px solid rgba(220, 53, 69, 0.3);
+  border-radius: 8px;
+  color: #dc3545;
+  font-size: 14px;
+  font-weight: 600;
+  
+  .rejected_icon {
+    font-size: 18px;
+  }
+}
+
+// Notification Modal Styles (for header dropdown)
+.notice_con {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  max-height: 500px;
+  overflow-y: auto;
+  
+  @include for-size(tablet-only) {
+    max-width: 90vw;
+    right: 5vw;
+    max-height: 70vh;
+  }
+
+  .modal {
+    padding: 20px;
+    
+    .modal_header {
+      text-align: center;
+      border-bottom: 1px solid #e9ecef;
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      
+      .notice {
+        font-size: 18px;
+        font-weight: 600;
+        color: #212529;
+        margin: 0 0 5px 0;
+      }
+      
+      small {
+        color: #6c757d;
+        font-size: 12px;
+        
+        .view_all {
+          color: #ff9b05;
+          text-decoration: none;
+          font-weight: 600;
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-size: inherit;
+          padding: 0;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .loading_state, .empty_state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #6c757d;
+      
+      p {
+        margin: 0 0 5px 0;
+        font-size: 16px;
+      }
+      
+      small {
+        font-size: 12px;
+        color: #9ba5a3;
+      }
+    }
+
+    .msg {
+      padding: 12px 0;
+      border-bottom: 1px solid #f8f9fa;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+      
+      &.unread_msg {
+        background: linear-gradient(90deg, rgba(255, 155, 5, 0.05) 0%, transparent 100%);
+        border-left: 3px solid #ff9b05;
+        padding-left: 12px;
+        margin-left: -12px;
+      }
+      
+      p {
+        font-size: 14px;
+        line-height: 1.4;
+        color: #212529;
+        margin: 0 0 8px 0;
+      }
+      
+      .date_time {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        color: #6c757d;
+        
+        .notification_time {
+          font-weight: 600;
+        }
+      }
+    }
+  }
 }

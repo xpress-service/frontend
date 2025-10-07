@@ -1,6 +1,8 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import styles from '../../../sass/userprofile/userprofile.module.scss';
+import styles from '../../../sass/userprofile/complete-profile.module.scss';
+import { MdCloudUpload, MdPerson, MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
+import { FiCalendar, FiUser, FiCheck } from 'react-icons/fi';
 import axios from 'axios';
 import * as jwt_decode from "jwt-decode";
 import Swal from 'sweetalert2';
@@ -180,9 +182,16 @@ const CreateProfile = () => {
     <div className={styles.create_profileBox}>
       <main>
         <form className={styles.create_profileForm} onSubmit={handleSubmit}>
+          <div className={styles.form_header}>
+            <h1>Complete Your Profile</h1>
+            <p>Help us personalize your experience by completing your profile information</p>
+          </div>
+
+          {/* Profile Image Upload */}
           <div className={styles.profileImageContainer}>
             <label htmlFor="profileImageUpload" className={styles.uploadLabel}>
-              Upload Profile Image
+              <MdCloudUpload size={20} />
+              Upload Profile Picture
             </label>
             <input
               type="file"
@@ -202,123 +211,216 @@ const CreateProfile = () => {
             )}
           </div>
 
-          {/* Name and Email fields will be pre-filled from localStorage */}
-          <div className={styles.input_items}>
-          <input
-            type="text"
-            placeholder="First Name"
-            className={styles.items}
-            value={formData.firstname}
-            onChange={handleFieldChange('firstname')}
-          />
-          <input
-            type="text"
-            placeholder="Last Name"
-            className={styles.items}
-            value={formData.lastname}
-            onChange={handleFieldChange('lastname')}
-          />
+          {/* Personal Information Section */}
+          <div className={styles.form_section}>
+            <h3 className={styles.section_title}>
+              <MdPerson className="inline-icon" />
+              Personal Information
+            </h3>
+            
+            <div className={styles.input_items}>
+              <input
+                type="text"
+                placeholder="First Name"
+                className={styles.items}
+                value={formData.firstname}
+                onChange={handleFieldChange('firstname')}
+                required
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                className={styles.items}
+                value={formData.lastname}
+                onChange={handleFieldChange('lastname')}
+                required
+              />
+            </div>
+            
+            <div className={styles.input_items}>
+              <input
+                type="email"
+                placeholder="Email Address"
+                className={styles.emailitems}
+                value={formData.email}
+                onChange={handleFieldChange('email')}
+                readOnly
+              />
+            </div>
+            
+            <div className={styles.input_items}>
+              <div className={styles.datebox}>
+                <label htmlFor="birthdate">
+                  <FiCalendar className="inline-icon" />
+                  Date of Birth
+                </label>
+                <input
+                  type="date"
+                  className={styles.item}
+                  value={formData.birthdate}
+                  onChange={handleFieldChange('birthdate')}
+                  required
+                />
+              </div>
+              <select
+                className={styles.items}
+                value={formData.gender}
+                onChange={handleFieldGenderChange('gender')}
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
           </div>
-          <div className={styles.input_items}>
-          <input
-            type="email"
-            placeholder="Email"
-            className={styles.emailitems}
-            value={formData.email}
-            onChange={handleFieldChange('email')}
-            readOnly
-          />
-          <div className={styles.datebox}>
-            <label htmlFor="birthdate">Date of Birth</label>
-            <input
-              type="date"
-              className={styles.item}
-              value={formData.birthdate}
-              onChange={handleFieldChange('birthdate')}
-            />
+
+          {/* Contact Information Section */}
+          <div className={styles.form_section}>
+            <h3 className={styles.section_title}>
+              <MdPhone className="inline-icon" />
+              Contact Information
+            </h3>
+            
+            <div className={styles.input_items}>
+              <input
+                type="text"
+                placeholder="National ID Number (NIN)"
+                className={styles.items}
+                value={formData.nin}
+                onChange={handleFieldChange('nin')}
+                required
+              />
+              <input
+                type="tel"
+                placeholder="Phone Number"
+                className={styles.items}
+                value={formData.phone}
+                onChange={handleFieldChange('phone')}
+                required
+              />
+            </div>
+            
+            <div className={styles.input_items}>
+              <input
+                type="text"
+                placeholder="Your Location"
+                className={styles.items}
+                value={formData.location}
+                onChange={handleFieldChange('location')}
+                required
+              />
+            </div>
           </div>
+
+          {/* Role Selection Section */}
+          <div className={styles.form_section}>
+            <h3 className={styles.section_title}>
+              <FiUser className="inline-icon" />
+              Account Type
+            </h3>
+            
+            <div className={styles.role_section}>
+              <div className={styles.role_options}>
+                <div 
+                  className={`${styles.role_option} ${formData.role === 'customer' ? styles.selected : ''}`}
+                  onClick={() => setFormData(prev => ({ ...prev, role: 'customer', servicesOffered: [] }))}
+                >
+                  <h3>Customer</h3>
+                  <p>I want to book and use services</p>
+                </div>
+                <div 
+                  className={`${styles.role_option} ${formData.role === 'vendor' ? styles.selected : ''}`}
+                  onClick={() => setFormData(prev => ({ ...prev, role: 'vendor' }))}
+                >
+                  <h3>Service Provider</h3>
+                  <p>I want to offer services to customers</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className={styles.input_items}>
-          <input
-            type="number"
-            placeholder="NIN"
-            className={styles.items}
-            value={formData.nin}
-            onChange={handleFieldChange('nin')}
-          />
-          <input
-            type="number"
-            placeholder="Phone Number"
-            className={styles.items}
-            value={formData.phone}
-            onChange={handleFieldChange('phone')}
-          />
-           </div>
-           <div className={styles.input_items}>
-          <input
-            type="text"
-            placeholder="Location"
-            className={styles.items}
-            value={formData.location}
-            onChange={handleFieldChange('location')}
-          />
-          
-          <select
-           className={styles.items}
-          value={formData.gender}
-          onChange={handleFieldGenderChange('gender')}
-          required
-        >
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
 
-        </div>
-        <select
-        className={styles.items}
-        value={formData.role}
-        onChange={handleFieldRoleChange('role')}
-        required
-      >
-        <option value="">Select Role</option>
-        <option value="customer">Customer</option>
-        <option value="vendor">Vendor</option>
-      </select>
+          {/* Services Section - Only for Vendors */}
+          {formData.role === 'vendor' && (
+            <div className={styles.form_section}>
+              <h3 className={styles.section_title}>
+                <FiCheck className="inline-icon" />
+                Services You Offer
+              </h3>
+              
+              <div className={styles.services_section}>
+                <div className={styles.services_grid}>
+                  {['Cleaning', 'Tutoring', 'Delivery', 'Repair', 'Beauty', 'Fitness', 'Photography', 'Catering', 'Transportation', 'Pet Care', 'Gardening', 'Other'].map((service) => (
+                    <div
+                      key={service}
+                      className={`${styles.service_option} ${
+                        formData.servicesOffered.includes(service) ? styles.selected : ''
+                      }`}
+                      onClick={() => {
+                        const isSelected = formData.servicesOffered.includes(service);
+                        if (isSelected) {
+                          setFormData(prev => ({
+                            ...prev,
+                            servicesOffered: prev.servicesOffered.filter(s => s !== service)
+                          }));
+                        } else {
+                          setFormData(prev => ({
+                            ...prev,
+                            servicesOffered: [...prev.servicesOffered, service]
+                          }));
+                        }
+                      }}
+                    >
+                      {service.charAt(0).toUpperCase() + service.slice(1)}
+                    </div>
+                  ))}
+                </div>
+                
+                {formData.servicesOffered.length > 0 && (
+                  <div className={styles.pro}>
+                    <ul>
+                      {formData.servicesOffered.map((service, index) => (
+                        <li key={index}>
+                          {service.charAt(0).toUpperCase() + service.slice(1)}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
-      {formData.role === 'vendor' && (
-  <div className={styles.pro}>
-    {!formData.servicesOffered.length ? (
-      // Show dropdown when no option is selected
-      <select
-      className={styles.items}
-        multiple
-        value={formData.servicesOffered}
-        onChange={handleServicesChange}
-      >
-        <option value="fastfood">Fast Food</option>
-        <option value="hairstylist">Hair stylist</option>
-        <option value="laundry">Laundry</option>
-        <option value="mechanical">Mechanical</option>
-        <option value="tutoring">Tutoring</option>
-        <option value="verternary">Verternary</option>
-      </select>
-    ) : (
-      // Show selected services once an option is selected
-      <div className={styles.pro}>
-        <ul >
-          {formData.servicesOffered.map((service, index) => (
-            <li key={index}>{service}</li>
-          ))}
-        </ul>
-      </div>
-    )}
-  </div>
-)}
-
-          <button className={styles.createbtn} disabled={isLoading}>
-            {isLoading ? 'Submitting...' : 'Submit'}
+          {/* Submit Button */}
+          <button 
+            type="submit" 
+            className={styles.createbtn} 
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <>
+                <div className="spinner"></div>
+                Creating Profile...
+              </>
+            ) : (
+              <>
+                <FiCheck size={20} />
+                Complete Profile
+              </>
+            )}
           </button>
+
+          {/* Error/Success Messages */}
+          {errorMessage && (
+            <div className={styles.error_message}>
+              {errorMessage}
+            </div>
+          )}
+          {successMessage && (
+            <div className={styles.success_message}>
+              {successMessage}
+            </div>
+          )}
         </form>
       </main>
     </div>

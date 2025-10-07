@@ -1,0 +1,403 @@
+// Settings page specific styles
+.settings_header {
+  margin-bottom: 2rem;
+  
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: #7f8c8d;
+    font-size: 1rem;
+  }
+}
+
+.settings_tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  border-bottom: 2px solid #ecf0f1;
+  
+  .tab_button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #7f8c8d;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      color: #2c3e50;
+      background-color: #f8f9fa;
+    }
+    
+    &.active {
+      color: #3498db;
+      border-bottom-color: #3498db;
+      background-color: #e3f2fd;
+    }
+    
+    svg {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.settings_content {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile_section {
+  margin-bottom: 2rem;
+  
+  .profile_avatar_section {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    
+    .settings_avatar {
+      border: 4px solid white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .profile_info {
+      h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.25rem;
+      }
+      
+      .user_role {
+        color: #3498db;
+        font-weight: 500;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+      
+      .user_code {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        font-family: monospace;
+        background: #ecf0f1;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.settings_form {
+  .form_row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  .form_group {
+    margin-bottom: 1.5rem;
+    
+    label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      
+      svg {
+        color: #3498db;
+        font-size: 1rem;
+      }
+    }
+    
+    input {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      border: 2px solid #e1e8ed;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      background: #fafbfc;
+      
+      &:focus {
+        outline: none;
+        border-color: #3498db;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      }
+      
+      &::placeholder {
+        color: #95a5a6;
+      }
+    }
+  }
+  
+  .password_input {
+    position: relative;
+    
+    input {
+      padding-right: 3rem;
+    }
+    
+    .password_toggle {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #7f8c8d;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      
+      &:hover {
+        color: #3498db;
+      }
+    }
+  }
+  
+  .form_actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    
+    .save_btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 2rem;
+      background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover:not(:disabled) {
+        background: linear-gradient(135deg, #2980b9 0%, #1f5f8b 100%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+      }
+      
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+      }
+      
+      svg {
+        font-size: 1.1rem;
+      }
+    }
+  }
+}
+
+// Security Section
+.security_section {
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+  }
+}
+
+// Notification Section
+.notification_section {
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+  }
+}
+
+.notification_options {
+  margin-bottom: 2rem;
+  
+  .notification_item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    background: #fafbfc;
+    transition: all 0.3s ease;
+    
+    &:hover {
+      background: white;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .notification_info {
+      h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.25rem;
+      }
+      
+      p {
+        color: #7f8c8d;
+        font-size: 0.9rem;
+        margin: 0;
+      }
+    }
+  }
+}
+
+// Toggle Switch
+.toggle_switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+  
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    
+    &:checked + .slider {
+      background-color: #3498db;
+      
+      &:before {
+        transform: translateX(26px);
+      }
+    }
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #bdc3c7;
+    transition: 0.3s;
+    border-radius: 24px;
+    
+    &:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+}
+
+// Loading states
+.loading_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #e1e8ed;
+    border-top: 4px solid #3498db;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  p {
+    color: #7f8c8d;
+    font-size: 1rem;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .settings_tabs {
+    flex-direction: column;
+    gap: 0;
+    
+    .tab_button {
+      border-radius: 0;
+      border-bottom: 1px solid #ecf0f1;
+      justify-content: center;
+      
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+  
+  .settings_content {
+    padding: 1rem;
+  }
+  
+  .profile_section .profile_avatar_section {
+    flex-direction: column;
+    text-align: center;
+    
+    .profile_info h3 {
+      font-size: 1.3rem;
+    }
+  }
+  
+  .notification_item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    
+    .toggle_switch {
+      align-self: flex-end;
+    }
+  }
+}

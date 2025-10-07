@@ -1,0 +1,154 @@
+@import '../mixins/mediaquery';
+
+.errorContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+.errorContent {
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  background: white;
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  @include for-size(tablet-only) {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+}
+
+.errorIcon {
+  margin-bottom: 1.5rem;
+  
+  svg {
+    width: 64px;
+    height: 64px;
+    
+    @include for-size(tablet-only) {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+.errorTitle {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 1rem;
+  
+  @include for-size(tablet-only) {
+    font-size: 1.5rem;
+  }
+}
+
+.errorMessage {
+  font-size: 1.125rem;
+  color: #6b7280;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  
+  @include for-size(tablet-only) {
+    font-size: 1rem;
+  }
+}
+
+.errorDetails {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  text-align: left;
+  
+  summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.errorStack {
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  color: #ef4444;
+  background: #fef2f2;
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.errorActions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+  
+  @include for-size(tablet-only) {
+    flex-direction: column;
+  }
+}
+
+.errorButton {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  min-width: 120px;
+  
+  &.primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(102, 126, 234, 0.4);
+    }
+  }
+  
+  &.secondary {
+    background: white;
+    color: #374151;
+    border: 1px solid #d1d5db;
+    
+    &:hover {
+      background: #f9fafb;
+      border-color: #9ca3af;
+    }
+  }
+}
+
+.errorFooter {
+  border-top: 1px solid #e5e7eb;
+  padding-top: 1.5rem;
+  
+  p {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.supportLink {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}

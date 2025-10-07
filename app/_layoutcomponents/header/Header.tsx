@@ -1,20 +1,23 @@
- 'use client'
-import React, { useState, useEffect, FC } from "react";
-import { TbNotification } from "react-icons/tb";
+'use client'
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { TbNotification, TbBell, TbBellRinging } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
+import { IoSearchOutline, IoClose } from "react-icons/io5";
 import Image from "next/image";
 import axios from "axios";
 import styles from "../../sass/layout/layout.module.scss";
 import * as jwt_decode from "jwt-decode";
-import { FaFirstOrder } from "react-icons/fa";
+import { FaFirstOrder, FaUserCircle } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { GrClose, GrTransaction } from "react-icons/gr";
 import Link from "next/link";
-import { MdDashboard, MdTrackChanges } from "react-icons/md";
+import { MdDashboard, MdTrackChanges, MdLogout, MdSettings, MdAdminPanelSettings, MdInsights, MdShoppingCart } from "react-icons/md";
 import { HiHome } from "react-icons/hi";
 import { BiUser } from "react-icons/bi";
 import { useSearch } from "../searchContext";
-import { CgShoppingCart } from "react-icons/cg";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../../contexts/AuthContext";
+import ProfileAvatar from "../../_components/ProfileAvatar";
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -28,8 +31,11 @@ interface Order {
 }
 
 interface Notification {
+  _id: string;
   orderId: string;
   message: string;
+  isRead: boolean;
+  createdAt: string;
   order: Order; 
 }
 
@@ -118,16 +124,24 @@ const UserPaymentModal: React.FC<UserPaymentModalProps> = ({ order, onClose },  
 
 // Header Component
 const Header = ({ serviceOwnerId }: { serviceOwnerId: string }) => {
+  const router = useRouter();
+  const { userRole } = useAuth(); // Get userRole from AuthContext
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [showDropdown, setShowDropdown] = useState(false); // Toggle for dropdown
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [orders, setOrders] = useState<Order[]>([]);
   const [profile, setProfile] = useState<any>({});
   const [showMenu, setShowMenu] = useState(false);
-   const { searchQuery, setSearchQuery } = useSearch();
-   const [isVendor, setIsVendor] = useState<boolean>(false); 
-const [userRole, setUserRole] = useState<string | null>(null);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const { searchQuery, setSearchQuery } = useSearch();
+  const [isVendor, setIsVendor] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const searchRef = useRef<HTMLInputElement>(null);
+  const notificationRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
 
 
 const handleVendorAction = async (orderId: string, status: string) => {
@@ -168,33 +182,41 @@ const handleVendorAction = async (orderId: string, status: string) => {
 
   if (serviceOwnerId) {
     try {
+      console.log("Fetching vendor notifications for serviceOwnerId:", serviceOwnerId);
       const response = await axios.get(
         `${baseUrl}/orders/notifications/${serviceOwnerId}`
       );
 
-      console.log("Raw notification response:", response.data);
+      console.log("Raw vendor notification response:", response.data);
 
-      const formattedNotifications = response.data.map((notification: any) => {
-        const user = notification.orderId.userId;
+      // Backend returns array directly for this legacy endpoint
+      const notificationsData = Array.isArray(response.data) ? response.data : response.data.notifications || [];
+
+      const formattedNotifications = notificationsData.map((notification: any) => {
+        const user = notification.orderId?.userId;
+        const service = notification.orderId?.serviceId;
 
         return {
-          orderId: notification.orderId._id,
+          _id: notification._id, // Include the notification ID
+          orderId: notification.orderId?._id,
           message: notification.message,
+          isRead: notification.isRead || false, // Include read status
+          createdAt: notification.createdAt,
           order: {
-            _id: notification.orderId._id,
-            serviceName: notification.message.split(":")[1]?.trim(),
-            quantity: notification.orderId.quantity,
+            _id: notification.orderId?._id,
+            serviceName: service?.serviceName || notification.message.split(":")[1]?.trim() || "Unknown Service",
+            quantity: notification.orderId?.quantity || 1,
             userName: user
               ? `${user.firstname} ${user.lastname}`
-              : "Unknown",
+              : "Unknown Customer",
           },
         };
       });
 
       setNotifications(formattedNotifications);
-      console.log("Formatted notifications:", formattedNotifications);
+      console.log("Formatted vendor notifications:", formattedNotifications);
     } catch (error) {
-      console.error("Error fetching notifications:", error);
+      console.error("Error fetching vendor notifications:", error);
     }
   }
 };
@@ -205,33 +227,66 @@ const handleVendorAction = async (orderId: string, status: string) => {
   const userId = localStorage.getItem("userId"); // this should be the ID of the customer
   if (userId) {
     try {
+      console.log("Fetching customer notifications for userId:", userId);
       const response = await axios.get(`${baseUrl}/orders/notifications/user/${userId}`);
-      const formattedNotifications = response.data.map((notification: any) => ({
-        orderId: notification.orderId._id,
+      
+      // Handle new response format { notifications: [...] }
+      const notificationsData = response.data.notifications || response.data || [];
+      console.log("Raw customer notification response:", response.data);
+      
+      const formattedNotifications = notificationsData.map((notification: any) => ({
+        _id: notification._id, // Include the notification ID
+        orderId: notification.orderId?._id,
         message: notification.message,
+        isRead: notification.isRead || false, // Include read status
+        createdAt: notification.createdAt,
         order: {
-          _id: notification.orderId._id,
-          serviceName: notification.message.split(":")[1]?.trim() || '',
-          quantity: notification.orderId.quantity,
-          vendorName: "Unknown",
+          _id: notification.orderId?._id,
+          serviceName: notification.orderId?.serviceId?.serviceName || notification.message.split(":")[1]?.trim() || '',
+          quantity: notification.orderId?.quantity || 1,
+          vendorName: "Service Provider",
         },
       }));
       setNotifications(formattedNotifications);
-      console.log("User Notifications:", formattedNotifications);
+      console.log("Formatted customer notifications:", formattedNotifications);
     } catch (error) {
       console.error("Error fetching user notifications:", error);
     }
   }
 };
 
-  const handleNotificationClick = (notification: Notification) => {
-  setSelectedOrder(notification.order);
-  setIsModalOpen(true);
+  const handleNotificationClick = async (notification: Notification) => {
+  // Mark notification as read if it's unread
+  if (!notification.isRead && notification._id) {
+    try {
+      const token = localStorage.getItem('authToken');
+      await axios.patch(
+        `${baseUrl}/orders/notifications/${notification._id}`,
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      
+      // Update local state
+      setNotifications(prev => 
+        prev.map(n => 
+          n._id === notification._id ? { ...n, isRead: true } : n
+        )
+      );
+    } catch (error) {
+      console.error('Error marking notification as read:', error);
+    }
+  }
 
-  if (notification.message.toLowerCase().includes("accepted")) {
-    setIsVendor(false);
+  // For vendors, just close the dropdown - no modal popup
+  if (userRole === "vendor") {
+    setShowDropdown(false);
+    // Optionally redirect to notifications page to see all details
+    // window.location.href = '/notification';
   } else {
-    setIsVendor(true);
+    // For customers, redirect to notifications page for payment actions
+    window.location.href = '/notification';
   }
 };
 
@@ -246,8 +301,10 @@ const handleVendorAction = async (orderId: string, status: string) => {
     if (token) {
       const decodedUser = jwt_decode.jwtDecode(token);
       try {
+        // Use appropriate endpoint based on user role
+        const endpoint = userRole === 'admin' ? '/api/adminProfile' : '/api/profile';
         const response = await axios.get(
-          `${baseUrl}/profile`, 
+          `${baseUrl}${endpoint}`, 
           {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -270,160 +327,399 @@ const handleVendorAction = async (orderId: string, status: string) => {
   // }, [serviceOwnerId]);
 
   useEffect(() => {
-  const token = localStorage.getItem("authToken");
-  if (token) {
-    const decodedUser: any = jwt_decode.jwtDecode(token);
-    const role = decodedUser.role;
-
-    setUserRole(role);
     fetchUserData();
 
-    if (role === "vendor") {
+    if (userRole === "vendor") {
+      setIsVendor(true);
       fetchNotifications(); // vendor
       fetchVendorOrders();
-    } else {
+    } else if (userRole === "customer") {
+      setIsVendor(false);
       fetchUserNotifications(); // customer
+    } else if (userRole === "admin") {
+      setIsVendor(false);
+      // Admins don't need order notifications for now
+      // Can be extended later if needed
     }
-  }
-}, [serviceOwnerId]);
+}, [userRole, serviceOwnerId]);
 
-console.log("Fetching notifications for serviceOwnerId:", serviceOwnerId);
+  // Handle logout
+  const handleLogout = useCallback(() => {
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userRole');
+    router.push('/sign-in');
+  }, [router]);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+        setShowDropdown(false);
+      }
+      if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+        setShowProfileMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Handle search input focus
+  const handleSearchFocus = () => {
+    setIsSearchFocused(true);
+  };
+
+  const handleSearchBlur = () => {
+    setTimeout(() => setIsSearchFocused(false), 200);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery('');
+    searchRef.current?.focus();
+  };
+
+  console.log("Fetching notifications for serviceOwnerId:", serviceOwnerId);
 
   return (
-    <div className={styles.layout_header}>
-      <div className={styles.searchbox}>
-        <CiSearch size={24} />
-        <input placeholder="Search..." 
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-      {/* Hamburger Icon - Mobile Only */}
-      <div className={styles.hamburger} onClick={() => setShowMenu(!showMenu)}>
-  {showMenu ? (
-    <GrClose size={18} />
-  ) : (
-    <GiHamburgerMenu size={24} style={{ marginRight: '6px' }} />
-  )}
-</div>
-{/* Mobile Menu */}
-      {showMenu && (
-        <div className={`${styles.mobileMenu} ${showMenu ? styles.showMenu : ''}`}>
-                    <div className={styles.userbox_mobile}>
-        {/* Notification Icon */}
-        <button
-          onClick={() => setShowDropdown((prev) => !prev)} // Toggle dropdown
-          className={styles.notificationButton}
-        >
-          <TbNotification size={16} />
-          {notifications.length > 0 && <span className={styles.badge}>{notifications.length}</span>}
-        </button>
-
-    
-        {/* Notification Dropdown */}
-        {showDropdown && (
-          <>
-           <div className="overlay"></div>
-          <div className={styles.notificationDropdown}>
-            {notifications.length > 0 ? (
-              notifications.map((notification) => (
-                <div
-                  key={notification.orderId}
-                  className={styles.notificationItem}
-                  onClick={() => handleNotificationClick(notification)}
-                >
-                  <p>{notification.message}</p>
-                </div>
-              ))
-            ) : (
-              <p className={styles.noNotifications}>No notifications</p>
-            )}
-          </div>
-          </>
-        )}
-
-        {/* Profile Image */}
-        <Image
-          src={profile.profileImage}
-          alt="Profile"
-          width={30}
-          height={30}
-          className={styles.profileimg}
-        />
-      </div>
-          <Link href="/">
-          <HiHome size={16}/> Home</Link>
-          <Link href="/dashboard">
-          <MdDashboard size={16}/> Dashboard</Link>
-          <Link href="/servicelist">
-          <CgShoppingCart size={16}/> Services</Link>
-          <Link href="/orders">
-          <FaFirstOrder size={16}/> Orders</Link>
-          <Link href="/ordertracking">
-          <MdTrackChanges size={16}/> Tracking</Link>
-          <Link href="/transaction">
-          <GrTransaction size={16} /> Transaction</Link>
-          <Link href="/userprofile">
-          <BiUser size={16}/> Profile</Link>
+    <header className={styles.layout_header}>
+      {/* Enhanced Search Section */}
+      <div className={`${styles.searchbox} ${isSearchFocused ? styles.focused : ''}`}>
+        <div className={styles.search_input_wrapper}>
+          <IoSearchOutline size={20} className={styles.search_icon} />
+          <input 
+            ref={searchRef}
+            placeholder="Search services, orders, or anything..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={handleSearchFocus}
+            onBlur={handleSearchBlur}
+            className={styles.search_input}
+          />
+          {searchQuery && (
+            <button 
+              onClick={clearSearch}
+              className={styles.clear_search}
+              aria-label="Clear search"
+            >
+              <IoClose size={18} />
+            </button>
+          )}
         </div>
-      )}
-      <div className={styles.userbox}>
-        {/* Notification Icon */}
-        <button
-          onClick={() => setShowDropdown((prev) => !prev)} // Toggle dropdown
-          className={styles.notificationButton}
-        >
-          <TbNotification size={26} />
-          {notifications.length > 0 && <span className={styles.badge}>{notifications.length}</span>}
-        </button>
-
-    
-        {/* Notification Dropdown */}
-        {showDropdown && (
-          <div className={styles.notificationDropdown}>
-            {notifications.length > 0 ? (
-              notifications.map((notification) => (
-                <div
-                  key={notification.orderId}
-                  className={styles.notificationItem}
-                  onClick={() => handleNotificationClick(notification)}
-                >
-                  <p>{notification.message}</p>
-                </div>
-              ))
-            ) : (
-              <p className={styles.noNotifications}>No notifications</p>
-            )}
+        
+        {/* Search Suggestions Dropdown */}
+        {isSearchFocused && (
+          <div className={styles.search_suggestions}>
+            <div className={styles.suggestions_header}>
+              <span>Quick Actions</span>
+            </div>
+            <div className={styles.suggestion_item}>
+              <Link href="/servicelist">
+                <MdShoppingCart size={16} />
+                <span>Browse Services</span>
+              </Link>
+            </div>
+            <div className={styles.suggestion_item}>
+              <Link href="/orders">
+                <FaFirstOrder size={16} />
+                <span>My Orders</span>
+              </Link>
+            </div>
+            <div className={styles.suggestion_item}>
+              <Link href="/ordertracking">
+                <MdTrackChanges size={16} />
+                <span>Track Order</span>
+              </Link>
+            </div>
           </div>
         )}
-
-        {/* Profile Image */}
-        <Image
-          src={profile.profileImage}
-          alt="Profile"
-          width={30}
-          height={30}
-          className={styles.profileimg}
-        />
       </div>
+      {/* Action Buttons Section */}
+      <div className={styles.header_actions}>
+        {/* Notifications */}
+        <div className={styles.notification_wrapper} ref={notificationRef}>
+          <button
+            onClick={() => setShowDropdown(!showDropdown)}
+            className={`${styles.notificationButton} ${notifications.length > 0 ? styles.hasNotifications : ''}`}
+            aria-label="Notifications"
+          >
+            {notifications.length > 0 ? (
+              <TbBellRinging size={24} className={styles.notification_icon_active} />
+            ) : (
+              <TbBell size={24} className={styles.notification_icon} />
+            )}
+            {notifications.filter(n => !n.isRead).length > 0 && (
+              <span className={styles.badge}>{notifications.filter(n => !n.isRead).length}</span>
+            )}
+          </button>
 
-    {isModalOpen && selectedOrder && (
-  isVendor ? (
-    <Modal
-      order={selectedOrder}
-      onClose={handleCloseModal}
-      onAction={handleVendorAction} // You'll need to define this
-    />
-  ) : (
-    <UserPaymentModal
-      order={selectedOrder}
-      onClose={handleCloseModal}
-    />
-  )
-)}
+          {/* Enhanced Notification Dropdown */}
+          {showDropdown && (
+            <>
+              <div className={styles.dropdown_overlay} onClick={() => setShowDropdown(false)} />
+              <div className={styles.notificationDropdown}>
+                <div className={styles.notification_header}>
+                  <h3>Notifications</h3>
+                  {notifications.filter(n => !n.isRead).length > 0 && (
+                    <span className={styles.notification_count}>{notifications.filter(n => !n.isRead).length} new</span>
+                  )}
+                </div>
+                <div className={styles.notification_list}>
+                  {notifications.length > 0 ? (
+                    notifications.map((notification) => (
+                      <div
+                        key={notification._id}
+                        className={styles.notificationItem}
+                        onClick={() => handleNotificationClick(notification)}
+                      >
+                        <div className={styles.notification_icon_wrapper}>
+                          <FaFirstOrder size={16} />
+                        </div>
+                        <div className={styles.notification_content}>
+                          <p className={styles.notification_message}>{notification.message}</p>
+                          <span className={styles.notification_time}>Just now</span>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className={styles.noNotifications}>
+                      <TbBell size={32} className={styles.empty_icon} />
+                      <p>No new notifications</p>
+                      <span>You're all caught up!</span>
+                    </div>
+                  )}
+                </div>
+                {notifications.length > 0 && (
+                  <div className={styles.notification_footer}>
+                    <Link href="/notification" className={styles.view_all}>
+                      View all notifications
+                    </Link>
+                  </div>
+                )}
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Profile Menu */}
+        <div className={styles.profile_wrapper} ref={profileRef}>
+          <button
+            onClick={() => setShowProfileMenu(!showProfileMenu)}
+            className={styles.profile_button}
+            aria-label="Profile menu"
+          >
+            <ProfileAvatar
+              src={profile.profileImage}
+              firstname={profile.firstname}
+              lastname={profile.lastname}
+              width={36}
+              height={36}
+              className={styles.profileimg}
+            />
+            <div className={styles.profile_info}>
+              <span className={styles.profile_name}>
+                {profile.firstname ? `${profile.firstname} ${profile.lastname}` : 'User'}
+              </span>
+              <span className={styles.profile_role}>
+                {userRole === 'admin' ? 'Administrator' : userRole === 'vendor' ? 'Service Provider' : 'Customer'}
+              </span>
+            </div>
+          </button>
+
+          {/* Profile Dropdown */}
+          {showProfileMenu && (
+            <>
+              <div className={styles.dropdown_overlay} onClick={() => setShowProfileMenu(false)} />
+              <div className={styles.profile_dropdown}>
+                <div className={styles.profile_header}>
+                  <div className={styles.profile_avatar}>
+                    <ProfileAvatar
+                      src={profile.profileImage}
+                      firstname={profile.firstname}
+                      lastname={profile.lastname}
+                      width={48}
+                      height={48}
+                      className={styles.profile_dropdown_img}
+                    />
+                  </div>
+                  <div className={styles.profile_details}>
+                    <h4>{profile.firstname ? `${profile.firstname} ${profile.lastname}` : 'User Name'}</h4>
+                    <p>{profile.email || 'user@example.com'}</p>
+                    <span className={styles.role_badge}>
+                      {userRole === 'admin' ? '🛡️ Administrator' : userRole === 'vendor' ? '🏪 Service Provider' : '👤 Customer'}
+                    </span>
+                  </div>
+                </div>
+                
+                <div className={styles.profile_menu_items}>
+                  <Link href="/userprofile" className={styles.profile_menu_item}>
+                    <BiUser size={18} />
+                    <span>My Profile</span>
+                  </Link>
+                  <Link href="/settings" className={styles.profile_menu_item}>
+                    <MdSettings size={18} />
+                    <span>Settings</span>
+                  </Link>
+                  {userRole === 'admin' && (
+                    <>
+                      <Link href="/admin" className={`${styles.profile_menu_item} ${styles.admin_item}`}>
+                        <MdAdminPanelSettings size={18} />
+                        <span>Admin Dashboard</span>
+                      </Link>
+                      <Link href="/analytics" className={`${styles.profile_menu_item} ${styles.analytics_item}`}>
+                        <MdInsights size={18} />
+                        <span>Analytics</span>
+                      </Link>
+                    </>
+                  )}
+                  <Link href="/orders" className={styles.profile_menu_item}>
+                    <FaFirstOrder size={18} />
+                    <span>My Orders</span>
+                  </Link>
+                  <div className={styles.menu_divider} />
+                  <button 
+                    onClick={handleLogout}
+                    className={`${styles.profile_menu_item} ${styles.logout_item}`}
+                  >
+                    <MdLogout size={18} />
+                    <span>Sign Out</span>
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+
+        {/* Mobile Menu Button */}
+        <button 
+          className={styles.hamburger} 
+          onClick={() => setShowMenu(!showMenu)}
+          aria-label="Toggle menu"
+        >
+          {showMenu ? (
+            <GrClose size={20} />
+          ) : (
+            <GiHamburgerMenu size={24} />
+          )}
+        </button>
+      </div>
+      {/* Enhanced Mobile Menu */}
+      {showMenu && (
+        <>
+          <div className={styles.mobile_overlay} onClick={() => setShowMenu(false)} />
+          <div className={`${styles.mobileMenu} ${showMenu ? styles.showMenu : ''}`}>
+            {/* Mobile Header */}
+            <div className={styles.mobile_header}>
+              <div className={styles.mobile_profile}>
+                <ProfileAvatar
+                  src={profile.profileImage}
+                  firstname={profile.firstname}
+                  lastname={profile.lastname}
+                  width={40}
+                  height={40}
+                  className={styles.mobile_profile_img}
+                />
+                <div className={styles.mobile_profile_info}>
+                  <h4>{profile.firstname ? `${profile.firstname} ${profile.lastname}` : 'User'}</h4>
+                  <span>{userRole === 'admin' ? 'Administrator' : userRole === 'vendor' ? 'Service Provider' : 'Customer'}</span>
+                </div>
+              </div>
+              <button 
+                className={styles.mobile_close}
+                onClick={() => setShowMenu(false)}
+                aria-label="Close menu"
+              >
+                <GrClose size={20} />
+              </button>
+            </div>
+
+            {/* Mobile Navigation */}
+            <nav className={styles.mobile_nav}>
+              <Link href="/" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                <HiHome size={20} />
+                <span>Home</span>
+              </Link>
+              <Link href="/dashboard" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                <MdDashboard size={20} />
+                <span>Dashboard</span>
+              </Link>
+              
+              {/* Admin-specific navigation */}
+              {userRole === 'admin' ? (
+                <>
+                  <Link href="/admin" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                    <MdAdminPanelSettings size={20} />
+                    <span>Admin Panel</span>
+                  </Link>
+                  <Link href="/analytics" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                    <MdInsights size={20} />
+                    <span>Analytics</span>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/servicelist" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                    <MdShoppingCart size={20} />
+                    <span>Services</span>
+                  </Link>
+                  <Link href="/orders" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                    <FaFirstOrder size={20} />
+                    <span>Orders</span>
+                    {notifications.filter(n => !n.isRead).length > 0 && (
+                      <span className={styles.mobile_badge}>{notifications.filter(n => !n.isRead).length}</span>
+                    )}
+                  </Link>
+                  <Link href="/ordertracking" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                    <MdTrackChanges size={20} />
+                    <span>Tracking</span>
+                  </Link>
+                  <Link href="/transaction" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                    <GrTransaction size={20} />
+                    <span>Transaction</span>
+                  </Link>
+                </>
+              )}
+              
+              <Link href="/userprofile" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                <BiUser size={20} />
+                <span>Profile</span>
+              </Link>
+            </nav>
+
+            {/* Mobile Footer */}
+            <div className={styles.mobile_footer}>
+              <button 
+                onClick={handleLogout}
+                className={styles.mobile_logout}
+              >
+                <MdLogout size={20} />
+                <span>Sign Out</span>
+              </button>
+            </div>
+          </div>
+        </>
+      )}
 
 
-    </div>
+      {/* Modals */}
+      {isModalOpen && selectedOrder && (
+        isVendor ? (
+          <Modal
+            order={selectedOrder}
+            onClose={handleCloseModal}
+            onAction={handleVendorAction}
+          />
+        ) : (
+          <UserPaymentModal
+            order={selectedOrder}
+            onClose={handleCloseModal}
+          />
+        )
+      )}
+    </header>
   );
 };
 
