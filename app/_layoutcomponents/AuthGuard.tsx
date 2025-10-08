@@ -21,29 +21,36 @@ const AuthGuard = ({
   const router = useRouter();
 
   useEffect(() => {
-    // If authentication is required but user is not authenticated
-    if (requireAuth && !isAuthenticated && !userId) {
-      // Save the current path to redirect back after login
-      const currentPath = window.location.pathname;
-      if (currentPath !== '/' && currentPath !== '/sign-in' && currentPath !== '/sign-up') {
-        sessionStorage.setItem('redirectAfterLogin', currentPath);
+    // Use startTransition to make navigation non-blocking
+    const handleAuthRedirect = () => {
+      // If authentication is required but user is not authenticated
+      if (requireAuth && !isAuthenticated && !userId) {
+        // Save the current path to redirect back after login
+        const currentPath = window.location.pathname;
+        if (currentPath !== '/' && currentPath !== '/sign-in' && currentPath !== '/sign-up') {
+          sessionStorage.setItem('redirectAfterLogin', currentPath);
+        }
+        
+        router.push(redirectTo);
+        return;
       }
-      
-      router.push(redirectTo);
-      return;
-    }
 
-    // If user is authenticated but trying to access auth pages
-    if (!requireAuth && isAuthenticated && userId) {
-      const savedRedirect = sessionStorage.getItem('redirectAfterLogin');
-      if (savedRedirect) {
-        sessionStorage.removeItem('redirectAfterLogin');
-        router.push(savedRedirect);
-      } else {
-        router.push('/dashboard');
+      // If user is authenticated but trying to access auth pages
+      if (!requireAuth && isAuthenticated && userId) {
+        const savedRedirect = sessionStorage.getItem('redirectAfterLogin');
+        if (savedRedirect) {
+          sessionStorage.removeItem('redirectAfterLogin');
+          router.push(savedRedirect);
+        } else {
+          router.push('/dashboard');
+        }
+        return;
       }
-      return;
-    }
+    };
+
+    // Debounce the auth check to prevent excessive redirects
+    const timeoutId = setTimeout(handleAuthRedirect, 50);
+    return () => clearTimeout(timeoutId);
   }, [isAuthenticated, userId, requireAuth, router, redirectTo]);
 
   // Show loading while checking authentication

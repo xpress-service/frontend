@@ -61,15 +61,19 @@ const SignIn = () => {
         const userProfile = profileResponse.data;
         
         // Check if required profile fields are filled
-        if (userProfile && 
+        const isProfileComplete = userProfile && 
           userProfile.firstname && 
           userProfile.lastname && 
           userProfile.email && 
-          userProfile.nin &&
+          userProfile.country &&
           userProfile.location &&
           userProfile.birthdate &&
           userProfile.gender &&
-          userProfile.phone) {
+          userProfile.phone &&
+          // NIN is only required for Nigerian users
+          (userProfile.country !== 'nigeria' || userProfile.nin);
+          
+        if (isProfileComplete) {
           setTimeout(() => router.push('/servicelist'), 1500); 
         } else {
           setTimeout(() => router.push('/userprofile/complete-profile'), 1500); 

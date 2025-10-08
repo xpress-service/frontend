@@ -12,7 +12,7 @@ import { HiChevronLeft } from "react-icons/hi2";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import axios from "axios";
 import styles from "../../sass/layout/layout.module.scss";
@@ -92,7 +92,7 @@ const Sidebar = ({ onToggleCollapse }: SidebarProps) => {
     return pathname.startsWith(href);
   };
 
-  // Load actual order count
+  // Load actual order count with debouncing
   useEffect(() => {
     const fetchOrderCount = async () => {
       if (!isAuthenticated || !userId) {
@@ -113,12 +113,18 @@ const Sidebar = ({ onToggleCollapse }: SidebarProps) => {
         setNotifications(activeOrders.length);
       } catch (error) {
         console.log('Could not fetch order count:', error);
-        // Remove the badge if there's an error
         setNotifications(0);
       }
     };
 
-    fetchOrderCount();
+    // Debounce the API call to prevent excessive requests
+    const timeoutId = setTimeout(() => {
+      if (isAuthenticated && userId) {
+        fetchOrderCount();
+      }
+    }, 200);
+
+    return () => clearTimeout(timeoutId);
   }, [isAuthenticated, userId]);
 
   return (
@@ -223,4 +229,4 @@ const Sidebar = ({ onToggleCollapse }: SidebarProps) => {
   );
 };
 
-export default Sidebar;
+export default React.memo(Sidebar);

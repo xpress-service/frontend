@@ -298,12 +298,22 @@ const handleToggleView = () => {
                 {(profile?.email || profile?.emailAddress) && <span className={styles.verified}>Verified</span>}
               </div>
 
+              {profile?.country === 'nigeria' && (
+                <div className={styles.info_item}>
+                  <div className={styles.heading}>
+                    <FiUser className="inline-icon" />
+                    NIN
+                  </div>
+                  <p>{profile?.nin || profile?.NIN || "Not provided"}</p>
+                </div>
+              )}
+
               <div className={styles.info_item}>
                 <div className={styles.heading}>
-                  <FiUser className="inline-icon" />
-                  NIN
+                  <MdLocationOn className="inline-icon" />
+                  Country
                 </div>
-                <p>{profile?.nin || profile?.NIN || (profile ? "Not provided" : "Loading...")}</p>
+                <p>{profile?.country ? profile.country.charAt(0).toUpperCase() + profile.country.slice(1) : (profile ? "Not provided" : "Loading...")}</p>
               </div>
 
               <div className={styles.info_item}>

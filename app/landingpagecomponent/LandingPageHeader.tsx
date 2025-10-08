@@ -71,15 +71,15 @@ const LandingPageHeader = () => {
 
         {/* Action Buttons */}
         <div className={styles.header_actions}>
-          <Link 
+          {/* <Link 
             href="/sign-in" 
             className={styles.login_btn}
             prefetch={true}
           >
             Login
-          </Link>
+          </Link> */}
           <Link 
-            href="/sign-up" 
+            href="/sign-in" 
             className={styles.cta_btn}
             prefetch={true}
           >

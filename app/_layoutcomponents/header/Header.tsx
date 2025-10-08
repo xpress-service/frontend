@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useCallback, memo } from "react";
 import { TbNotification, TbBell, TbBellRinging } from "react-icons/tb";
 import { CiSearch } from "react-icons/ci";
 import { IoSearchOutline, IoClose } from "react-icons/io5";
@@ -327,21 +327,27 @@ const handleVendorAction = async (orderId: string, status: string) => {
   // }, [serviceOwnerId]);
 
   useEffect(() => {
-    fetchUserData();
+    // Debounce API calls to prevent excessive requests during navigation
+    const timeoutId = setTimeout(() => {
+      if (userRole && serviceOwnerId) {
+        fetchUserData();
 
-    if (userRole === "vendor") {
-      setIsVendor(true);
-      fetchNotifications(); // vendor
-      fetchVendorOrders();
-    } else if (userRole === "customer") {
-      setIsVendor(false);
-      fetchUserNotifications(); // customer
-    } else if (userRole === "admin") {
-      setIsVendor(false);
-      // Admins don't need order notifications for now
-      // Can be extended later if needed
-    }
-}, [userRole, serviceOwnerId, fetchUserData]);
+        if (userRole === "vendor") {
+          setIsVendor(true);
+          fetchNotifications(); // vendor
+          fetchVendorOrders();
+        } else if (userRole === "customer") {
+          setIsVendor(false);
+          fetchUserNotifications(); // customer
+        } else if (userRole === "admin") {
+          setIsVendor(false);
+          // Admins don't need order notifications for now
+        }
+      }
+    }, 100); // 100ms debounce
+
+    return () => clearTimeout(timeoutId);
+}, [userRole, serviceOwnerId]);
 
   // Handle logout
   const handleLogout = useCallback(() => {
@@ -723,4 +729,4 @@ const handleVendorAction = async (orderId: string, status: string) => {
   );
 };
 
-export default Header;
+export default React.memo(Header);

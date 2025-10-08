@@ -1,21 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import ClientProviders from './_components/ClientProviders';
 
-// Optimized font loading with better performance
-const inter = Inter({ 
-  subsets: ["latin"],
-  display: 'swap',
-  variable: '--font-inter'
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ['300', '400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-poppins'
-});
+// Use system fonts instead of Google Fonts for better reliability
+const systemFonts = {
+  className: 'font-system',
+  variable: '--font-system --font-inter --font-poppins'
+};
 
 // Enhanced metadata for better SEO and PWA support
 export const metadata: Metadata = {
@@ -97,13 +88,11 @@ export default function RootLayout({
   return (
     <html 
       lang="en" 
-      className={`${inter.variable} ${poppins.variable}`}
+      className={systemFonts.variable}
       suppressHydrationWarning
     >
       <head>
         {/* Preload critical resources */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         
         {/* Performance and Security Headers */}
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
@@ -121,7 +110,7 @@ export default function RootLayout({
         <meta name="msapplication-tap-highlight" content="no" />
       </head>
       <body 
-        className={`${inter.className} antialiased`}
+        className={`${systemFonts.className} antialiased`}
       >
         <ClientProviders>
           {children}

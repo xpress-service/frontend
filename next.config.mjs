@@ -1,9 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // images: {
-    //     domains: ['localhost:3000'], 
-    //   },
-
+    // Basic optimizations that are stable
+    optimizeFonts: true,
+    swcMinify: true,
+    
+    // Compiler optimizations
+    compiler: {
+      removeConsole: process.env.NODE_ENV === 'production',
+    },
+    
     images: {
       remotePatterns: [
         {
@@ -12,7 +17,23 @@ const nextConfig = {
           port: '',
           pathname: '/**',
         },
+        {
+          protocol: 'https',
+          hostname: 'fonts.googleapis.com',
+          port: '',
+          pathname: '/**',
+        },
+        {
+          protocol: 'https',
+          hostname: 'fonts.gstatic.com',
+          port: '',
+          pathname: '/**',
+        },
       ],
+      // Basic image optimizations
+      formats: ['image/webp'],
+      minimumCacheTTL: 60,
+      dangerouslyAllowSVG: true,
     },
 };
 
