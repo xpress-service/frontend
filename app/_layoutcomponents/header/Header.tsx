@@ -296,7 +296,7 @@ const handleVendorAction = async (orderId: string, status: string) => {
   };
 
   // Fetch user profile data
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     const token = localStorage.getItem("authToken");
     if (token) {
       const decodedUser = jwt_decode.jwtDecode(token);
@@ -317,7 +317,7 @@ const handleVendorAction = async (orderId: string, status: string) => {
         console.error("Failed to fetch user data", error);
       }
     }
-  };
+  }, [userRole]);
 
   // useEffect(() => {
   //   fetchNotifications();
@@ -341,7 +341,7 @@ const handleVendorAction = async (orderId: string, status: string) => {
       // Admins don't need order notifications for now
       // Can be extended later if needed
     }
-}, [userRole, serviceOwnerId]);
+}, [userRole, serviceOwnerId, fetchUserData]);
 
   // Handle logout
   const handleLogout = useCallback(() => {
@@ -488,7 +488,7 @@ const handleVendorAction = async (orderId: string, status: string) => {
                     <div className={styles.noNotifications}>
                       <TbBell size={32} className={styles.empty_icon} />
                       <p>No new notifications</p>
-                      <span>You're all caught up!</span>
+                      <span>You&apos;re all caught up!</span>
                     </div>
                   )}
                 </div>

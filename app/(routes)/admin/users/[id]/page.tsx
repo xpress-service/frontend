@@ -20,7 +20,7 @@ import { MdAdminPanelSettings, MdVerifiedUser, MdBlock } from 'react-icons/md';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import ProfileAvatar from '../../../../_components/ProfileAvatar';
-import styles from '../../../sass/admin/userDetails.module.scss';
+import styles from '../../../../sass/admin/userDetails.module.scss';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 

@@ -636,7 +636,7 @@ Total Order: ₦${transaction.totalAmount.toLocaleString()}` :
                           Order: {(transaction.status || 'pending').charAt(0).toUpperCase() + (transaction.status || 'pending').slice(1)}
                         </span>
                       </div>
-                      {isVendor && (transaction.paymentStatus === 'paid' || transaction.paymentStatus === 'confirmed') && (
+                      {isVendor && transaction.paymentStatus === 'paid' && (
                         <div className={styles.detail_item}>
                           <span className={styles.earnings_highlight}>
                             Earnings: ₦{(transaction.vendorReceives || 0).toLocaleString()}
