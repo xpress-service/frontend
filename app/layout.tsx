@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: "ServiceXpress - Your Premier Service Hub",
+    title: "Servi-Xpress - Your Premier Service Hub",
     description: "Connect with top-rated service providers in your area.",
     images: ['/twitter-image.png']
   },
@@ -111,10 +111,10 @@ export default function RootLayout({
         <meta httpEquiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()" />
         
         {/* Progressive Web App */}
-        <meta name="application-name" content="ServiceXpress" />
+        <meta name="application-name" content="Servi-Xpress" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="ServiceXpress" />
+        <meta name="apple-mobile-web-app-title" content="Servi-Xpress" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-TileColor" content="#667eea" />

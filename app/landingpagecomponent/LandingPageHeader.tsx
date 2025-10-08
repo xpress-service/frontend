@@ -43,12 +43,12 @@ const LandingPageHeader = () => {
           <Link href="/" className={styles.logo_link}>
             <Image 
               src="/logo.jpg" 
-              alt="ServiceXpress - On-demand services platform" 
+              alt="Servi-Xpress - On-demand services platform" 
               width={45} 
               height={45} 
               className={styles.logo}
             />
-            <span className={styles.brand_name}>ServiceXpress</span>
+            <span className={styles.brand_name}>Servi-Xpress</span>
           </Link>
         </div>
 

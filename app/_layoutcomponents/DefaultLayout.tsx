@@ -85,7 +85,7 @@ export default function DefaultLayout({ children, serviceOwnerId }: DefaultLayou
       case '/notification':
         return 'Notifications';
       default:
-        return 'ServiceXpress';
+        return 'Servi-Xpress';
     }
   };
 
