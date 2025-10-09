@@ -276,6 +276,49 @@
         }
       }
       
+      .mobile_notification_btn {
+        position: relative;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.2);
+        }
+        
+        &.hasNotifications {
+          background: rgba(255, 193, 7, 0.2);
+          border-color: rgba(255, 193, 7, 0.4);
+        }
+        
+        svg {
+          color: white;
+        }
+        
+        .mobile_notification_badge {
+          position: absolute;
+          top: -2px;
+          right: -2px;
+          background: #dc3545;
+          color: white;
+          border-radius: 8px;
+          min-width: 16px;
+          height: 16px;
+          font-size: 10px;
+          font-weight: 600;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 2px solid white;
+        }
+      }
+      
       .mobile_close {
         background: rgba(255, 255, 255, 0.1);
         border: none;
@@ -587,7 +630,10 @@
       justify-content: center;
       
       @include for-size(tablet-only) {
-        display: none;
+        display: flex;
+        background: transparent;
+        border: none;
+        padding: 6px;
       }
       
       &:hover {

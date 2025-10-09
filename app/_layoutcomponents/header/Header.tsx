@@ -633,6 +633,29 @@ const handleVendorAction = async (orderId: string, status: string) => {
                   <span>{userRole === 'admin' ? 'Administrator' : userRole === 'vendor' ? 'Service Provider' : 'Customer'}</span>
                 </div>
               </div>
+              
+              {/* Mobile Notification Button */}
+              {userRole !== 'admin' && (
+                <button
+                  onClick={() => {
+                    setShowDropdown(!showDropdown);
+                  }}
+                  className={`${styles.mobile_notification_btn} ${notifications.filter(n => !n.isRead).length > 0 ? styles.hasNotifications : ''}`}
+                  aria-label="Notifications"
+                >
+                  {notifications.filter(n => !n.isRead).length > 0 ? (
+                    <TbBellRinging size={20} />
+                  ) : (
+                    <TbBell size={20} />
+                  )}
+                  {notifications.filter(n => !n.isRead).length > 0 && (
+                    <span className={styles.mobile_notification_badge}>
+                      {notifications.filter(n => !n.isRead).length}
+                    </span>
+                  )}
+                </button>
+              )}
+              
               <button 
                 className={styles.mobile_close}
                 onClick={() => setShowMenu(false)}
@@ -652,6 +675,17 @@ const handleVendorAction = async (orderId: string, status: string) => {
                 <MdDashboard size={20} />
                 <span>Dashboard</span>
               </Link>
+
+              {/* Notifications - Always visible for both vendor and customer */}
+              {userRole !== 'admin' && (
+                <Link href="/notification" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
+                  <TbBell size={20} />
+                  <span>Notifications</span>
+                  {notifications.filter(n => !n.isRead).length > 0 && (
+                    <span className={styles.mobile_badge}>{notifications.filter(n => !n.isRead).length}</span>
+                  )}
+                </Link>
+              )}
               
               {/* Admin-specific navigation */}
               {userRole === 'admin' ? (
@@ -674,9 +708,6 @@ const handleVendorAction = async (orderId: string, status: string) => {
                   <Link href="/orders" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
                     <FaFirstOrder size={20} />
                     <span>Orders</span>
-                    {notifications.filter(n => !n.isRead).length > 0 && (
-                      <span className={styles.mobile_badge}>{notifications.filter(n => !n.isRead).length}</span>
-                    )}
                   </Link>
                   <Link href="/ordertracking" className={styles.mobile_nav_item} onClick={() => setShowMenu(false)}>
                     <MdTrackChanges size={20} />
